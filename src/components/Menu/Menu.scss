@@ -1,0 +1,78 @@
+$main-1: rgba(74, 156, 191, .50);
+$main-2: rgba(87, 150, 158, .50);
+$main-3: rgba(17, 32, 44, .50);
+$main-4: rgba(56, 0, 54, .50);
+$border-1: rgba(205, 83, 52, 1);
+$border-2: rgba(99, 248, 206, 1);
+$border-3: rgba(168, 51, 185, 1);
+$border-4: rgba(10, 243, 255, 1);
+
+.mainMenu {
+    display: flex;
+    text-align: center;
+    margin: 0 auto;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0%;
+    height: 50px;
+    cursor: pointer;
+
+  section {
+    width: 25%;
+    border: 1px solid white;
+    padding: 14px 0;
+    color: white;
+    font-size: 1rem;
+    background-color: #156135;
+  }
+}
+
+.mainMenuBackground {
+  display: flex;
+  text-align: center;
+  margin: 0 auto;
+  justify-content: center;
+  position: absolute;
+  width: 96%;
+  left: 1%;
+  top: 0;
+  height: 50px;
+  z-index: 5;
+  cursor: pointer;
+  background-color: rgb(4, 3, 56);
+  border: 1px solid red;
+}
+
+.menu {
+  position: absolute;
+  margin-right: auto;
+  top: 2%;
+
+  &__one, &__two, &__three, &__four {
+    width: 99vw;
+    height: 92vh;
+    display: none;
+  }
+
+  &__one {
+    border: 1px solid $border-1;
+    background-color: $main-1;
+  }
+
+  &__two {
+    border: 1px solid $border-2;
+    background-color: $main-2;
+  }
+
+  &__three {
+    border: 1px solid $border-3;
+    background-color: $main-3;
+  }
+
+  &__four {
+    border: 1px solid $border-4;
+    background-color: $main-4;
+  }
+}

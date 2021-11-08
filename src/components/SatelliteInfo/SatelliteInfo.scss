@@ -1,0 +1,89 @@
+.satellite {
+  text-transform: uppercase;
+  text-align: center;
+  width: 70px;
+  pointer-events: none;
+  // We need to overwrite the default 'transform: none'
+  // If we need to center stuff we can remove this and
+  // add center={true} to the component properties
+
+  span {
+    color: white;
+  }
+
+  &__name {
+    font-weight: bold;
+    border-bottom: 1px dotted white;
+  }
+
+  &__one {
+    font-weight: bold;
+    border-bottom: 1px dotted white;
+  }
+
+  &__two {
+    font-weight: bold;
+    border-bottom: 1px dotted white;
+  }
+
+  &__damage {
+      font-weight: bold;
+  }
+
+  &__small {
+    font-size: 10px;
+    color: white;
+  }
+
+  &__medium {
+    font-size: 12px;
+    color: white;
+  }
+
+  &__large {
+    font-size: 14px;
+    color: white;
+  }
+
+  &__type {
+    position: absolute;
+    top: -15px;
+    left: -1px;
+    width: 68px;
+    border: 1px solid rgba(255,255,255, 1);
+    border-top-left-radius: 25%;
+    border-top-right-radius: 25%;
+  }
+
+  &__tierOne {
+    border: 1px solid rgba(255, 0, 0, 1);
+    background-color: rgba(255, 0, 0, 0.6);
+    border-radius: 0;
+    padding: 5px;
+    transform: translate3d(50%, -50%, 0px) !important;
+  }
+
+  &__tierTwo {
+    border: 1px solid rgb(0, 225, 255);
+    background-color: rgba(0, 225, 255, 0.6);
+    border-radius: 0;
+    padding: 5px;
+    transform: translate3d(60%, -50%, 0px) !important;
+  }
+
+  &__tierThree {
+    border: 1px solid rgba(0, 0, 255, 1);
+    background-color: rgba(0, 0, 255, 0.6);
+    border-radius: 0;
+    padding: 5px;
+    transform: translate3d(50%, -50%, 0px) !important;
+  }
+
+  &__tierFour {
+    border: 1px solid rgb(168, 17, 135);
+    background-color: rgba(168, 17, 135, 0.6);
+    border-radius: 0;
+    padding: 5px;
+    transform: translate3d(55%, -50%, 0px) !important;
+  }
+}

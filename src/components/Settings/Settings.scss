@@ -1,0 +1,32 @@
+.settings {
+  color: white;
+  z-index: 35;
+  position: absolute;
+  border: 1px solid red;
+  left: 1%;
+  top: 51px;
+  height: 200px;
+  padding: 1%;
+  background-color: rgba(34, 9, 9, 0.315);
+
+  h3 {
+    text-decoration: underline;
+  }
+
+  &__options {
+    display: flex;
+    text-align: center;
+    margin: 0 auto;
+    flex-direction: column;
+
+    &__toggleLabels, &__toggleLabelsSize, &__resetCamera {
+
+      &:hover {
+        cursor: pointer;
+        font-weight: bold;
+        border: 1px solid red;
+      }
+    }
+  }
+}
+
