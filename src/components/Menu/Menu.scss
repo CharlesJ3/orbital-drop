@@ -1,11 +1,13 @@
-$main-1: rgba(74, 156, 191, .50);
-$main-2: rgba(87, 150, 158, .50);
-$main-3: rgba(17, 32, 44, .50);
-$main-4: rgba(56, 0, 54, .50);
+$main-1: rgba(74, 156, 191, .99);
+$main-2: rgba(87, 150, 158, .99);
+$main-3: rgba(17, 32, 44, .99);
+$main-4: rgba(56, 0, 54, .99);
+$main-5: rgba(128, 74, 13, 0.99);
 $border-1: rgba(205, 83, 52, 1);
 $border-2: rgba(99, 248, 206, 1);
 $border-3: rgba(168, 51, 185, 1);
 $border-4: rgba(10, 243, 255, 1);
+$border-5: rgb(66, 31, 8);
 
 .mainMenu {
     display: flex;
@@ -20,7 +22,7 @@ $border-4: rgba(10, 243, 255, 1);
     cursor: pointer;
 
   section {
-    width: 25%;
+    width: 20%;
     border: 1px solid white;
     padding: 14px 0;
     color: white;
@@ -35,11 +37,11 @@ $border-4: rgba(10, 243, 255, 1);
   margin: 0 auto;
   justify-content: center;
   position: absolute;
-  width: 96%;
+  width: 97%;
   left: 1%;
   top: 0;
   height: 50px;
-  z-index: 5;
+  z-index: 125;
   cursor: pointer;
   background-color: rgb(4, 3, 56);
   border: 1px solid red;
@@ -48,22 +50,217 @@ $border-4: rgba(10, 243, 255, 1);
 .menu {
   position: absolute;
   margin-right: auto;
-  top: 2%;
+  top: 53px;
+  z-index: 125;
 
-  &__one, &__two, &__three, &__four {
+  &__one, &__two, &__three, &__four, &__five {
     width: 99vw;
-    height: 92vh;
+    height: 93.5vh;
     display: none;
   }
 
   &__one {
     border: 1px solid $border-1;
-    background-color: $main-1;
+    background-color: black;
+
+    &__title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      text-decoration: underline;
+      text-transform: uppercase;
+    }
+
+    .enemyList {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      justify-content: center;
+
+      .normal {
+        border: 2px solid black;
+      }
+
+      .boss {
+        border: 2px solid rgb(0, 255, 13);
+      }
+
+      .miniboss {
+        border: 2px solid rgb(255, 0, 0);
+      }
+
+      .normal, .boss, .miniboss {
+        display: flex;
+        flex-wrap: wrap;
+        width: 23%;
+        height: 350px;
+        margin: 0px 15px 65px 15px;
+        text-align: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+
+        .centerImage {
+          background-image: url('../../images/FreshEarth.gif');
+          width: 200px;
+          height: 200px;
+          position: relative;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          margin: 0 auto;
+        }
+
+        .title {
+          font-size: 1.25rem;
+          color: white;
+          text-align: center;
+          margin: 0 auto;
+          background-color: green;
+          padding: 5px;
+          left: 0;
+          width: 98%;
+          border-left: 1px solid red;
+          border-top-left-radius: 15%;
+          border-top-right-radius: 15%;
+          border-right: 1px solid red;
+          border-top: 1px solid red;
+          top: -7%;
+          z-index: 0;
+          position: absolute;
+        }
+
+        .topPanel {
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          color: white;
+          text-align: center;
+          width: 95%;
+          margin: 0 auto;
+          margin: 10px;
+        }
+
+        .rightPanel {
+          position: relative;
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          position: absolute;
+          color: white;
+          text-align: center;
+          right: 15px;
+          top: 50px;
+        }
+
+        .leftPanel {
+          position: relative;
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          position: absolute;
+          text-align: center;
+          color: white;
+          left: 15px;
+          top: 50px;
+        }
+
+        .bottomPanel {
+          position: relative;
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: row;
+          width: 98%;
+          justify-content: space-evenly;
+          margin: 0 5px;
+          border: 1px solid red;
+
+          .description {
+            color: white;
+            font-size: 1em;
+          }
+        }
+      }
+    }
   }
 
   &__two {
     border: 1px solid $border-2;
     background-color: $main-2;
+
+    &__title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      text-decoration: underline;
+      text-transform: uppercase;
+    }
+
+    &__content {
+      display: flex;
+      text-align: center;
+      margin: 0 auto;
+      width: 50%;
+      left: 0;
+      top: 0;
+      height: 50px;
+      cursor: pointer;
+
+      section {
+        width: 25%;
+        border: 1px solid white;
+        padding: 14px 0;
+        color: white;
+        font-size: 1rem;
+        background-color: black;
+      }
+    }
+
+    .shipSection {
+      width: 95%;
+      margin: 20px 2% 0 2.5%;
+      height: 85%;
+      position: absolute;
+    }
+
+    .shipOne {
+      border: 3px solid black;
+      display: inherit;
+
+      .shipList {
+        display: flex;
+        text-align: center;
+
+        .shipSectionInternal {
+          width: 32%;
+          height: 200px;
+          margin: 0 auto;
+          position: relative;
+          border: 1px solid red;
+        }
+      }
+    }
+
+    .shipTwo {
+      border: 3px solid blue;
+      display: none;
+    }
+
+    .shipThree {
+      border: 3px solid green;
+      display: none;
+    }
+
+    .shipFour {
+      border: 3px solid red;
+      display: none;
+    }
   }
 
   &__three {
@@ -75,4 +272,10 @@ $border-4: rgba(10, 243, 255, 1);
     border: 1px solid $border-4;
     background-color: $main-4;
   }
+
+  &__five {
+    border: 1px solid $border-5;
+    background-color: $main-5;
+  }
 }
+

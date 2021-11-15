@@ -6,7 +6,7 @@ function SatelliteInfo({props, settings, name, damage, tier, type}) {
   return (
     <>
       { props.settings.showLabels &&
-      <Html className='satellite' distanceFactor={35}>
+      <Html zIndexRange={[100, 0]} className='satellite' distanceFactor={35}>
         <span>---</span>
           <div className={
             tier === 'one' ? 'satellite__tierOne' :

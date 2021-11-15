@@ -196,3 +196,11 @@
   border: 1px solid green;
   position: absolute;
 }
+
+.blackout {
+  width: 100px;
+  height: 100px;
+  background-color: rgba(0,0,0,1);
+  border: 1px solid white;
+  // transform: translate3d(0%, 0%, -50px) !important;
+}

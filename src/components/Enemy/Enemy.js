@@ -3,16 +3,15 @@ import * as THREE from 'three';
 import React, { useRef} from 'react'
 import EnemyInfo from '../EnemyInfo/EnemyInfo';
 
-// Import Images for textureLoader
-import Earthy from '../../images/earthy.jpg';
-import Earthyf1 from '../../images/earthyf1.jpg';
-import Earthyf2 from '../../images/earthyf2.jpg';
-import Earthyf3 from '../../images/earthyf3.jpg';
-import Shiny from '../../images/shiny.jpg';
-import Bumpy from '../../images/bumpy.jpg';
-import Cloud1 from '../../images/cloud1.jpg';
-import Cloud2 from '../../images/cloud2.jpg';
-
+// Import all enemies here
+import Enemy1 from '../Enemies/Enemy1/Enemy1';
+import Enemy2 from '../Enemies/Enemy2/Enemy2';
+import Enemy3 from '../Enemies/Enemy3/Enemy3';
+import Enemy4 from '../Enemies/Enemy21/Enemy21';
+import Enemy5 from '../Enemies/Enemy4/Enemy4';
+import Enemy6 from '../Enemies/Enemy5/Enemy5';
+import Enemy7 from '../Enemies/Enemy6/Enemy6';
+import Enemy8 from '../Enemies/Enemy7/Enemy7';
 
 const colorSelector = {
   thin: .1,
@@ -35,42 +34,31 @@ const colorSelector = {
   amaranth: 0xE12A48
 }
 
-function SphereInner(props) {
-
-  const sphereLoader = useLoader(THREE.TextureLoader, Earthy);
-  const earthShinyLoader = useLoader(THREE.TextureLoader, Shiny);
-  const earthBumpyLoader = useLoader(THREE.TextureLoader, Bumpy);
+function EnemyMesh(currentEnemy) {
 
   const ref = useRef();
   useFrame(() => (ref.current.rotation.y += 0.0005));
 
   return (
     <mesh position={[0, 0, 0]}
-      {...props}
       ref={ref}
     >
-      <sphereBufferGeometry attach="geometry" args={[2, 32, 32]} />
-      <meshPhongMaterial
-        attach="material"
-        map={sphereLoader}
-        bumpMap={earthBumpyLoader}
-        specularMap={earthShinyLoader}
-        aoMap={earthShinyLoader}
-      />
+      {/* We'll check on which enemy to load based on the current enemy */ }
+      {
+        currentEnemy.currentEnemy === 1 ? <Enemy2 /> :
+        currentEnemy.currentEnemy === 2 ? <Enemy3 /> :
+        currentEnemy.currentEnemy === 3 ? <Enemy1 /> :
+        currentEnemy.currentEnemy === 4 ? <Enemy4 /> :
+        currentEnemy.currentEnemy === 5 ? <Enemy5 /> :
+        currentEnemy.currentEnemy === 6 ? <Enemy6 /> :
+        currentEnemy.currentEnemy === 7 ? <Enemy7 /> :
+        currentEnemy.currentEnemy === 8 ? <Enemy8 /> : null
+      }
     </mesh>
   )
 }
 
-function SphereOuter(props) {
-
-  const cloud = useLoader(THREE.TextureLoader, Cloud1);
-
-  const ref = useRef();
-
-  useFrame(() => {
-    ref.current.rotation.y += 0.0005;
-  });
-
+export default function Enemy(props) {
   return (
     <group>
       <EnemyInfo
@@ -88,29 +76,7 @@ function SphereOuter(props) {
         buffs={props.buffs}
         debuffs={props.debuffs}
       />
-      <mesh position={[0, 0, 0]}
-        {...props}
-        ref={ref}
-      >
-        <sphereBufferGeometry attach="geometry" args={[2.06, 32, 32]} />
-        <meshPhongMaterial
-          attach="material"
-          map={cloud}
-          color={colorSelector.turquoise}
-          opacity={.15}
-          transparent={true}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
-    </group>
-  )
-}
-
-export default function Enemy(props) {
-  return (
-    <group>
-      <SphereInner {...props} />
-      <SphereOuter {...props} />
+      <EnemyMesh currentEnemy={props.currentEnemyNumber}/>
     </group>
   )
 }

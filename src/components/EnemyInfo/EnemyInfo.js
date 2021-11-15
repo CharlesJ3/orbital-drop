@@ -23,7 +23,6 @@ function EnemyInfo({
 })
 
 {
-
   const [hover, setHover] = useState(
     {
       name: '',
@@ -36,7 +35,7 @@ function EnemyInfo({
   return (
     <>
       { labels &&
-        <Html className='enemyInfo no-pointer' distanceFactor={30}>
+        <Html className='enemyInfo no-pointer' distanceFactor={30} zIndexRange={[100, 0]}>
           <div className='enemyInfo__titles'>
             <div className='enemyInfo__type'>{type}</div>
           </div>
@@ -47,7 +46,7 @@ function EnemyInfo({
         </Html>
       }
       { labels &&
-         <Html className='enemyInfo__drops no-pointer' distanceFactor={30}>
+         <Html className='enemyInfo__drops no-pointer' distanceFactor={30} zIndexRange={[100, 0]}>
           <div className='enemyInfo__titles'>
             <div className='enemyInfo__type'>Enemy Stats</div>
           </div>
@@ -71,11 +70,10 @@ function EnemyInfo({
               Research Points<br />{defense}
             </div>
           </div>
-          {console.log(hover)}
         </Html>
       }
       { labels &&
-        <Html className='enemyInfo__status no-pointer' distanceFactor={30}>
+        <Html className='enemyInfo__status no-pointer' distanceFactor={30} zIndexRange={[100, 0]}>
           <div className='enemyInfo__titles'>
             <div className='enemyInfo__type'>Enemy Buffs/Debuffs</div>
           </div>
@@ -127,14 +125,14 @@ function EnemyInfo({
           </div>
         </Html>
       }
-      <Html className='enemyInfo__status__buffs__description' style={{display: hover.hover ? 'inherit' : 'none'}} distanceFactor={30}>
+      <Html className='enemyInfo__status__buffs__description' style={{display: hover.hover ? 'inherit' : 'none'}} distanceFactor={30} zIndexRange={[100, 0]}>
         <div>
           <div className='enemyInfo__status__buffs__description__name'><span>Name:</span> {hover.name}</div>
           <div className='enemyInfo__status__buffs__description__description'><span>Description:</span> {hover.description}</div>
           <div className='enemyInfo__status__buffs__description__rank'><span>Rank:</span> {hover.rank}</div>
         </div>
       </Html>
-      <Html className='enemyInfo__health no-pointer' distanceFactor={30}>
+      <Html className='enemyInfo__health no-pointer' distanceFactor={30} zIndexRange={[100, 0]}>
         <div className='enemyInfo__health-wrapper'>
           <div className='enemyInfo__health__bar-title'>HP</div>
           <div className='enemyInfo__health__bar-numbers'>{Math.ceil(health)} / {Math.ceil(maxHealth)}</div>
@@ -143,7 +141,7 @@ function EnemyInfo({
           </div>
         </div>
       </Html>
-      <Html className='enemyInfo__shield no-pointer' distanceFactor={30}>
+      <Html className='enemyInfo__shield no-pointer' distanceFactor={30} zIndexRange={[100, 0]}>
         <div className='enemyInfo__shield-wrapper'>
           <div className='enemyInfo__shield__bar-title'>SP</div>
           <div className='enemyInfo__shield__bar-numbers'>{Math.ceil(shield)} / {Math.ceil(maxShield)}</div>
