@@ -21,6 +21,32 @@ $border-5: rgb(66, 31, 8);
     height: 50px;
     cursor: pointer;
 
+  &__enemyControls {
+    color: white;
+    background-color:rgb(4, 3, 56, .5);
+    border: 1px solid white;
+    width: 450px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: -55px;
+    height: 100%;
+
+    &__title {
+      position: absolute;
+      color: white;
+      left: 150px;
+      font-size: 2em;
+    }
+
+    button {
+      height: 100%;
+      width: 50px;
+      padding: 15px;
+    }
+  }
+
   section {
     width: 20%;
     border: 1px solid white;
@@ -79,6 +105,19 @@ $border-5: rgb(66, 31, 8);
       margin-top: 40px;
       justify-content: center;
 
+      &__controls {
+        color: white;
+        background-color:rgb(4, 3, 56, .5);
+        border: 1px solid white;
+        width: 450px;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        bottom: 15px;
+        height: 50px;
+      }
+
       .normal {
         border: 2px solid black;
       }
@@ -109,7 +148,7 @@ $border-5: rgb(66, 31, 8);
           height: 200px;
           position: relative;
           background-repeat: no-repeat;
-          background-size: cover;
+          background-size: contain;
           background-position: center;
           margin: 0 auto;
         }
@@ -227,24 +266,126 @@ $border-5: rgb(66, 31, 8);
       margin: 20px 2% 0 2.5%;
       height: 85%;
       position: absolute;
-    }
 
-    .shipOne {
-      border: 3px solid black;
-      display: inherit;
+      &__details{
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 20px;
+
+        .title {
+          font-size: 1.25rem;
+          font-weight: bold;
+          color: white;
+          padding: 10px;
+          text-align: center;
+          text-decoration: underline;
+          text-transform: uppercase;
+        }
+
+        .pages {
+          color: white;
+          margin: 55px 0;
+        }
+
+        .equipment {
+          color: white;
+          display: flex;
+
+          .equipmentTitle {
+            border: 1px solid black;
+            padding: 0 125px;
+            border-bottom: none;
+            margin: 0 auto;
+            height: 56px;
+            margin-bottom: -20px;
+            font-size: 2.15rem;
+            padding-top: 12px;
+            text-decoration: underline;
+          }
+
+          div {
+            width: 33%;
+          }
+
+          .piece {
+            width: 80%;
+            border: 1px solid black;
+            height: 150px;
+            margin: 0 auto;
+          }
+        }
+      }
 
       .shipList {
         display: flex;
         text-align: center;
 
         .shipSectionInternal {
-          width: 32%;
-          height: 200px;
+          width: 27%;
+          height: 350px;
           margin: 0 auto;
           position: relative;
           border: 1px solid red;
+          margin-top: 50px;
+          background-color: black;
+
+          &__image {
+            background-image: url('../../images/FreshEarth.gif');
+            width: 100%;
+            height: 200px;
+            position: relative;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            margin: 0 auto;
+          }
+
+          &__title {
+            margin: -40px 0 10px 0;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 1px black;
+            padding: 10px;
+            text-align: center;
+            text-decoration: underline;
+            text-transform: uppercase;
+          }
+
+          &__info {
+            display: flex;
+            text-align: center;
+            margin-top: 10px;
+            color: white;
+            text-shadow: 1px 1px 1px black;
+
+            div {
+              width: 33%;
+            }
+
+            .infoTitle {
+              font-size: 1.1rem;
+              font-weight: bold;
+              color: white;
+              padding: 10px;
+              text-align: center;
+              text-decoration: underline;
+              text-transform: uppercase;
+            }
+          }
+
+          &__description {
+            margin-top: 25px;
+            color: white;
+            text-shadow: 1px 1px 1px black;
+          }
         }
       }
+    }
+
+    .shipOne {
+      border: 3px solid black;
+      display: inherit;
     }
 
     .shipTwo {

@@ -11,7 +11,16 @@ import SatelliteTwo from './components/Satellites/SatelliteTwo'
 import SatelliteThree from './components/Satellites/SatelliteThree'
 import SatelliteFour from './components/Satellites/SatelliteFour'
 import Settings from './components/Settings/Settings'
-import EnemyBG1 from './images/FreshEarth.gif'
+
+// Enemy Backgrounds
+import EnemyBG1 from './images/Enemy1.gif'
+import EnemyBG2 from './images/Enemy2.gif'
+import EnemyBG3 from './images/Enemy3.gif'
+import EnemyBG4 from './images/Enemy4.gif'
+import EnemyBG5 from './images/Enemy5.gif'
+import EnemyBG6 from './images/Enemy6.gif'
+import EnemyBG7 from './images/Enemy7.gif'
+import EnemyBG8 from './images/Enemy8.gif'
 
 function App() {
 
@@ -30,7 +39,6 @@ function App() {
       far: 1000,
       //Camera will not update because of OrbitControls if these are the SAME.
       //Minimal update will cause a refresh but not affect the camera overall
-      //unless tens of thousands of updates are made over time.
       position: [0, 0, prevState.position[2] - .001],
     })));
   }
@@ -95,19 +103,19 @@ function App() {
   // TODO: research if this is better to split into multiple hooks
   const [satellites, setSatellites] = useState(
     {
-      tierOneAmount: 25,
+      tierOneAmount: 1,
       tierOneDamage: 1,
       tierOneName: 'Shippy',
       tierOneType: 'Main',
-      tierTwoAmount: 10,
+      tierTwoAmount: 0,
       tierTwoDamage: 2,
       tierTwoName: 'Butterball',
       tierTwoType: 'Small',
-      tierThreeAmount: 25,
+      tierThreeAmount: 0,
       tierThreeDamage: 3,
       tierThreeName: 'Biggie',
       tierThreeType: 'Large',
-      tierFourAmount: 10,
+      tierFourAmount: 0,
       tierFourDamage: 5,
       tierFourName: 'Butch Deadlift',
       tierFourType: 'Titan',
@@ -125,20 +133,21 @@ function App() {
 
   const [currentEnemy, checkCurrentEnemy] = useState(
     {
-      currentEnemyNumber: 3,
-      name: 'TestEnemy',
-      health: 25,
-      maxHealth: 25,
-      shield: 10,
-      maxShield: 10,
+      currentEnemyNumber: 1,
+      name: 'Simulated Earth',
+      health: 3,
+      maxHealth: 3,
+      shield: 0,
+      maxShield: 0,
       xp: 1,
-      defense: .5,
+      defense: 0,
       type: 'Planet (Small)',
-      currenyOne: 1,
-      currenyTwo: 0,
+      currencyOne: 1,
+      currencyTwo: 0,
       currencyTwoChance: 0,
-      currenyThree: 0,
+      currencyThree: 0,
       currencyThreeChance: 0,
+      killed: false,
       buffs: [
         // [Buff Title, Buff Rank, Buff Description]
         ['Shield Bonus', 1, 'Shields are increased by 10%'],
@@ -175,6 +184,23 @@ function App() {
 
       // Prestige points
       currencyThree: 0,
+    }
+  );
+
+  const [currentEquipment, updateEquipment] = useState(
+    {
+      ship1Equipment1: 'Weapon1Test',
+      ship1Equipment2: 'Chassis1Test',
+      ship1Equipment3: 'Motor1Test',
+      ship2Equipment1: false,
+      ship2Equipment2: false,
+      ship2Equipment3: false,
+      ship3Equipment1: false,
+      ship3Equipment2: false,
+      ship3Equipment3: false,
+      ship4Equipment1: false,
+      ship4Equipment2: false,
+      ship4Equipment3: false,
     }
   );
 
@@ -221,6 +247,7 @@ function App() {
   const healthChecker = () => {
     if (currentEnemy.health <= 0) {
       giveExperience();
+      giveResources();
 
       checkCurrentEnemy((prevState => ({
         ...prevState,
@@ -236,49 +263,13 @@ function App() {
     levelChecker();
   }
 
-  /*
-    one: {
-      name: 'Training Dummy',
-      boss: false,
-      miniboss: false,
-      health: 10,
-      shields: 0,
-      absorb: 0,
-      defense: 0,
-      xp: 1,
-      currencyOne: 3,
-      currencyTwo: 0,
-      currencyTwoChance: 0,
-      currencyThree: 0,
-      currencyThreeChance: 0,
-      killed: false,
-      equipment: {
-        weapon: false,
-        chassis: false,
-        motor: false,
-      },
-      description: 'All Motherships needs something to start with; kill this quickly so we can move on.',
-      background: EnemyBG1,
-      },
-  */
+  // Give resources when killing an enemy
+  const giveResources = () => {
+    currency.currencyOne += currentEnemy.currencyOne;
+    currency.currencyTwo += currentEnemy.currencyTwo;
+    currency.currencyThree += currentEnemy.currencyThree;
+  }
 
-  /*
-    currentEnemyNumber: 3,
-    name: 'TestEnemy',
-    health: 25,
-    maxHealth: 25,
-    shield: 10,
-    maxShield: 10,
-    xp: 1,
-    defense: .5,
-    type: 'Planet (Small)',
-    currenyOne: 1,
-    currencyOneChance: 5,
-    currenyTwo: 0,
-    currencyTwoChance: 0,
-    currenyThree: 0,
-    currencyThreeChance: 0,
-  */
 
   const setEnemy = (enemyNumber) => {
     checkCurrentEnemy((prevState => ({
@@ -401,7 +392,6 @@ function App() {
           ...prevState,
           health: currentEnemy.health - (totalDamage - currentEnemy.defense),
         })));
-
         healthChecker();
       }
     }, 1000);
@@ -419,6 +409,7 @@ function App() {
         tierTwoSatellites={tierTwoSatellites}
         tierThreeSatellites={tierThreeSatellites}
         tierFourSatellites={tierFourSatellites}
+        currentEquipment={currentEquipment}
         allEnemies={allEnemies}
         equipment={equipment}
         setEnemy={setEnemy}
@@ -453,6 +444,7 @@ function App() {
             position={[-250, -25, 25]}
             intensity={1}
           />
+          {console.log(currentEnemy.currencyOne)}
           <Enemy
             currentEnemyNumber={currentEnemy.currentEnemyNumber}
             name={currentEnemy.name}
@@ -464,8 +456,14 @@ function App() {
             shield={currentEnemy.shield}
             maxShield={currentEnemy.maxShield}
             labels={settings.showLabels}
+            killed={currentEnemy.killed}
             buffs={currentEnemy.buffs}
             debuffs={currentEnemy.debuffs}
+            currencyOne={currentEnemy.currencyOne}
+            currencyTwo={currentEnemy.currencyTwo}
+            currencyTwoChance={currentEnemy.currencyTwoChance}
+            currencyThree={currentEnemy.currencyThree}
+            currencyThreeChance={currentEnemy.currencyThreeChance}
           />
           {final}
           {final2}
@@ -486,7 +484,9 @@ function App() {
       >
       </LevelBar>
       <BottomStats
-        currency={currency}
+        currencyOne={currency.currencyOne}
+        currencyTwo={currency.currencyTwo}
+        currencyThree={currency.currencyThree}
       />
     </>
   );
@@ -497,9 +497,11 @@ const tierOneSatellites = {
     name: 'Cheap Mothership',
     baseDamage: 1,
     active: true,
-      description: 'This was given to us to begin our journey.',
-      equipment: [false, false, false],
+    description: 'This was given to us to begin our journey.',
+    equipment: [false, false, false],
     resource: 'destruction',
+    resourceCost: 50,
+    image: EnemyBG1,
   },
   two: {
     name: 'Pet Mothership',
@@ -508,6 +510,8 @@ const tierOneSatellites = {
     description: 'TODO: Need Description',
     equipment: [false, false, false],
     resource: 'destruction',
+    resourceCost: 150,
+    image: EnemyBG1,
   },
   three: {
     name: 'Boring Mothership',
@@ -516,6 +520,8 @@ const tierOneSatellites = {
     description: 'TODO: Need Description',
     equipment: [true, false, false],
     resource: 'destruction',
+    resourceCost: 1250,
+    image: EnemyBG1,
   },
 }
 
@@ -527,6 +533,8 @@ const tierTwoSatellites = {
     description: 'This was given to us to begin our journey.',
     equipment: [false, false, false],
     resource: 'destruction',
+    resourceCost: 50,
+    image: EnemyBG1,
   },
   two: {
     name: 'Pet Small Ship',
@@ -535,6 +543,8 @@ const tierTwoSatellites = {
     description: 'This was given to us to begin our journey.',
     equipment: [false, false, false],
     resource: 'destruction',
+    resourceCost: 50,
+    image: EnemyBG1,
   },
   three: {
     name: 'Boring Small Ship',
@@ -543,6 +553,8 @@ const tierTwoSatellites = {
     description: 'This was given to us to begin our journey.',
     equipment: [true, false, false],
     resource: 'destruction',
+    resourceCost: 50,
+    image: EnemyBG1,
   },
 }
 
@@ -554,6 +566,8 @@ const tierThreeSatellites = {
     description: 'This was given to us to begin our journey.',
     equipment: [false, false, false],
     resource: 'destruction',
+    resourceCost: 50,
+    image: EnemyBG1,
   },
   two: {
     name: 'Pet Large Ship',
@@ -562,6 +576,8 @@ const tierThreeSatellites = {
     description: 'This was given to us to begin our journey.',
     equipment: [false, false, false],
     resource: 'destruction',
+    resourceCost: 50,
+    image: EnemyBG1,
   },
   three: {
     name: 'Boring Large Ship',
@@ -570,6 +586,8 @@ const tierThreeSatellites = {
     description: 'This was given to us to begin our journey.',
     equipment: [true, false, false],
     resource: 'destruction',
+    resourceCost: 50,
+    image: EnemyBG1,
   },
 }
 
@@ -581,6 +599,8 @@ const tierFourSatellites = {
     description: 'This was given to us to begin our journey.',
     equipment: [false, false, false],
     resource: 'destruction',
+    resourceCost: 50,
+    image: EnemyBG1,
   },
   two: {
     name: 'Pet Titan Ship',
@@ -589,6 +609,8 @@ const tierFourSatellites = {
     description: 'This was given to us to begin our journey.',
     equipment: [false, false, false],
     resource: 'destruction',
+    resourceCost: 50,
+    image: EnemyBG1,
   },
   three: {
     name: 'Boring Titan Ship',
@@ -597,6 +619,8 @@ const tierFourSatellites = {
     description: 'This was given to us to begin our journey.',
     equipment: [true, false, false],
     resource: 'destruction',
+    resourceCost: 50,
+    image: EnemyBG1,
   },
 }
 
@@ -624,12 +648,12 @@ const equipment = {
   },
 }
 
-const allEnemies = {
+let allEnemies = {
   one: {
-    name: 'Training Dummy',
+    name: 'Simulated Earth',
     boss: false,
     miniboss: false,
-    health: 10,
+    health: 3,
     shields: 0,
     absorb: 0,
     defense: 0,
@@ -645,14 +669,14 @@ const allEnemies = {
       chassis: false,
       motor: false,
     },
-    description: 'All Motherships needs something to start with; kill this quickly so we can move on.',
-    background: EnemyBG1,
+    description: 'A vision of what Earth once was, perhaps a few thousand years ago. We wonder what has changed since then.',
+    background: EnemyBG5,
     currentEnemy: 1,
   },
   two: {
-    name: 'Elite Training Dummy',
-    boss: false,
+    name: 'Simulated Earth 2: Electric Boogaloo',
     miniboss: false,
+    boss: false,
     health: 25,
     shields: 15,
     absorb: 0,
@@ -669,12 +693,12 @@ const allEnemies = {
       chassis: false,
       motor: false,
     },
-    description: 'A slightly tougher training dummy. Careful we do not hurt ourselves...',
-    background: EnemyBG1,
+    description: 'A slightly tougher version of our projection of Earth.',
+    background: EnemyBG6,
     currentEnemy: 2,
   },
   three: {
-    name: 'Master Training Dummy',
+    name: 'Another Simulated Earth',
     boss: false,
     miniboss: false,
     health: 75,
@@ -693,12 +717,12 @@ const allEnemies = {
       chassis: false,
       motor: false,
     },
-    description: 'We are ready to deal damage to something a bit stronger. Perhaps this dummy will provide some challenge?',
-    background: EnemyBG1,
+    description: 'Earth is coming up soon; this is the most destruction we plan on encountering.',
+    background: EnemyBG7,
     currentEnemy: 3,
   },
   four: {
-    name: 'Old Earth Probe?',
+    name: 'Earth 20,000 AD',
     boss: false,
     miniboss: true,
     health: 150,
@@ -717,12 +741,12 @@ const allEnemies = {
       chassis: false,
       motor: false,
     },
-    description: 'Uh-oh... We are concerned. Earth is not supposed to have this technology yet. Check it out.',
-    background: EnemyBG1,
+    description: 'This is not what we expected. Whatever inhabited left eons ago, but we must ensure whatever is alive does not remain so. Were our calculations... incorrect?',
+    background: EnemyBG8,
     currentEnemy: 4,
   },
   five: {
-    name: 'Simulated Earth',
+    name: 'Training Dummy',
     miniboss: false,
     boss: false,
     health: 450,
@@ -741,14 +765,14 @@ const allEnemies = {
       chassis: false,
       motor: false,
     },
-    description: 'A vision of what Earth once was, perhaps a few thousand years ago. We wonder what has changed since then.',
+    description: 'All Motherships needs something to start with; kill this quickly so we can move on.',
     background: EnemyBG1,
     currentEnemy: 5,
   },
   six: {
-    name: 'Simulated Earth 2: Electric Boogaloo',
-    miniboss: false,
+    name: 'Elite Training Dummy',
     boss: false,
+    miniboss: false,
     health: 1000,
     shields: 750,
     absorb: 50,
@@ -765,12 +789,12 @@ const allEnemies = {
       chassis: false,
       motor: false,
     },
-    description: 'A slightly tougher version of our projection of Earth.',
-    background: EnemyBG1,
+    description: 'A slightly tougher training dummy. Careful we do not hurt ourselves...',
+    background: EnemyBG2,
     currentEnemy: 6,
   },
   seven: {
-    name: 'Another Simulated Earth',
+    name: 'Master Training Dummy',
     miniboss: false,
     boss: false,
     health: 2250,
@@ -789,12 +813,13 @@ const allEnemies = {
       chassis: false,
       motor: false,
     },
+    description: 'We are ready to deal damage to something a bit stronger. Perhaps this dummy will provide some challenge?',
     description: 'Earth is coming up soon; this is the most destruction we plan on encountering.',
-    background: EnemyBG1,
+    background: EnemyBG3,
     currentEnemy: 7,
   },
   eight: {
-    name: 'Earth 20,000 AD',
+    name: 'Old Earth Probe?',
     miniboss: false,
     boss: true,
     health: 5000,
@@ -814,8 +839,8 @@ const allEnemies = {
       chassis: false,
       motor: false,
     },
-    description: 'This is not what we expected. Whatever inhabited left eons ago, but we must ensure whatever is alive does not remain so. Were our calculations... incorrect?',
-    background: EnemyBG1,
+    description: 'Uh-oh... We are concerned. Earth is not supposed to have this technology yet. Check it out.',
+    background: EnemyBG4,
     currentEnemy: 8,
   },
 }

@@ -15,11 +15,11 @@ function EnemyInfo({
   buffs,
   debuffs,
   currencyOne,
-  currencyOneChance,
   currencyTwo,
   currencyTwoChance,
   currencyThree,
   currencyThreeChance,
+  killed,
 })
 
 {
@@ -52,22 +52,30 @@ function EnemyInfo({
           </div>
           <div className='enemyInfo__drops__stats'>
             <div className='enemyInfo__drops__stats__currencyOne dChild'>
-              Research Points<br />{defense}
+              Destruction<br />{currencyOne}
             </div>
-            <div className='enemyInfo__drops__stats__currencyOneChance dChild'>
-              Research Chance<br />{defense}
+            <div className='enemyInfo__drops__stats__killed dChild'>
+              Killed?<br />{killed ? 'Yes' : 'No'}
             </div>
             <div className='enemyInfo__drops__stats__currencyTwo dChild'>
-              Prestige Points<br />{defense}
+              { currencyTwo > 0 ?
+                <span>Research Points<br />{currencyTwo}</span> : ''
+              }
             </div>
             <div className='enemyInfo__drops__stats__currencyTwoChance dChild'>
-              Research Points<br />{defense}
+              { currencyTwo > 0 ?
+                <span>Research Chance<br />{currencyTwoChance}</span> : ''
+              }
             </div>
             <div className='enemyInfo__drops__stats__currencyThree dChild'>
-              Research Points<br />{defense}
+              { currencyThree > 0 ?
+                <span>Prestige Points<br />{currencyThree}</span> : ''
+              }
             </div>
             <div className='enemyInfo__drops__stats__currencyChance dChild'>
-              Research Points<br />{defense}
+              { currencyThree > 0 ?
+                <span>Prestige Points<br />{currencyThreeChance}</span> : ''
+              }
             </div>
           </div>
         </Html>

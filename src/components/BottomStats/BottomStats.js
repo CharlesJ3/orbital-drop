@@ -1,12 +1,15 @@
 import React from 'react'
 import './BottomStats.scss'
 
-function BottomStats(currency) {
+function BottomStats({currencyOne, currencyTwo, currencyThree}) {
   return (
     <div className="bottomStats">
-      <span>Research Points: {currency.currencyOne}</span>
-      <span>Talent Points: {currency.currencyTwo}</span>
-      <span>Prestige Points: {currency.currencyThree}</span>
+      <div className="bottomStats__currency">
+        {console.log(currencyOne)}
+        <p>Research Points <br /> <span>{currencyOne}</span></p>
+        <p>Talent Points <br /> <span>{currencyTwo === 0 ? currencyTwo : '0'}</span></p>
+        <p>Prestige Points <br /> <span>{currencyThree === 0 ? currencyThree : '0'}</span></p>
+      </div>
     </div>
   )
 }

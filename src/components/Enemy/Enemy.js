@@ -12,6 +12,7 @@ import Enemy5 from '../Enemies/Enemy4/Enemy4';
 import Enemy6 from '../Enemies/Enemy5/Enemy5';
 import Enemy7 from '../Enemies/Enemy6/Enemy6';
 import Enemy8 from '../Enemies/Enemy7/Enemy7';
+import Enemy9 from '../Enemies/Enemy9/Enemy9';
 
 const colorSelector = {
   thin: .1,
@@ -37,7 +38,7 @@ const colorSelector = {
 function EnemyMesh(currentEnemy) {
 
   const ref = useRef();
-  useFrame(() => (ref.current.rotation.y += 0.0005));
+  useFrame(() => (ref.current.rotation.y += 0.0006));
 
   return (
     <mesh position={[0, 0, 0]}
@@ -45,14 +46,14 @@ function EnemyMesh(currentEnemy) {
     >
       {/* We'll check on which enemy to load based on the current enemy */ }
       {
-        currentEnemy.currentEnemy === 1 ? <Enemy2 /> :
-        currentEnemy.currentEnemy === 2 ? <Enemy3 /> :
-        currentEnemy.currentEnemy === 3 ? <Enemy1 /> :
-        currentEnemy.currentEnemy === 4 ? <Enemy4 /> :
-        currentEnemy.currentEnemy === 5 ? <Enemy5 /> :
-        currentEnemy.currentEnemy === 6 ? <Enemy6 /> :
-        currentEnemy.currentEnemy === 7 ? <Enemy7 /> :
-        currentEnemy.currentEnemy === 8 ? <Enemy8 /> : null
+        currentEnemy.currentEnemy === 1 ? <Enemy5 /> :
+        currentEnemy.currentEnemy === 2 ? <Enemy6 /> :
+        currentEnemy.currentEnemy === 3 ? <Enemy7 /> :
+        currentEnemy.currentEnemy === 4 ? <Enemy8 /> :
+        currentEnemy.currentEnemy === 5 ? <Enemy2 /> :
+        currentEnemy.currentEnemy === 6 ? <Enemy3 /> :
+        currentEnemy.currentEnemy === 7 ? <Enemy1 /> :
+        currentEnemy.currentEnemy === 8 ? <Enemy9 scale={[2.5, 2.5, 2.5]}/> : null
       }
     </mesh>
   )
@@ -75,6 +76,12 @@ export default function Enemy(props) {
         labels={props.labels}
         buffs={props.buffs}
         debuffs={props.debuffs}
+        killed={props.killed}
+        currencyOne={props.currencyOne}
+        currencyTwo={props.currencyTwo}
+        currencyTwoChance={props.currencyTwoChance}
+        currencyThree={props.currencyThree}
+        currencyThreeChance={props.currencyThreeChance}
       />
       <EnemyMesh currentEnemy={props.currentEnemyNumber}/>
     </group>
