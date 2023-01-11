@@ -1,0 +1,23 @@
+body {
+  background-color: black;
+  overflow: hidden;
+}
+
+#root {
+  position: relative;
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+$main-1: rgba(74, 156, 191, .99);
+$main-2: rgba(87, 150, 158, .99);
+$main-3: rgba(17, 32, 44, .99);
+$main-4: rgba(56, 0, 54, .99);
+$main-5: rgba(128, 74, 13, 0.99);
+$border-1: rgba(205, 83, 52, 1);
+$border-2: rgba(99, 248, 206, 1);
+$border-3: rgba(168, 51, 185, 1);
+$border-4: rgba(10, 243, 255, 1);
+$border-5: rgb(66, 31, 8);

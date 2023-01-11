@@ -44,6 +44,7 @@ function EnemyMesh(currentEnemy) {
     <mesh position={[0, 0, 0]}
       ref={ref}
     >
+      {/* TODO : change to switch */}
       {/* We'll check on which enemy to load based on the current enemy */ }
       {
         currentEnemy.currentEnemy === 1 ? <Enemy5 /> :

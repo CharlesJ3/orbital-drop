@@ -257,7 +257,6 @@ const Menu = ({ tierOneSatellites, tierTwoSatellites, tierThreeSatellites, tierF
               <div> <span className="infoTitle">Damage: </span> <br />{ship.baseDamage}</div>
               <div> <span className="infoTitle">Active? </span> <br />{ship.active ? 'Yes' : 'No'}</div>
               <div> <span className="infoTitle">Damage: </span> <br />{ship.baseDamage}</div>
-              {/* {console.log(ship)} */}
             </div>
             <div className="shipSectionInternal__description">
               <div>{ship.description}</div>

@@ -23,7 +23,6 @@ export default function Model({ ...props }) {
   return (
     <group ref={group} {...props} dispose={null}>
       <mesh name="Sphere" geometry={nodes.Sphere.geometry} material={materials.Ship1FaceMaterial} scale={0.3} />
-      {console.log(actions)}
       <mesh
         name="Torus"
         geometry={nodes.Torus.geometry}

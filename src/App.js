@@ -46,6 +46,8 @@ function App() {
   /*
   * All hooks are defined here
   */
+
+  // TODO : Randomize locations and if already in use random again
   const [locations, setLocations] = useState({
     locations: [
       [13, 17, 13],
@@ -103,19 +105,19 @@ function App() {
   // TODO: research if this is better to split into multiple hooks
   const [satellites, setSatellites] = useState(
     {
-      tierOneAmount: 1,
+      tierOneAmount: 15,
       tierOneDamage: 1,
       tierOneName: 'Shippy',
       tierOneType: 'Main',
-      tierTwoAmount: 0,
+      tierTwoAmount: 5,
       tierTwoDamage: 2,
       tierTwoName: 'Butterball',
       tierTwoType: 'Small',
-      tierThreeAmount: 0,
+      tierThreeAmount: 2,
       tierThreeDamage: 3,
       tierThreeName: 'Biggie',
       tierThreeType: 'Large',
-      tierFourAmount: 0,
+      tierFourAmount: 1,
       tierFourDamage: 5,
       tierFourName: 'Butch Deadlift',
       tierFourType: 'Titan',
@@ -444,7 +446,6 @@ function App() {
             position={[-250, -25, 25]}
             intensity={1}
           />
-          {console.log(currentEnemy.currencyOne)}
           <Enemy
             currentEnemyNumber={currentEnemy.currentEnemyNumber}
             name={currentEnemy.name}
@@ -648,7 +649,7 @@ const equipment = {
   },
 }
 
-let allEnemies = {
+const allEnemies = {
   one: {
     name: 'Simulated Earth',
     boss: false,
