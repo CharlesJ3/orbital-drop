@@ -101,6 +101,12 @@ function App() {
     ],
   })
 
+  const [battleMode, setBattleMode] = useState(
+    {
+      battleMode: 'farm',
+    }
+  );
+
   // Our satellite information is stored here.
   // TODO: research if this is better to split into multiple hooks
   const [satellites, setSatellites] = useState(
@@ -133,6 +139,7 @@ function App() {
     }
   );
 
+  // FARMING
   const [currentEnemy, checkCurrentEnemy] = useState(
     {
       currentEnemyNumber: 1,
@@ -209,7 +216,6 @@ function App() {
   /*
   * All functions are defined here
   */
-
   // Lets users toggle Satellite labels
   const toggleLabels = () => {
     updateSettings((prevState => ({
@@ -272,7 +278,6 @@ function App() {
     currency.currencyThree += currentEnemy.currencyThree;
   }
 
-
   const setEnemy = (enemyNumber) => {
     checkCurrentEnemy((prevState => ({
       ...prevState,
@@ -291,6 +296,10 @@ function App() {
       currenyThree: allEnemies[enemyNumber].currencyThree,
       currencyThreeChance: allEnemies[enemyNumber].currencyThreeChance,
     })));
+  }
+
+  const battleModeSelection = (mode) => {
+    setBattleMode(mode);
   }
 
   // Store all the satellites in arrays
@@ -424,59 +433,62 @@ function App() {
         settings={settings}
         resetCamera={resetCamera}
       />
-      {/* Canvas */}
-      <Canvas>
-        <PerspectiveCamera
-          makeDefault
-          fov={cameraDefault.fov}
-          position={cameraDefault.position}
-          near={cameraDefault.near}
-          far={cameraDefault.far}
-        />
-        <Suspense fallback={null}>
-          <OrbitControls />
-          <ambientLight
-            intensity={.5}
+      {/* Canvas - FARMING*/}
+      { battleMode.battleMode == 'farm' &&
+        <Canvas>
+          <PerspectiveCamera
+            makeDefault
+            fov={cameraDefault.fov}
+            position={cameraDefault.position}
+            near={cameraDefault.near}
+            far={cameraDefault.far}
           />
-          <directionalLight
-            position={[250, 25, -25]}
-            intensity={1}
-          />
-          <directionalLight
-            position={[-250, -25, 25]}
-            intensity={1}
-          />
-          <Enemy
-            currentEnemyNumber={currentEnemy.currentEnemyNumber}
-            name={currentEnemy.name}
-            type={currentEnemy.type}
-            xp={currentEnemy.xp}
-            defense={currentEnemy.defense}
-            health={currentEnemy.health}
-            maxHealth={currentEnemy.maxHealth}
-            shield={currentEnemy.shield}
-            maxShield={currentEnemy.maxShield}
-            labels={settings.showLabels}
-            killed={currentEnemy.killed}
-            buffs={currentEnemy.buffs}
-            debuffs={currentEnemy.debuffs}
-            currencyOne={currentEnemy.currencyOne}
-            currencyTwo={currentEnemy.currencyTwo}
-            currencyTwoChance={currentEnemy.currencyTwoChance}
-            currencyThree={currentEnemy.currencyThree}
-            currencyThreeChance={currentEnemy.currencyThreeChance}
-          />
-          {final}
-          {final2}
-          {final3}
-          {final4}
-          <Stars
-            count={500}
-          />
-          {/* <EnemyOne position={[0,0,10]} /> */}
-          <Stats />
-        </Suspense>
+
+          <Suspense fallback={null}>
+            <OrbitControls />
+            <ambientLight
+              intensity={.5}
+            />
+            <directionalLight
+              position={[250, 25, -25]}
+              intensity={1}
+            />
+            <directionalLight
+              position={[-250, -25, 25]}
+              intensity={1}
+            />
+            <Enemy
+              currentEnemyNumber={currentEnemy.currentEnemyNumber}
+              name={currentEnemy.name}
+              type={currentEnemy.type}
+              xp={currentEnemy.xp}
+              defense={currentEnemy.defense}
+              health={currentEnemy.health}
+              maxHealth={currentEnemy.maxHealth}
+              shield={currentEnemy.shield}
+              maxShield={currentEnemy.maxShield}
+              labels={settings.showLabels}
+              killed={currentEnemy.killed}
+              buffs={currentEnemy.buffs}
+              debuffs={currentEnemy.debuffs}
+              currencyOne={currentEnemy.currencyOne}
+              currencyTwo={currentEnemy.currencyTwo}
+              currencyTwoChance={currentEnemy.currencyTwoChance}
+              currencyThree={currentEnemy.currencyThree}
+              currencyThreeChance={currentEnemy.currencyThreeChance}
+            />
+            {final}
+            {final2}
+            {final3}
+            {final4}
+            <Stars
+              count={500}
+            />
+            {/* <EnemyOne position={[0,0,10]} /> */}
+            <Stats />
+          </Suspense>
       </Canvas>
+      }
       {/* Bottom Stats */}
       <LevelBar
         level={level.level}

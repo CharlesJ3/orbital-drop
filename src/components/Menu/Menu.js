@@ -21,7 +21,7 @@ const Menu = ({ tierOneSatellites, tierTwoSatellites, tierThreeSatellites, tierF
           document.querySelector('.menu__four').style.display = 'none';
           document.querySelector('.menu__five').style.display = 'none';
         }
-      break;
+        break;
       case 2:
         if(document.querySelector('.menu__two').style.display !== 'inherit') {
           document.querySelector('.menu__one').style.display = 'none';
@@ -36,7 +36,7 @@ const Menu = ({ tierOneSatellites, tierTwoSatellites, tierThreeSatellites, tierF
           document.querySelector('.menu__four').style.display = 'none';
           document.querySelector('.menu__five').style.display = 'none';
         }
-      break;
+        break;
       case 3:
         if(document.querySelector('.menu__three').style.display !== 'inherit') {
           document.querySelector('.menu__one').style.display = 'none';
@@ -51,7 +51,7 @@ const Menu = ({ tierOneSatellites, tierTwoSatellites, tierThreeSatellites, tierF
           document.querySelector('.menu__four').style.display = 'none';
           document.querySelector('.menu__five').style.display = 'none';
         }
-      break;
+        break;
       case 4:
         if(document.querySelector('.menu__four').style.display !== 'inherit') {
           document.querySelector('.menu__one').style.display = 'none';
@@ -66,7 +66,7 @@ const Menu = ({ tierOneSatellites, tierTwoSatellites, tierThreeSatellites, tierF
           document.querySelector('.menu__four').style.display = 'none';
           document.querySelector('.menu__five').style.display = 'none';
         }
-      break;
+        break;
       case 5:
         if(document.querySelector('.menu__five').style.display !== 'inherit') {
           document.querySelector('.menu__one').style.display = 'none';
@@ -81,7 +81,22 @@ const Menu = ({ tierOneSatellites, tierTwoSatellites, tierThreeSatellites, tierF
           document.querySelector('.menu__four').style.display = 'none';
           document.querySelector('.menu__five').style.display = 'none';
         }
-      break;
+        break;
+      case 6:
+        document.querySelector('.menu__one__content__farm').style.display = 'inherit';
+        document.querySelector('.menu__one__content__dungeon').style.display = 'none';
+        document.querySelector('.menu__one__content__raid').style.display = 'none';
+        break;
+      case 7:
+        document.querySelector('.menu__one__content__farm').style.display = 'none';
+        document.querySelector('.menu__one__content__dungeon').style.display = 'inherit';
+        document.querySelector('.menu__one__content__raid').style.display = 'none';
+        break;
+      case 8:
+        document.querySelector('.menu__one__content__farm').style.display = 'none';
+        document.querySelector('.menu__one__content__dungeon').style.display = 'none';
+        document.querySelector('.menu__one__content__raid').style.display = 'inherit';
+        break;
       default:
         break;
     }
@@ -296,12 +311,27 @@ const Menu = ({ tierOneSatellites, tierTwoSatellites, tierThreeSatellites, tierF
           <section onClick={() => menuSwitch(5)}>PRESTIGE</section>
         </div>
       </div>
+      {/* TODO : All of these need to be refactored into individual components */}
       <div className='menu'>
         <div className='menu__one'>
           <div className='menu__one__title'>Enemies</div>
-            <div className='menu__one__content'>
+          <div className="menu__one__buttons">
+            <button onClick={() => menuSwitch(6)} className="menu__one__buttons__farm">Farm</button>
+            <button onClick={() => menuSwitch(7)} className="menu__one__buttons__dungeon">Dungeon</button>
+            <button onClick={() => menuSwitch(8)} className="menu__one__buttons__raid">Raid</button>
+          </div>
+          <div className="menu__one__content">
+            <div className='menu__one__content__farm'>
               { iterateEnemies(allEnemies) }
             </div>
+            <div className='menu__one__content__dungeon'>
+              TEST TEST TEST TEST TEST TESTTEST TEST TEST
+              <button onClick={ () => console.log("sup") } className="menu__one__content__dungeon__button">TEST</button>
+            </div>
+            <div className='menu__one__content__raid'>
+              TEST 23
+            </div>
+          </div>
         </div>
         <div className='menu__two'>
           <div className='menu__two__title'>Ships</div>

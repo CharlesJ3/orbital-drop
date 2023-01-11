@@ -88,6 +88,7 @@ $border-5: rgb(66, 31, 8);
   &__one {
     border: 1px solid $border-1;
     background-color: black;
+    color: white;
 
     &__title {
       font-size: 1.5rem;
@@ -97,6 +98,43 @@ $border-5: rgb(66, 31, 8);
       text-align: center;
       text-decoration: underline;
       text-transform: uppercase;
+    }
+
+    &__buttons {
+      width: 35%;
+      height: 6%;
+      display: flex;
+      position: absolute;
+      top: 0;
+
+      button {
+        width: 100%;
+        border: 1px solid white;
+        background-color: $main-4;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding: 2% 5% 5%;
+        text-align: center;
+        cursor: pointer;
+
+      }
+
+      &__content {
+        color: white;
+
+        &__farm {
+          display: initial;
+        }
+
+        &__dungeon {
+          display: none;
+        }
+
+        &__raid {
+          display: none;
+        }
+      }
     }
 
     .enemyList {
