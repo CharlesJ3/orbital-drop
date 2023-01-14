@@ -8,6 +8,7 @@ const Menu = ({
 	tierFourSatellites,
 	allEnemies,
 	equipment,
+	setSatellites,
 	setEnemy,
 	currentEnemy,
 	currentEquipment,
@@ -355,6 +356,21 @@ const Menu = ({
 			<div className="mainMenuBackground">
 				<div className="mainMenu">
 					{/* Our Enemy Control panel stuck on the UI */}
+					<section id="menu-battle" onClick={() => menuSwitch(1)}>
+						BATTLE
+					</section>
+					<section id="menu-ships" onClick={() => menuSwitch(2)}>
+						SHIPS
+					</section>
+					<section id="menu-talents" onClick={() => menuSwitch(3)}>
+						TALENTS
+					</section>
+					<section id="menu-auras" onClick={() => menuSwitch(4)}>
+						AURAS
+					</section>
+					<section id="menu-prestige" onClick={() => menuSwitch(5)}>
+						PRESTIGE
+					</section>
 					<div className="mainMenu__enemyControls">
 						<span className="mainMenu__enemyControls__title">Enemy: {currentEnemy}</span>
 						<div>
@@ -374,11 +390,6 @@ const Menu = ({
 							</button>
 						</div>
 					</div>
-					<section onClick={() => menuSwitch(1)}>BATTLE</section>
-					<section onClick={() => menuSwitch(2)}>SHIPS</section>
-					<section onClick={() => menuSwitch(3)}>TALENTS</section>
-					<section onClick={() => menuSwitch(4)}>AURAS</section>
-					<section onClick={() => menuSwitch(5)}>PRESTIGE</section>
 				</div>
 			</div>
 			{/* TODO : All of these need to be refactored into individual components */}
@@ -414,6 +425,12 @@ const Menu = ({
 						<section onClick={() => menuSwitchShips(2)}>Small</section>
 						<section onClick={() => menuSwitchShips(3)}>Large</section>
 						<section onClick={() => menuSwitchShips(4)}>Titan</section>
+					</div>
+					<div className="addSatellites">
+						<button onClick={() => setSatellites(1, 1, 'Test Name')}>Add 1 Tier 1 Ship</button>
+						<button onClick={() => setSatellites(2, 1, 'Test Name')}>Add 1 Tier 2 Ship</button>
+						<button onClick={() => setSatellites(3, 1, 'Test Name')}>Add 1 Tier 3 Ship</button>
+						<button onClick={() => setSatellites(4, 1, 'Test Name')}>Add 1 Tier 4 Ship</button>
 					</div>
 					<div className="shipOne shipSection">
 						{iterateShips(tierOneSatellites)}

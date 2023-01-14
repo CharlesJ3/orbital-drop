@@ -11,19 +11,4 @@
   background-color: rgb(4, 3, 56);
   border: 1px solid red;
   color: white;
-
-  &__currency {
-    display: flex;
-    justify-content: space-around;
-    font-size: 1.25rem;
-
-    p {
-      margin-block-start: .1em;
-      width: 33%;
-
-      span {
-        font-size: 2.85rem;
-      }
-    }
-  }
 }

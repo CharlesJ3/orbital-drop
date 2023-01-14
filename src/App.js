@@ -2,7 +2,6 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, Stars, PerspectiveCamera, Stats } from '@react-three/drei';
 import React, { Suspense, useState, useEffect } from 'react';
 import './App.scss';
-import Menu from './components/Menu/Menu';
 import BottomStats from './components/BottomStats/BottomStats';
 import LevelBar from './components/LevelBar/LevelBar';
 import Enemy from './components/Enemy/Enemy';
@@ -38,7 +37,7 @@ function App() {
 			far: 1000,
 			//Camera will not update because of OrbitControls if these are the SAME.
 			//Minimal update will cause a refresh but not affect the camera overall
-			position: [0, 0, prevState.position[2] - 0.001],
+			position: [0, 25, prevState.position[2] - 0.001],
 		}));
 	};
 
@@ -106,23 +105,27 @@ function App() {
 
 	// Our satellite information is stored here.
 	// TODO: research if this is better to split into multiple hooks
-	const [satellites, setSatellites] = useState({
-		tierOneAmount: 15,
+	const [satellites, setSatellitesState] = useState({
+		tierOneAmount: 1,
 		tierOneDamage: 1,
 		tierOneName: 'Shippy',
 		tierOneType: 'Main',
-		tierTwoAmount: 5,
+		tierOneCost: 1,
+		tierTwoAmount: 0,
 		tierTwoDamage: 2,
 		tierTwoName: 'Butterball',
-		tierTwoType: 'Small',
-		tierThreeAmount: 2,
-		tierThreeDamage: 3,
+		tierTwoType: 'Explorer',
+		tierTwoCost: 25,
+		tierThreeAmount: 0,
+		tierThreeDamage: 5,
 		tierThreeName: 'Biggie',
-		tierThreeType: 'Large',
-		tierFourAmount: 1,
-		tierFourDamage: 5,
+		tierThreeType: 'Tanker',
+		tierThreeCost: 60,
+		tierFourAmount: 0,
+		tierFourDamage: 10,
 		tierFourName: 'Butch Deadlift',
 		tierFourType: 'Titan',
+		tierFourCost: 100,
 	});
 
 	const [settings, updateSettings] = useState({
@@ -281,6 +284,76 @@ function App() {
 		}));
 	};
 
+	const setSatellites = (satellite, amount, damage, name) => {
+		switch (satellite) {
+			case 1:
+				if (satellites.tierOneCost <= currency.currencyOne) {
+					currency.currencyOne -= satellites.tierOneCost;
+					// Make sure the player has enough currency to buy the satellite
+					setSatellitesState((prevState) => ({
+						...prevState,
+						tierOneAmount: prevState.tierOneAmount + amount,
+						tierOneDamage: prevState.tierOneDamage + amount,
+						tierOneName: name,
+						tierOneCost: prevState.tierOneCost * 1.25 + 1.5,
+					}));
+				} else {
+					console.log('Not enough currency');
+				}
+				break;
+			case 2:
+				if (satellites.tierTwoCost <= currency.currencyOne) {
+					currency.currencyOne -= satellites.tierTwoCost;
+					// Make sure the player has enough currency to buy the satellite
+					satellites.tierTwoCost <= currency.currencyOne &&
+						setSatellitesState((prevState) => ({
+							...prevState,
+							tierTwoAmount: prevState.tierTwoAmount + amount,
+							tierTwoDamage: prevState.tierTwoDamage + amount,
+							tierTwoName: name,
+							tierTwoCost: prevState.tierTwoCost * 1.25 + 3,
+						}));
+				} else {
+					console.log('Not enough currency');
+				}
+				break;
+			case 3:
+				if (satellites.tierThreeCost <= currency.currencyOne) {
+					currency.currencyOne -= satellites.tierThreeCost;
+					// Make sure the player has enough currency to buy the satellite
+					satellites.tierThreeCost <= currency.currencyOne &&
+						setSatellitesState((prevState) => ({
+							...prevState,
+							tierThreeAmount: prevState.tierThreeAmount + amount,
+							tierThreeDamage: prevState.tierThreeDamage + damage,
+							tierThreeName: name,
+							tierThreeCost: prevState.tierThreeCost * 1.25 + 5,
+						}));
+				} else {
+					console.log('Not enough currency');
+				}
+				break;
+			case 4:
+				if (satellites.tierFourCost <= currency.currencyOne) {
+					currency.currencyOne -= satellites.tierFourCost;
+					// Make sure the player has enough currency to buy the satellite
+					satellites.tierFourCost <= currency.currencyOne &&
+						setSatellitesState((prevState) => ({
+							...prevState,
+							tierFourAmount: prevState.tierFourAmount + amount,
+							tierFourDamage: prevState.tierFourDamage + damage,
+							tierFourName: name,
+							tierFourCost: prevState.tierFourCost * 1.25 + 15,
+						}));
+				} else {
+					console.log('Not enough currency');
+				}
+				break;
+			default:
+				break;
+		}
+	};
+
 	const battleModeSelection = (mode) => {
 		setBattleMode(mode);
 	};
@@ -396,17 +469,6 @@ function App() {
 	return (
 		<>
 			{/* Menu */}
-			<Menu
-				tierOneSatellites={tierOneSatellites}
-				tierTwoSatellites={tierTwoSatellites}
-				tierThreeSatellites={tierThreeSatellites}
-				tierFourSatellites={tierFourSatellites}
-				currentEquipment={currentEquipment}
-				allEnemies={allEnemies}
-				equipment={equipment}
-				setEnemy={setEnemy}
-				currentEnemy={currentEnemy.currentEnemyNumber}
-			></Menu>
 			<Settings
 				toggleLabels={toggleLabels}
 				toggleLabelsSize={toggleLabelsSize}
@@ -454,17 +516,28 @@ function App() {
 						{final3}
 						{final4}
 						<Stars count={500} />
-						{/* <EnemyOne position={[0,0,10]} /> */}
 						<Stats />
 					</Suspense>
 				</Canvas>
 			)}
 			{/* Bottom Stats */}
-			<LevelBar level={level.level} currentXP={level.currentXP} maxXP={level.maxXP}></LevelBar>
 			<BottomStats
+				level={level.level}
+				currentXP={level.currentXP}
+				maxXP={level.maxXP}
 				currencyOne={currency.currencyOne}
 				currencyTwo={currency.currencyTwo}
 				currencyThree={currency.currencyThree}
+				tierOneSatellites={tierOneSatellites}
+				tierTwoSatellites={tierTwoSatellites}
+				tierThreeSatellites={tierThreeSatellites}
+				tierFourSatellites={tierFourSatellites}
+				currentEquipment={currentEquipment}
+				allEnemies={allEnemies}
+				equipment={equipment}
+				setSatellites={setSatellites}
+				setEnemy={setEnemy}
+				currentEnemy={currentEnemy.currentEnemyNumber}
 			/>
 		</>
 	);

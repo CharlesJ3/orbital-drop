@@ -1,20 +1,44 @@
 import React from 'react';
+import LevelBar from '../LevelBar/LevelBar';
+import Resources from '../Resources/Resources';
+import Menu from '../Menu/Menu';
 import './BottomStats.scss';
 
-function BottomStats({ currencyOne, currencyTwo, currencyThree }) {
+function BottomStats({
+	props,
+	currencyOne,
+	currencyTwo,
+	currencyThree,
+	level,
+	currentXP,
+	maxXP,
+	tierOneSatellites,
+	tierTwoSatellites,
+	tierThreeSatellites,
+	tierFourSatellites,
+	allEnemies,
+	equipment,
+	setSatellites,
+	setEnemy,
+	currentEnemy,
+	currentEquipment,
+}) {
 	return (
 		<div className="bottomStats">
-			<div className="bottomStats__currency">
-				<p>
-					Research Points <br /> <span>{currencyOne}</span>
-				</p>
-				<p>
-					Talent Points <br /> <span>{currencyTwo === 0 ? currencyTwo : '0'}</span>
-				</p>
-				<p>
-					Prestige Points <br /> <span>{currencyThree === 0 ? currencyThree : '0'}</span>
-				</p>
-			</div>
+			<LevelBar level={level} currentXP={currentXP} maxXP={maxXP}></LevelBar>
+			<Resources currencyOne={currencyOne} currencyTwo={currencyTwo} currencyThree={currencyThree}></Resources>
+			<Menu
+				tierOneSatellites={tierOneSatellites}
+				tierTwoSatellites={tierTwoSatellites}
+				tierThreeSatellites={tierThreeSatellites}
+				tierFourSatellites={tierFourSatellites}
+				currentEquipment={currentEquipment}
+				allEnemies={allEnemies}
+				equipment={equipment}
+				setSatellites={setSatellites}
+				setEnemy={setEnemy}
+				currentEnemy={currentEnemy.currentEnemyNumber}
+			></Menu>
 		</div>
 	);
 }
