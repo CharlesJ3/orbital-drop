@@ -1,5 +1,17 @@
 import React from 'react';
 import './Menu.scss';
+import styled from 'styled-components';
+
+// Styled Components
+
+const Button = styled.button`
+	background: transparent;
+	border-radius: 3px;
+	border: 2px solid palevioletred;
+	color: palevioletred;
+	margin: 0 1em;
+	padding: 0.25em 1em;
+`;
 
 const Menu = ({
 	tierOneSatellites,
@@ -18,78 +30,138 @@ const Menu = ({
 			case 1:
 				// This should be refactored to not change the display, but instead
 				// to check a menu state and change it as required.
-				if (document.querySelector('.menu__one').style.display !== 'inherit') {
-					document.querySelector('.menu__one').style.display = 'inherit';
-					document.querySelector('.menu__two').style.display = 'none';
-					document.querySelector('.menu__three').style.display = 'none';
-					document.querySelector('.menu__four').style.display = 'none';
-					document.querySelector('.menu__five').style.display = 'none';
+				if (document.querySelector('.menu__one').style.opacity != 1) {
+					document.querySelector('.menu__one').style.opacity = 1;
+					document.querySelector('.menu__one').style.pointerEvents = 'auto';
+					document.querySelector('.menu__two').style.opacity = 0;
+					document.querySelector('.menu__three').style.opacity = 0;
+					document.querySelector('.menu__four').style.opacity = 0;
+					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('#menu-battle').classList.add('active-main-menu');
+					document.querySelector('#menu-ships').classList.remove('active-main-menu');
+					document.querySelector('#menu-talents').classList.remove('active-main-menu');
+					document.querySelector('#menu-auras').classList.remove('active-main-menu');
+					document.querySelector('#menu-prestige').classList.remove('active-main-menu');
 				} else {
-					document.querySelector('.menu__one').style.display = 'none';
-					document.querySelector('.menu__two').style.display = 'none';
-					document.querySelector('.menu__three').style.display = 'none';
-					document.querySelector('.menu__four').style.display = 'none';
-					document.querySelector('.menu__five').style.display = 'none';
+					document.querySelector('.menu__one').style.opacity = 0;
+					document.querySelector('.menu__one').style.pointerEvents = 'none';
+					document.querySelector('.menu__two').style.opacity = 0;
+					document.querySelector('.menu__three').style.opacity = 0;
+					document.querySelector('.menu__four').style.opacity = 0;
+					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('#menu-battle').classList.remove('active-main-menu');
+					document.querySelector('#menu-ships').classList.remove('active-main-menu');
+					document.querySelector('#menu-talents').classList.remove('active-main-menu');
+					document.querySelector('#menu-auras').classList.remove('active-main-menu');
+					document.querySelector('#menu-prestige').classList.remove('active-main-menu');
 				}
 				break;
 			case 2:
-				if (document.querySelector('.menu__two').style.display !== 'inherit') {
-					document.querySelector('.menu__one').style.display = 'none';
-					document.querySelector('.menu__two').style.display = 'inherit';
-					document.querySelector('.menu__three').style.display = 'none';
-					document.querySelector('.menu__four').style.display = 'none';
-					document.querySelector('.menu__five').style.display = 'none';
+				if (document.querySelector('.menu__two').style.opacity != 1) {
+					document.querySelector('.menu__one').style.opacity = 0;
+					document.querySelector('.menu__two').style.opacity = 1;
+					document.querySelector('.menu__two').style.pointerEvents = 'auto';
+					document.querySelector('.menu__three').style.opacity = 0;
+					document.querySelector('.menu__four').style.opacity = 0;
+					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('#menu-ships').classList.add('active-main-menu');
+					document.querySelector('#menu-battle').classList.remove('active-main-menu');
+					document.querySelector('#menu-talents').classList.remove('active-main-menu');
+					document.querySelector('#menu-auras').classList.remove('active-main-menu');
+					document.querySelector('#menu-prestige').classList.remove('active-main-menu');
 				} else {
-					document.querySelector('.menu__one').style.display = 'none';
-					document.querySelector('.menu__two').style.display = 'none';
-					document.querySelector('.menu__three').style.display = 'none';
-					document.querySelector('.menu__four').style.display = 'none';
-					document.querySelector('.menu__five').style.display = 'none';
+					document.querySelector('.menu__one').style.opacity = 0;
+					document.querySelector('.menu__two').style.opacity = 0;
+					document.querySelector('.menu__two').style.pointerEvents = 'none';
+					document.querySelector('.menu__three').style.opacity = 0;
+					document.querySelector('.menu__four').style.opacity = 0;
+					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('#menu-battle').classList.remove('active-main-menu');
+					document.querySelector('#menu-ships').classList.remove('active-main-menu');
+					document.querySelector('#menu-talents').classList.remove('active-main-menu');
+					document.querySelector('#menu-auras').classList.remove('active-main-menu');
+					document.querySelector('#menu-prestige').classList.remove('active-main-menu');
 				}
 				break;
 			case 3:
-				if (document.querySelector('.menu__three').style.display !== 'inherit') {
-					document.querySelector('.menu__one').style.display = 'none';
-					document.querySelector('.menu__two').style.display = 'none';
-					document.querySelector('.menu__three').style.display = 'inherit';
-					document.querySelector('.menu__four').style.display = 'none';
-					document.querySelector('.menu__five').style.display = 'none';
+				if (document.querySelector('.menu__three').style.opacity != 1) {
+					document.querySelector('.menu__one').style.opacity = 0;
+					document.querySelector('.menu__two').style.opacity = 0;
+					document.querySelector('.menu__three').style.opacity = 1;
+					document.querySelector('.menu__three').style.pointerEvents = 'auto';
+					document.querySelector('.menu__four').style.opacity = 0;
+					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('#menu-talents').classList.add('active-main-menu');
+					document.querySelector('#menu-battle').classList.remove('active-main-menu');
+					document.querySelector('#menu-ships').classList.remove('active-main-menu');
+					document.querySelector('#menu-auras').classList.remove('active-main-menu');
+					document.querySelector('#menu-prestige').classList.remove('active-main-menu');
 				} else {
-					document.querySelector('.menu__one').style.display = 'none';
-					document.querySelector('.menu__two').style.display = 'none';
-					document.querySelector('.menu__three').style.display = 'none';
-					document.querySelector('.menu__four').style.display = 'none';
-					document.querySelector('.menu__five').style.display = 'none';
+					document.querySelector('.menu__one').style.opacity = 0;
+					document.querySelector('.menu__two').style.opacity = 0;
+					document.querySelector('.menu__three').style.opacity = 0;
+					document.querySelector('.menu__three').style.pointerEvents = 'none';
+					document.querySelector('.menu__four').style.opacity = 0;
+					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('#menu-battle').classList.remove('active-main-menu');
+					document.querySelector('#menu-ships').classList.remove('active-main-menu');
+					document.querySelector('#menu-talents').classList.remove('active-main-menu');
+					document.querySelector('#menu-auras').classList.remove('active-main-menu');
+					document.querySelector('#menu-prestige').classList.remove('active-main-menu');
 				}
 				break;
 			case 4:
-				if (document.querySelector('.menu__four').style.display !== 'inherit') {
-					document.querySelector('.menu__one').style.display = 'none';
-					document.querySelector('.menu__two').style.display = 'none';
-					document.querySelector('.menu__three').style.display = 'none';
-					document.querySelector('.menu__four').style.display = 'inherit';
-					document.querySelector('.menu__five').style.display = 'none';
+				if (document.querySelector('.menu__four').style.opacity != 1) {
+					document.querySelector('.menu__one').style.opacity = 0;
+					document.querySelector('.menu__two').style.opacity = 0;
+					document.querySelector('.menu__three').style.opacity = 0;
+					document.querySelector('.menu__four').style.opacity = 1;
+					document.querySelector('.menu__four').style.pointerEvents = 'auto';
+					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('#menu-auras').classList.add('active-main-menu');
+					document.querySelector('#menu-battle').classList.remove('active-main-menu');
+					document.querySelector('#menu-ships').classList.remove('active-main-menu');
+					document.querySelector('#menu-talents').classList.remove('active-main-menu');
+					document.querySelector('#menu-prestige').classList.remove('active-main-menu');
 				} else {
-					document.querySelector('.menu__one').style.display = 'none';
-					document.querySelector('.menu__two').style.display = 'none';
-					document.querySelector('.menu__three').style.display = 'none';
-					document.querySelector('.menu__four').style.display = 'none';
-					document.querySelector('.menu__five').style.display = 'none';
+					document.querySelector('.menu__one').style.opacity = 0;
+					document.querySelector('.menu__two').style.opacity = 0;
+					document.querySelector('.menu__three').style.opacity = 0;
+					document.querySelector('.menu__four').style.opacity = 0;
+					document.querySelector('.menu__four').style.pointerEvents = 'none';
+					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('#menu-battle').classList.remove('active-main-menu');
+					document.querySelector('#menu-ships').classList.remove('active-main-menu');
+					document.querySelector('#menu-talents').classList.remove('active-main-menu');
+					document.querySelector('#menu-auras').classList.remove('active-main-menu');
+					document.querySelector('#menu-prestige').classList.remove('active-main-menu');
 				}
 				break;
 			case 5:
-				if (document.querySelector('.menu__five').style.display !== 'inherit') {
-					document.querySelector('.menu__one').style.display = 'none';
-					document.querySelector('.menu__two').style.display = 'none';
-					document.querySelector('.menu__three').style.display = 'none';
-					document.querySelector('.menu__four').style.display = 'none';
-					document.querySelector('.menu__five').style.display = 'inherit';
+				if (document.querySelector('.menu__five').style.opacity != 1) {
+					document.querySelector('.menu__one').style.opacity = 0;
+					document.querySelector('.menu__two').style.opacity = 0;
+					document.querySelector('.menu__three').style.opacity = 0;
+					document.querySelector('.menu__four').style.opacity = 0;
+					document.querySelector('.menu__five').style.opacity = 1;
+					document.querySelector('.menu__five').style.pointerEvents = 'auto';
+					document.querySelector('#menu-prestige').classList.add('active-main-menu');
+					document.querySelector('#menu-battle').classList.remove('active-main-menu');
+					document.querySelector('#menu-ships').classList.remove('active-main-menu');
+					document.querySelector('#menu-talents').classList.remove('active-main-menu');
+					document.querySelector('#menu-auras').classList.remove('active-main-menu');
 				} else {
-					document.querySelector('.menu__one').style.display = 'none';
-					document.querySelector('.menu__two').style.display = 'none';
-					document.querySelector('.menu__three').style.display = 'none';
-					document.querySelector('.menu__four').style.display = 'none';
-					document.querySelector('.menu__five').style.display = 'none';
+					document.querySelector('.menu__one').style.opacity = 0;
+					document.querySelector('.menu__two').style.opacity = 0;
+					document.querySelector('.menu__three').style.opacity = 0;
+					document.querySelector('.menu__four').style.opacity = 0;
+					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('.menu__five').style.pointerEvents = 'none';
+					document.querySelector('#menu-battle').classList.remove('active-main-menu');
+					document.querySelector('#menu-ships').classList.remove('active-main-menu');
+					document.querySelector('#menu-talents').classList.remove('active-main-menu');
+					document.querySelector('#menu-auras').classList.remove('active-main-menu');
+					document.querySelector('#menu-prestige').classList.remove('active-main-menu');
 				}
 				break;
 			case 6:
@@ -420,7 +492,7 @@ const Menu = ({
 				</div>
 				<div className="menu__two">
 					<div className="menu__two__title">Ships</div>
-					<div className="menu__two__content">
+					{/* <div className="menu__two__content">
 						<section onClick={() => menuSwitchShips(1)}>Mothership</section>
 						<section onClick={() => menuSwitchShips(2)}>Small</section>
 						<section onClick={() => menuSwitchShips(3)}>Large</section>
@@ -575,7 +647,7 @@ const Menu = ({
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> */}
 				</div>
 				<div className="menu__three"></div>
 				<div className="menu__four"></div>

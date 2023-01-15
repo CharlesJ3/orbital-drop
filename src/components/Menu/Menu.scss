@@ -58,32 +58,43 @@ $border-5: rgb(66, 31, 8);
     border-radius: 50%;
     padding: 25px 0;
     color: white;
-    bottom: 96px;
-    right: 357px;
     font-size: 10px;
     background-color: #cd5334;
+    transition: 0.2s ease-out;
+
+    &:hover {
+      background-color: green;
+      border: 5px solid white;
+    }
+  }
+
+  .active-main-menu {
+    background-color: green;
+    border: 5px solid white;
   }
 
   #menu-battle, #menu-ships, #menu-talents, #menu-aura, #menu-prestige {
 
   }
-  #menu-battle {
 
+  #menu-battle {
+    bottom: 96px;
+    right: 360px;
   }
 
   #menu-ships {
     right: 300px;
-    bottom: 184px;
+    bottom: 189px;
   }
 
   #menu-talents {
     right: 181px;
-    bottom: 221px;
+    bottom: 225px;
   }
 
   #menu-auras {
     left: -23px;
-    bottom: 184px;
+    bottom: 189px;
   }
 
   #menu-prestige {
@@ -100,7 +111,7 @@ $border-5: rgb(66, 31, 8);
   position: absolute;
   width: 23%;
   right: -14px;
-  clip-path: polygon(0 0, 100% 0%, 100% 67%, 0 67%);
+  // clip-path: polygon(0 0, 100% 0%, 100% 67%, 0 67%);
   bottom: -112px;
   border-radius: 50%;
   height: 337px;
@@ -114,12 +125,18 @@ $border-5: rgb(66, 31, 8);
   position: absolute;
   margin-right: auto;
   top: 53px;
-  z-index: 125;
+  z-index: 5;
 
   &__one, &__two, &__three, &__four, &__five {
-    width: 99vw;
-    height: 93.5vh;
-    display: none;
+    width: 36vw;
+    position: absolute;
+    height: 91vh;
+    opacity: 0;
+    bottom: 54px;
+    left: 61.5vw;
+    z-index: 5;
+    transition: .4s;
+    pointer-events: none;;
   }
 
   &__one {

@@ -8,9 +8,15 @@
   height: 5px;
   cursor: pointer;
   background-color: #040338;
-  border: 1px solid green;
   color: white;
   padding: 1px 0 1% 0;
   font-size: 1.25em;
   text-transform: uppercase;
+
+  .allyExp {
+    position: absolute;
+    left: 130px;
+    z-index: 25;
+    text-shadow: 2px 2px 2px black;
+  }
 }

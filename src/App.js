@@ -37,7 +37,8 @@ function App() {
 			far: 1000,
 			//Camera will not update because of OrbitControls if these are the SAME.
 			//Minimal update will cause a refresh but not affect the camera overall
-			position: [0, 25, prevState.position[2] - 0.001],
+			position: [0, 0, prevState.position[2] - 0.001],
+			rotation: [0, 0, 0],
 		}));
 	};
 
@@ -485,7 +486,6 @@ function App() {
 						near={cameraDefault.near}
 						far={cameraDefault.far}
 					/>
-
 					<Suspense fallback={null}>
 						<OrbitControls />
 						<ambientLight intensity={0.5} />
