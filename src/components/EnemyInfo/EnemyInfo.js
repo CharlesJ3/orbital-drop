@@ -6,7 +6,7 @@ import Placeholder from '../../images/placeholder-icon.png';
 function EnemyInfo({
 	health,
 	maxHealth,
-	shield,
+	shields,
 	maxShield,
 	defense,
 	xp,
@@ -30,6 +30,7 @@ function EnemyInfo({
 
 	return (
 		<>
+			{console.log(type)}
 			{labels && (
 				<Html className="enemyInfo no-pointer" distanceFactor={30} zIndexRange={[100, 0]}>
 					<div className="enemyInfo__titles">
@@ -208,10 +209,10 @@ function EnemyInfo({
 				<div className="enemyInfo__shield-wrapper">
 					<div className="enemyInfo__shield__bar-title">SP</div>
 					<div className="enemyInfo__shield__bar-numbers">
-						{Math.ceil(shield)} / {Math.ceil(maxShield)}
+						{Math.ceil(shields)} / {Math.ceil(maxShield)}
 					</div>
 					<div className="enemyInfo__shield__bar-wrapper shield">
-						<div className="enemyInfo__shield__bar-fill" style={{ height: `${(shield / maxShield) * 100}%` }} />
+						<div className="enemyInfo__shield__bar-fill" style={{ height: `${(shields / maxShield) * 100}%` }} />
 					</div>
 				</div>
 			</Html>

@@ -1,6 +1,7 @@
 import React from 'react';
 import './Menu.scss';
 import styled from 'styled-components';
+import { ClampToEdgeWrapping } from 'three';
 
 // Styled Components
 
@@ -32,11 +33,15 @@ const Menu = ({
 				// to check a menu state and change it as required.
 				if (document.querySelector('.menu__one').style.opacity != 1) {
 					document.querySelector('.menu__one').style.opacity = 1;
-					document.querySelector('.menu__one').style.pointerEvents = 'auto';
 					document.querySelector('.menu__two').style.opacity = 0;
 					document.querySelector('.menu__three').style.opacity = 0;
 					document.querySelector('.menu__four').style.opacity = 0;
 					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('.menu__one').style.pointerEvents = 'auto';
+					document.querySelector('.menu__two').style.pointerEvents = 'none';
+					document.querySelector('.menu__three').style.pointerEvents = 'none';
+					document.querySelector('.menu__four').style.pointerEvents = 'none';
+					document.querySelector('.menu__five').style.pointerEvents = 'none';
 					document.querySelector('#menu-battle').classList.add('active-main-menu');
 					document.querySelector('#menu-ships').classList.remove('active-main-menu');
 					document.querySelector('#menu-talents').classList.remove('active-main-menu');
@@ -45,6 +50,10 @@ const Menu = ({
 				} else {
 					document.querySelector('.menu__one').style.opacity = 0;
 					document.querySelector('.menu__one').style.pointerEvents = 'none';
+					document.querySelector('.menu__two').style.pointerEvents = 'none';
+					document.querySelector('.menu__three').style.pointerEvents = 'none';
+					document.querySelector('.menu__four').style.pointerEvents = 'none';
+					document.querySelector('.menu__five').style.pointerEvents = 'none';
 					document.querySelector('.menu__two').style.opacity = 0;
 					document.querySelector('.menu__three').style.opacity = 0;
 					document.querySelector('.menu__four').style.opacity = 0;
@@ -60,10 +69,14 @@ const Menu = ({
 				if (document.querySelector('.menu__two').style.opacity != 1) {
 					document.querySelector('.menu__one').style.opacity = 0;
 					document.querySelector('.menu__two').style.opacity = 1;
-					document.querySelector('.menu__two').style.pointerEvents = 'auto';
 					document.querySelector('.menu__three').style.opacity = 0;
 					document.querySelector('.menu__four').style.opacity = 0;
 					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('.menu__one').style.pointerEvents = 'none';
+					document.querySelector('.menu__two').style.pointerEvents = 'auto';
+					document.querySelector('.menu__three').style.pointerEvents = 'none';
+					document.querySelector('.menu__four').style.pointerEvents = 'none';
+					document.querySelector('.menu__five').style.pointerEvents = 'none';
 					document.querySelector('#menu-ships').classList.add('active-main-menu');
 					document.querySelector('#menu-battle').classList.remove('active-main-menu');
 					document.querySelector('#menu-talents').classList.remove('active-main-menu');
@@ -72,10 +85,14 @@ const Menu = ({
 				} else {
 					document.querySelector('.menu__one').style.opacity = 0;
 					document.querySelector('.menu__two').style.opacity = 0;
-					document.querySelector('.menu__two').style.pointerEvents = 'none';
 					document.querySelector('.menu__three').style.opacity = 0;
 					document.querySelector('.menu__four').style.opacity = 0;
 					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('.menu__one').style.pointerEvents = 'none';
+					document.querySelector('.menu__two').style.pointerEvents = 'none';
+					document.querySelector('.menu__three').style.pointerEvents = 'none';
+					document.querySelector('.menu__four').style.pointerEvents = 'none';
+					document.querySelector('.menu__five').style.pointerEvents = 'none';
 					document.querySelector('#menu-battle').classList.remove('active-main-menu');
 					document.querySelector('#menu-ships').classList.remove('active-main-menu');
 					document.querySelector('#menu-talents').classList.remove('active-main-menu');
@@ -88,9 +105,13 @@ const Menu = ({
 					document.querySelector('.menu__one').style.opacity = 0;
 					document.querySelector('.menu__two').style.opacity = 0;
 					document.querySelector('.menu__three').style.opacity = 1;
-					document.querySelector('.menu__three').style.pointerEvents = 'auto';
 					document.querySelector('.menu__four').style.opacity = 0;
 					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('.menu__one').style.pointerEvents = 'none';
+					document.querySelector('.menu__two').style.pointerEvents = 'none';
+					document.querySelector('.menu__three').style.pointerEvents = 'auto';
+					document.querySelector('.menu__four').style.pointerEvents = 'none';
+					document.querySelector('.menu__five').style.pointerEvents = 'none';
 					document.querySelector('#menu-talents').classList.add('active-main-menu');
 					document.querySelector('#menu-battle').classList.remove('active-main-menu');
 					document.querySelector('#menu-ships').classList.remove('active-main-menu');
@@ -100,9 +121,13 @@ const Menu = ({
 					document.querySelector('.menu__one').style.opacity = 0;
 					document.querySelector('.menu__two').style.opacity = 0;
 					document.querySelector('.menu__three').style.opacity = 0;
-					document.querySelector('.menu__three').style.pointerEvents = 'none';
 					document.querySelector('.menu__four').style.opacity = 0;
 					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('.menu__one').style.pointerEvents = 'none';
+					document.querySelector('.menu__two').style.pointerEvents = 'none';
+					document.querySelector('.menu__three').style.pointerEvents = 'none';
+					document.querySelector('.menu__four').style.pointerEvents = 'none';
+					document.querySelector('.menu__five').style.pointerEvents = 'none';
 					document.querySelector('#menu-battle').classList.remove('active-main-menu');
 					document.querySelector('#menu-ships').classList.remove('active-main-menu');
 					document.querySelector('#menu-talents').classList.remove('active-main-menu');
@@ -116,8 +141,12 @@ const Menu = ({
 					document.querySelector('.menu__two').style.opacity = 0;
 					document.querySelector('.menu__three').style.opacity = 0;
 					document.querySelector('.menu__four').style.opacity = 1;
-					document.querySelector('.menu__four').style.pointerEvents = 'auto';
 					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('.menu__one').style.pointerEvents = 'none';
+					document.querySelector('.menu__two').style.pointerEvents = 'none';
+					document.querySelector('.menu__three').style.pointerEvents = 'none';
+					document.querySelector('.menu__four').style.pointerEvents = 'auto';
+					document.querySelector('.menu__five').style.pointerEvents = 'none';
 					document.querySelector('#menu-auras').classList.add('active-main-menu');
 					document.querySelector('#menu-battle').classList.remove('active-main-menu');
 					document.querySelector('#menu-ships').classList.remove('active-main-menu');
@@ -128,8 +157,12 @@ const Menu = ({
 					document.querySelector('.menu__two').style.opacity = 0;
 					document.querySelector('.menu__three').style.opacity = 0;
 					document.querySelector('.menu__four').style.opacity = 0;
-					document.querySelector('.menu__four').style.pointerEvents = 'none';
 					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('.menu__one').style.pointerEvents = 'none';
+					document.querySelector('.menu__two').style.pointerEvents = 'none';
+					document.querySelector('.menu__three').style.pointerEvents = 'none';
+					document.querySelector('.menu__four').style.pointerEvents = 'none';
+					document.querySelector('.menu__five').style.pointerEvents = 'none';
 					document.querySelector('#menu-battle').classList.remove('active-main-menu');
 					document.querySelector('#menu-ships').classList.remove('active-main-menu');
 					document.querySelector('#menu-talents').classList.remove('active-main-menu');
@@ -144,6 +177,10 @@ const Menu = ({
 					document.querySelector('.menu__three').style.opacity = 0;
 					document.querySelector('.menu__four').style.opacity = 0;
 					document.querySelector('.menu__five').style.opacity = 1;
+					document.querySelector('.menu__one').style.pointerEvents = 'none';
+					document.querySelector('.menu__two').style.pointerEvents = 'none';
+					document.querySelector('.menu__three').style.pointerEvents = 'none';
+					document.querySelector('.menu__four').style.pointerEvents = 'none';
 					document.querySelector('.menu__five').style.pointerEvents = 'auto';
 					document.querySelector('#menu-prestige').classList.add('active-main-menu');
 					document.querySelector('#menu-battle').classList.remove('active-main-menu');
@@ -156,6 +193,10 @@ const Menu = ({
 					document.querySelector('.menu__three').style.opacity = 0;
 					document.querySelector('.menu__four').style.opacity = 0;
 					document.querySelector('.menu__five').style.opacity = 0;
+					document.querySelector('.menu__one').style.pointerEvents = 'none';
+					document.querySelector('.menu__two').style.pointerEvents = 'none';
+					document.querySelector('.menu__three').style.pointerEvents = 'none';
+					document.querySelector('.menu__four').style.pointerEvents = 'none';
 					document.querySelector('.menu__five').style.pointerEvents = 'none';
 					document.querySelector('#menu-battle').classList.remove('active-main-menu');
 					document.querySelector('#menu-ships').classList.remove('active-main-menu');
@@ -285,7 +326,6 @@ const Menu = ({
 		for (const check in allEnemies) {
 			if (allEnemies.hasOwnProperty(check)) {
 				const enemy = allEnemies[check];
-
 				enemyList.push(
 					<div
 						onClick={() => setEnemy(check)}
@@ -364,22 +404,7 @@ const Menu = ({
 			}
 		}
 
-		return (
-			<div className="enemyList">
-				{enemyList}
-				<div className="enemyList__controls">
-					{/* <button onClick={() => setEnemy(currentEnemy > 1 ? currentEnemy - 1 : currentEnemy)}>Back</button>
-          <button onClick={() => setEnemy(currentEnemy < 8 ? currentEnemy + 1 : currentEnemy)}>Forward</button> */}
-
-					<button onClick={() => setEnemy(enemyRotation(currentEnemy > 1 ? currentEnemy - 1 : currentEnemy))}>
-						Back
-					</button>
-					<button onClick={() => setEnemy(enemyRotation(currentEnemy < 8 ? currentEnemy + 1 : currentEnemy))}>
-						Forward
-					</button>
-				</div>
-			</div>
-		);
+		return <div className="enemyList">{enemyList}</div>;
 	};
 
 	const iterateShips = (ships) => {
@@ -423,6 +448,120 @@ const Menu = ({
 		return <div className="shipList">{shipList}</div>;
 	};
 
+	const currentSelectedEnemy = (currentEnemy) => {
+		return (
+			<div>
+				<div
+					key={currentEnemy.name}
+					className={currentEnemy.boss ? 'boss' : currentEnemy.miniboss ? 'miniboss' : 'normal'}
+				>
+					<span className="title">{currentEnemy.name}</span>
+					<div className="topPanel">
+						<div className="currentEnemyHealth section">
+							Health <br />
+							<span>{currentEnemy.health}</span>
+						</div>
+						<div className="currentEnemyShields section">
+							Shields <br />
+							<span>{currentEnemy.shields}</span>
+						</div>
+						<div className="currentEnemyAbsorb section">
+							Absorb <br />
+							<span>{currentEnemy.absorb}</span>
+						</div>
+					</div>
+					<div className="rightPanel">
+						<div className="section">
+							<br />
+							<span>
+								Destruction <br />
+								{currentEnemy.currencyOne}
+							</span>
+						</div>
+						<div className="section">
+							<br />
+							<span>
+								Enemy Research <br />
+								{currentEnemy.currencyTwo} : {currentEnemy.currencyTwoChance}
+							</span>
+						</div>
+						<div className="section">
+							<br />
+							<span>
+								Prestige <br />
+								{currentEnemy.currencyThree} : {currentEnemy.currencyThreeChance}
+							</span>
+						</div>
+					</div>
+					<div className="leftPanel">
+						<div className="section">
+							<br />
+							<span>
+								Experience <br />
+								{currentEnemy.xp}
+							</span>
+						</div>
+						<div className="section">
+							<br />
+							<span>
+								Defense <br />
+								{currentEnemy.defense}
+							</span>
+						</div>
+						<div className="section">
+							<br />
+							<span>
+								First Kill? <br />
+								{currentEnemy.killed ? 'Killed' : 'Not Killed'}
+							</span>
+						</div>
+					</div>
+					<div className="centerImage" style={{ backgroundImage: `url(${currentEnemy.background})` }}></div>
+					<div className="bottomPanel">
+						<div className="description">
+							<span>{currentEnemy.description}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	};
+
+	const enemyNumberSelection = () => {
+		const enemies = Object.entries(allEnemies);
+
+		let buttonList = [];
+
+		for (const check in enemies) {
+			if (enemies.hasOwnProperty(check)) {
+				const enemy = enemies[check];
+				buttonList.push(
+					<button
+						key={enemy[1].name}
+						className={`enemy-button killed-${enemy[1].killed} boss-${enemy[1].boss} miniboss-${enemy[1].miniboss} ${
+							enemy[1].currentEnemyNumber === currentEnemy.currentEnemyNumber ? 'selected-enemy' : ''
+						}`}
+						id={`enemy-${enemy[1].currentEnemyNumber}`}
+						onClick={() => {
+							setEnemy(enemy[0]);
+						}}
+					>
+						{`Enemy: ${enemy[1].currentEnemyNumber}`}
+					</button>
+				);
+			}
+		}
+
+		return (
+			<div>
+				<div>{buttonList}</div>
+				<div>{currentSelectedEnemy(currentEnemy)}</div>
+			</div>
+		);
+	};
+
+	const selectEnemy = (allEnemies, selectedEnemy) => {};
+
 	return (
 		<div>
 			<div className="mainMenuBackground">
@@ -443,7 +582,7 @@ const Menu = ({
 					<section id="menu-prestige" onClick={() => menuSwitch(5)}>
 						PRESTIGE
 					</section>
-					<div className="mainMenu__enemyControls">
+					{/* <div className="mainMenu__enemyControls">
 						<span className="mainMenu__enemyControls__title">Enemy: {currentEnemy}</span>
 						<div>
 							<button onClick={() => setEnemy(enemyRotation(currentEnemy > 5 ? currentEnemy - 5 : currentEnemy))}>
@@ -461,7 +600,7 @@ const Menu = ({
 								+5
 							</button>
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
 			{/* TODO : All of these need to be refactored into individual components */}
@@ -469,29 +608,33 @@ const Menu = ({
 				<div className="menu__one">
 					<div className="menu__one__title">Enemies</div>
 					<div className="menu__one__buttons">
-						<button onClick={() => menuSwitch(6)} className="menu__one__buttons__farm">
+						<button key={'farm-button'} onClick={() => menuSwitch(6)} className="menu__one__buttons__farm">
 							Farm
 						</button>
-						<button onClick={() => menuSwitch(7)} className="menu__one__buttons__dungeon">
+						<button key={'dungeon-button'} onClick={() => menuSwitch(7)} className="menu__one__buttons__dungeon">
 							Dungeon
 						</button>
-						<button onClick={() => menuSwitch(8)} className="menu__one__buttons__raid">
+						<button key={'raid-button'} onClick={() => menuSwitch(8)} className="menu__one__buttons__raid">
 							Raid
 						</button>
 					</div>
 					<div className="menu__one__content">
-						<div className="menu__one__content__farm">{iterateEnemies(allEnemies)}</div>
-						<div className="menu__one__content__dungeon">
-							TEST TEST TEST TEST TEST TESTTEST TEST TEST
-							<button onClick={() => console.log('sup')} className="menu__one__content__dungeon__button">
-								TEST
-							</button>
+						<div className="menu__one__content__farm">
+							<div className="farm-section-select">{}</div>
+							<div className="farm-section-show">{enemyNumberSelection(allEnemies)}</div>
 						</div>
-						<div className="menu__one__content__raid">TEST 23</div>
+						<div className="menu__one__content__dungeon">TODO</div>
+						<div className="menu__one__content__raid">TODO</div>
 					</div>
 				</div>
 				<div className="menu__two">
 					<div className="menu__two__title">Ships</div>
+					<div className="addSatellites">
+						<button onClick={() => setSatellites(1, 1, 'Test Name')}>Add 1 Tier 1 Ship</button>
+						<button onClick={() => setSatellites(2, 1, 'Test Name')}>Add 1 Tier 2 Ship</button>
+						<button onClick={() => setSatellites(3, 1, 'Test Name')}>Add 1 Tier 3 Ship</button>
+						<button onClick={() => setSatellites(4, 1, 'Test Name')}>Add 1 Tier 4 Ship</button>
+					</div>
 					{/* <div className="menu__two__content">
 						<section onClick={() => menuSwitchShips(1)}>Mothership</section>
 						<section onClick={() => menuSwitchShips(2)}>Small</section>

@@ -37,7 +37,7 @@ function BottomStats({
 				equipment={equipment}
 				setSatellites={setSatellites}
 				setEnemy={setEnemy}
-				currentEnemy={currentEnemy.currentEnemyNumber}
+				currentEnemy={currentEnemy}
 			></Menu>
 		</div>
 	);

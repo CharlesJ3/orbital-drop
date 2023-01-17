@@ -3,7 +3,6 @@ import { OrbitControls, Stars, PerspectiveCamera, Stats } from '@react-three/dre
 import React, { Suspense, useState, useEffect } from 'react';
 import './App.scss';
 import BottomStats from './components/BottomStats/BottomStats';
-import LevelBar from './components/LevelBar/LevelBar';
 import Enemy from './components/Enemy/Enemy';
 import SatelliteOne from './components/Satellites/SatelliteOne';
 import SatelliteTwo from './components/Satellites/SatelliteTwo';
@@ -138,32 +137,34 @@ function App() {
 
 	// FARMING
 	const [currentEnemy, checkCurrentEnemy] = useState({
-		currentEnemyNumber: 1,
 		name: 'Simulated Earth',
+		boss: false,
+		miniboss: false,
 		health: 3,
 		maxHealth: 3,
-		shield: 0,
+		shields: 0,
 		maxShield: 0,
-		xp: 1,
+		absorb: 0,
 		defense: 0,
+		xp: 1,
 		type: 'Planet (Small)',
-		currencyOne: 1,
+		currencyOne: 3,
 		currencyTwo: 0,
 		currencyTwoChance: 0,
 		currencyThree: 0,
 		currencyThreeChance: 0,
 		killed: false,
-		buffs: [
-			// [Buff Title, Buff Rank, Buff Description]
-			['Shield Bonus', 1, 'Shields are increased by 10%'],
-			['Damage Reduction', 1, 'Increases Defense by .5'],
-			['Damage Increase', 1, 'Increases Damage by .5'],
-		],
-		debuffs: [
-			// [Debuff Title, Debuff Rank, Debuff Description]
-			['Rotten', 1, 'Reduced Shields by 10%'],
-			['Greedy', 1, 'Increased RP Chance by 1%'],
-		],
+		equipment: {
+			weapon: false,
+			chassis: false,
+			motor: false,
+		},
+		description:
+			'A vision of what Earth once was, perhaps a few thousand years ago. We wonder what has changed since then.',
+		background: EnemyBG5,
+		currentEnemyNumber: 1,
+		buffs: [],
+		debuffs: [],
 	});
 
 	const [level, levelCheck] = useState({
@@ -247,7 +248,7 @@ function App() {
 			checkCurrentEnemy((prevState) => ({
 				...prevState,
 				health: currentEnemy.maxHealth,
-				shield: currentEnemy.maxShield,
+				shields: currentEnemy.maxShield,
 			}));
 		}
 	};
@@ -266,22 +267,34 @@ function App() {
 	};
 
 	const setEnemy = (enemyNumber) => {
-		checkCurrentEnemy((prevState) => ({
-			...prevState,
-			currentEnemyNumber: allEnemies[enemyNumber].currentEnemy,
-			name: allEnemies[enemyNumber].name,
+		checkCurrentEnemy(() => ({
+			name: allEnemies[enemyNumber].currentEnemyNumber,
+			boss: allEnemies[enemyNumber].boss,
+			miniboss: allEnemies[enemyNumber].miniboss,
 			health: allEnemies[enemyNumber].health,
 			maxHealth: allEnemies[enemyNumber].health,
-			shield: allEnemies[enemyNumber].shields,
+			shields: allEnemies[enemyNumber].shields,
 			maxShield: allEnemies[enemyNumber].shields,
-			xp: allEnemies[enemyNumber].xp,
+			absorb: allEnemies[enemyNumber].absorb,
 			defense: allEnemies[enemyNumber].defense,
-			currenyOne: allEnemies[enemyNumber].currencyOne,
-			currencyOneChance: allEnemies[enemyNumber].currencyOneChance,
-			currenyTwo: allEnemies[enemyNumber].currencyTwo,
+			xp: allEnemies[enemyNumber].xp,
+			type: allEnemies[enemyNumber].type,
+			currencyOne: allEnemies[enemyNumber].currencyOne,
+			currencyTwo: allEnemies[enemyNumber].currencyTwo,
 			currencyTwoChance: allEnemies[enemyNumber].currencyTwoChance,
-			currenyThree: allEnemies[enemyNumber].currencyThree,
+			currencyThree: allEnemies[enemyNumber].currencyThree,
 			currencyThreeChance: allEnemies[enemyNumber].currencyThreeChance,
+			killed: allEnemies[enemyNumber].killed,
+			equipment: {
+				weapon: allEnemies[enemyNumber].equipment.weapon,
+				chassis: allEnemies[enemyNumber].equipment.chassis,
+				motor: allEnemies[enemyNumber].equipment.motor,
+			},
+			description: allEnemies[enemyNumber].description,
+			background: allEnemies[enemyNumber].background,
+			currentEnemyNumber: allEnemies[enemyNumber].currentEnemyNumber,
+			buffs: allEnemies[enemyNumber].buffs,
+			debuffs: allEnemies[enemyNumber].debuffs,
 		}));
 	};
 
@@ -441,6 +454,8 @@ function App() {
 	 *  We'll use useEffect to set an interval once and clear it afterwards
 	 */
 	useEffect(() => {
+		console.log(currentEnemy.shields);
+
 		const interval = setInterval(() => {
 			const totalDamage =
 				(satellites.tierOneAmount * satellites.tierOneDamage +
@@ -448,12 +463,12 @@ function App() {
 					satellites.tierThreeAmount * satellites.tierThreeDamage +
 					satellites.tierFourAmount * satellites.tierFourDamage) *
 				1;
-			if (currentEnemy.shield > 0 && totalDamage > 0) {
+			if (currentEnemy.shields > 0 && totalDamage > 0) {
 				checkCurrentEnemy((prevState) => ({
 					...prevState,
-					shield: currentEnemy.shield - (totalDamage - currentEnemy.defense),
+					shields: currentEnemy.shields - (totalDamage - currentEnemy.defense),
 				}));
-			} else if (currentEnemy.shield <= 0) {
+			} else if (currentEnemy.shields <= 0) {
 				checkCurrentEnemy((prevState) => ({
 					...prevState,
 					health: currentEnemy.health - (totalDamage - currentEnemy.defense),
@@ -491,6 +506,7 @@ function App() {
 						<ambientLight intensity={0.5} />
 						<directionalLight position={[250, 25, -25]} intensity={1} />
 						<directionalLight position={[-250, -25, 25]} intensity={1} />
+						{console.log(currentEnemy)}
 						<Enemy
 							currentEnemyNumber={currentEnemy.currentEnemyNumber}
 							name={currentEnemy.name}
@@ -499,7 +515,7 @@ function App() {
 							defense={currentEnemy.defense}
 							health={currentEnemy.health}
 							maxHealth={currentEnemy.maxHealth}
-							shield={currentEnemy.shield}
+							shields={currentEnemy.shields}
 							maxShield={currentEnemy.maxShield}
 							labels={settings.showLabels}
 							killed={currentEnemy.killed}
@@ -537,7 +553,7 @@ function App() {
 				equipment={equipment}
 				setSatellites={setSatellites}
 				setEnemy={setEnemy}
-				currentEnemy={currentEnemy.currentEnemyNumber}
+				currentEnemy={currentEnemy}
 			/>
 		</>
 	);
@@ -709,6 +725,7 @@ const allEnemies = {
 		absorb: 0,
 		defense: 0,
 		xp: 1,
+		type: 'Planet (Small)',
 		currencyOne: 3,
 		currencyTwo: 0,
 		currencyTwoChance: 0,
@@ -723,17 +740,20 @@ const allEnemies = {
 		description:
 			'A vision of what Earth once was, perhaps a few thousand years ago. We wonder what has changed since then.',
 		background: EnemyBG5,
-		currentEnemy: 1,
+		currentEnemyNumber: 1,
+		buffs: [],
+		debuffs: [],
 	},
 	two: {
 		name: 'Simulated Earth 2: Electric Boogaloo',
 		miniboss: false,
 		boss: false,
-		health: 25,
-		shields: 15,
+		health: 3,
+		shields: 0,
 		absorb: 0,
 		defense: 0,
 		xp: 4,
+		type: 'Planet (Small)',
 		currencyOne: 12,
 		currencyTwo: 0,
 		currencyTwoChance: 0,
@@ -747,7 +767,9 @@ const allEnemies = {
 		},
 		description: 'A slightly tougher version of our projection of Earth.',
 		background: EnemyBG6,
-		currentEnemy: 2,
+		currentEnemyNumber: 2,
+		buffs: [],
+		debuffs: [],
 	},
 	three: {
 		name: 'Another Simulated Earth',
@@ -758,6 +780,7 @@ const allEnemies = {
 		absorb: 0,
 		defense: 0,
 		xp: 15,
+		type: 'Planet (Small)',
 		currencyOne: 25,
 		currencyTwo: 0,
 		currencyTwoChance: 0,
@@ -771,17 +794,20 @@ const allEnemies = {
 		},
 		description: 'Earth is coming up soon; this is the most destruction we plan on encountering.',
 		background: EnemyBG7,
-		currentEnemy: 3,
+		currentEnemyNumber: 3,
+		buffs: [],
+		debuffs: [],
 	},
 	four: {
 		name: 'Earth 20,000 AD',
 		boss: false,
-		miniboss: true,
+		miniboss: false,
 		health: 150,
 		shields: 100,
 		absorb: 25,
 		defense: 0,
 		xp: 35,
+		type: 'Planet (Small)',
 		currencyOne: 50,
 		currencyTwo: 1,
 		currencyTwoChance: 1,
@@ -796,17 +822,20 @@ const allEnemies = {
 		description:
 			'This is not what we expected. Whatever inhabited left eons ago, but we must ensure whatever is alive does not remain so. Were our calculations... incorrect?',
 		background: EnemyBG8,
-		currentEnemy: 4,
+		currentEnemyNumber: 4,
+		buffs: [],
+		debuffs: [],
 	},
 	five: {
 		name: 'Training Dummy',
-		miniboss: false,
+		miniboss: true,
 		boss: false,
 		health: 450,
 		shields: 250,
 		absorb: 25,
 		defense: 0,
 		xp: 100,
+		type: 'Planet (Small)',
 		currencyOne: 250,
 		currencyTwo: 0,
 		currencyTwoChance: 0,
@@ -820,7 +849,9 @@ const allEnemies = {
 		},
 		description: 'All Motherships needs something to start with; kill this quickly so we can move on.',
 		background: EnemyBG1,
-		currentEnemy: 5,
+		currentEnemyNumber: 5,
+		buffs: [],
+		debuffs: [],
 	},
 	six: {
 		name: 'Elite Training Dummy',
@@ -831,6 +862,7 @@ const allEnemies = {
 		absorb: 50,
 		defense: 0,
 		xp: 200,
+		type: 'Planet (Small)',
 		currencyOne: 500,
 		currencyTwo: 0,
 		currencyTwoChance: 0,
@@ -844,7 +876,9 @@ const allEnemies = {
 		},
 		description: 'A slightly tougher training dummy. Careful we do not hurt ourselves...',
 		background: EnemyBG2,
-		currentEnemy: 6,
+		currentEnemyNumber: 6,
+		buffs: [],
+		debuffs: [],
 	},
 	seven: {
 		name: 'Master Training Dummy',
@@ -855,6 +889,7 @@ const allEnemies = {
 		absorb: 150,
 		defense: 0,
 		xp: 500,
+		type: 'Planet (Small)',
 		currencyOne: 1000,
 		currencyTwo: 0,
 		currencyTwoChance: 0,
@@ -868,19 +903,21 @@ const allEnemies = {
 		},
 		description:
 			'We are ready to deal damage to something a bit stronger. Perhaps this dummy will provide some challenge?',
-		description: 'Earth is coming up soon; this is the most destruction we plan on encountering.',
 		background: EnemyBG3,
-		currentEnemy: 7,
+		currentEnemyNumber: 7,
+		buffs: [],
+		debuffs: [],
 	},
 	eight: {
 		name: 'Old Earth Probe?',
 		miniboss: false,
-		boss: true,
+		boss: false,
 		health: 5000,
 		shields: 2500,
 		absorb: 350,
 		defense: 0,
 		xp: 1000,
+		type: 'Planet (Small)',
 		currencyOne: 2500,
 		currencyTwo: 3,
 		currencyTwoChance: 2,
@@ -895,7 +932,65 @@ const allEnemies = {
 		},
 		description: 'Uh-oh... We are concerned. Earth is not supposed to have this technology yet. Check it out.',
 		background: EnemyBG4,
-		currentEnemy: 8,
+		currentEnemyNumber: 8,
+		buffs: [],
+		debuffs: [],
+	},
+	nine: {
+		name: 'Old Earth Probe TEST 1',
+		miniboss: false,
+		boss: false,
+		health: 5000,
+		shields: 2500,
+		absorb: 350,
+		defense: 0,
+		xp: 1000,
+		type: 'Planet (Small)',
+		currencyOne: 2500,
+		currencyTwo: 3,
+		currencyTwoChance: 2,
+		currencyThree: 0,
+		currencyThreeChance: 0,
+		killed: false,
+		equipment: {
+			weapon: equipment.weapons.one,
+			weaponActive: true,
+			chassis: false,
+			motor: false,
+		},
+		description: 'Just Testing 10 enemies',
+		background: EnemyBG4,
+		currentEnemyNumber: 9,
+		buffs: [],
+		debuffs: [],
+	},
+	ten: {
+		name: 'Old Earth Probe TEST 2',
+		miniboss: false,
+		boss: true,
+		health: 5000,
+		shields: 2500,
+		absorb: 350,
+		defense: 0,
+		xp: 1000,
+		type: 'Planet (Small)',
+		currencyOne: 2500,
+		currencyTwo: 3,
+		currencyTwoChance: 2,
+		currencyThree: 0,
+		currencyThreeChance: 0,
+		killed: false,
+		equipment: {
+			weapon: equipment.weapons.one,
+			weaponActive: true,
+			chassis: false,
+			motor: false,
+		},
+		description: 'Just Testing 10 enemies',
+		background: EnemyBG4,
+		currentEnemyNumber: 10,
+		buffs: [],
+		debuffs: [],
 	},
 };
 

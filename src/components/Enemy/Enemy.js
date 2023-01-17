@@ -38,7 +38,6 @@ const colorSelector = {
 function EnemyMesh(currentEnemy) {
 	const ref = useRef();
 	useFrame(() => (ref.current.rotation.y += 0.0006));
-
 	return (
 		<mesh position={[0, 0, 0]} ref={ref}>
 			{/* TODO : change to switch */}
@@ -64,31 +63,33 @@ function EnemyMesh(currentEnemy) {
 	);
 }
 
-export default function Enemy(props) {
+export default function Enemy(currentEnemy) {
 	return (
 		<group>
+			{console.log(currentEnemy.type)}
+
 			<EnemyInfo
 				tier="one"
-				name={props.name}
-				type={props.type}
-				health={props.health}
-				maxHealth={props.maxHealth}
-				shield={props.shield}
-				maxShield={props.maxShield}
-				props={props}
-				xp={props.xp}
-				defense={props.defense}
-				labels={props.labels}
-				buffs={props.buffs}
-				debuffs={props.debuffs}
-				killed={props.killed}
-				currencyOne={props.currencyOne}
-				currencyTwo={props.currencyTwo}
-				currencyTwoChance={props.currencyTwoChance}
-				currencyThree={props.currencyThree}
-				currencyThreeChance={props.currencyThreeChance}
+				name={currentEnemy.name}
+				type={currentEnemy.type}
+				health={currentEnemy.health}
+				maxHealth={currentEnemy.maxHealth}
+				shields={currentEnemy.shields}
+				maxShield={currentEnemy.maxShield}
+				currentEnemy={currentEnemy}
+				xp={currentEnemy.xp}
+				defense={currentEnemy.defense}
+				labels={currentEnemy.labels}
+				buffs={currentEnemy.buffs}
+				debuffs={currentEnemy.debuffs}
+				killed={currentEnemy.killed}
+				currencyOne={currentEnemy.currencyOne}
+				currencyTwo={currentEnemy.currencyTwo}
+				currencyTwoChance={currentEnemy.currencyTwoChance}
+				currencyThree={currentEnemy.currencyThree}
+				currencyThreeChance={currentEnemy.currencyThreeChance}
 			/>
-			<EnemyMesh currentEnemy={props.currentEnemyNumber} />
+			<EnemyMesh currentEnemy={currentEnemy.currentEnemyNumber} />
 		</group>
 	);
 }
