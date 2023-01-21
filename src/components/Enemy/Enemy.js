@@ -66,8 +66,6 @@ function EnemyMesh(currentEnemy) {
 export default function Enemy(currentEnemy) {
 	return (
 		<group>
-			{console.log(currentEnemy.type)}
-
 			<EnemyInfo
 				tier="one"
 				name={currentEnemy.name}

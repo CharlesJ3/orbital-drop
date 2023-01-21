@@ -30,7 +30,6 @@ function EnemyInfo({
 
 	return (
 		<>
-			{console.log(type)}
 			{labels && (
 				<Html className="enemyInfo no-pointer" distanceFactor={30} zIndexRange={[100, 0]}>
 					<div className="enemyInfo__titles">

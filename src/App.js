@@ -115,17 +115,17 @@ function App() {
 		tierTwoDamage: 2,
 		tierTwoName: 'Butterball',
 		tierTwoType: 'Explorer',
-		tierTwoCost: 25,
+		tierTwoCost: 1,
 		tierThreeAmount: 0,
 		tierThreeDamage: 5,
 		tierThreeName: 'Biggie',
 		tierThreeType: 'Tanker',
-		tierThreeCost: 60,
+		tierThreeCost: 25,
 		tierFourAmount: 0,
 		tierFourDamage: 10,
 		tierFourName: 'Butch Deadlift',
 		tierFourType: 'Titan',
-		tierFourCost: 100,
+		tierFourCost: 75,
 	});
 
 	const [settings, updateSettings] = useState({
@@ -203,6 +203,10 @@ function App() {
 		ship4Equipment3: false,
 	});
 
+	const [shipsMenu, updateShipsMenu] = useState({
+		currentOption: 'select',
+	});
+
 	/*
 	 * All functions are defined here
 	 */
@@ -268,7 +272,7 @@ function App() {
 
 	const setEnemy = (enemyNumber) => {
 		checkCurrentEnemy(() => ({
-			name: allEnemies[enemyNumber].currentEnemyNumber,
+			name: allEnemies[enemyNumber].name,
 			boss: allEnemies[enemyNumber].boss,
 			miniboss: allEnemies[enemyNumber].miniboss,
 			health: allEnemies[enemyNumber].health,
@@ -302,7 +306,11 @@ function App() {
 		switch (satellite) {
 			case 1:
 				if (satellites.tierOneCost <= currency.currencyOne) {
-					currency.currencyOne -= satellites.tierOneCost;
+					updateCurrency((prevState, currencyUpdate = prevState.currencyOne - satellites.tierOneCost) => ({
+						...prevState,
+						currencyOne: currencyUpdate,
+					}));
+
 					// Make sure the player has enough currency to buy the satellite
 					setSatellitesState((prevState) => ({
 						...prevState,
@@ -311,56 +319,56 @@ function App() {
 						tierOneName: name,
 						tierOneCost: prevState.tierOneCost * 1.25 + 1.5,
 					}));
-				} else {
-					console.log('Not enough currency');
+
+					console.log(satellites.tierOneCost);
 				}
 				break;
 			case 2:
 				if (satellites.tierTwoCost <= currency.currencyOne) {
-					currency.currencyOne -= satellites.tierTwoCost;
-					// Make sure the player has enough currency to buy the satellite
-					satellites.tierTwoCost <= currency.currencyOne &&
-						setSatellitesState((prevState) => ({
-							...prevState,
-							tierTwoAmount: prevState.tierTwoAmount + amount,
-							tierTwoDamage: prevState.tierTwoDamage + amount,
-							tierTwoName: name,
-							tierTwoCost: prevState.tierTwoCost * 1.25 + 3,
-						}));
-				} else {
-					console.log('Not enough currency');
+					updateCurrency((prevState, currencyUpdate = prevState.currencyOne - satellites.tierTwoCost) => ({
+						...prevState,
+						currencyOne: currencyUpdate,
+					}));
+
+					setSatellitesState((prevState) => ({
+						...prevState,
+						tierTwoAmount: prevState.tierTwoAmount + amount,
+						tierTwoDamage: prevState.tierTwoDamage + amount,
+						tierTwoName: name,
+						tierTwoCost: prevState.tierTwoCost * 1.25 + 3,
+					}));
 				}
 				break;
 			case 3:
 				if (satellites.tierThreeCost <= currency.currencyOne) {
-					currency.currencyOne -= satellites.tierThreeCost;
-					// Make sure the player has enough currency to buy the satellite
-					satellites.tierThreeCost <= currency.currencyOne &&
-						setSatellitesState((prevState) => ({
-							...prevState,
-							tierThreeAmount: prevState.tierThreeAmount + amount,
-							tierThreeDamage: prevState.tierThreeDamage + damage,
-							tierThreeName: name,
-							tierThreeCost: prevState.tierThreeCost * 1.25 + 5,
-						}));
-				} else {
-					console.log('Not enough currency');
+					updateCurrency((prevState, currencyUpdate = prevState.currencyOne - satellites.tierThreeCost) => ({
+						...prevState,
+						currencyOne: currencyUpdate,
+					}));
+
+					setSatellitesState((prevState) => ({
+						...prevState,
+						tierThreeAmount: prevState.tierThreeAmount + amount,
+						tierThreeDamage: prevState.tierThreeDamage + damage,
+						tierThreeName: name,
+						tierThreeCost: prevState.tierThreeCost * 1.25 + 5,
+					}));
 				}
 				break;
 			case 4:
 				if (satellites.tierFourCost <= currency.currencyOne) {
-					currency.currencyOne -= satellites.tierFourCost;
-					// Make sure the player has enough currency to buy the satellite
-					satellites.tierFourCost <= currency.currencyOne &&
-						setSatellitesState((prevState) => ({
-							...prevState,
-							tierFourAmount: prevState.tierFourAmount + amount,
-							tierFourDamage: prevState.tierFourDamage + damage,
-							tierFourName: name,
-							tierFourCost: prevState.tierFourCost * 1.25 + 15,
-						}));
-				} else {
-					console.log('Not enough currency');
+					updateCurrency((prevState, currencyUpdate = prevState.currencyOne - satellites.tierFourCost) => ({
+						...prevState,
+						currencyOne: currencyUpdate,
+					}));
+
+					setSatellitesState((prevState) => ({
+						...prevState,
+						tierFourAmount: prevState.tierFourAmount + amount,
+						tierFourDamage: prevState.tierFourDamage + damage,
+						tierFourName: name,
+						tierFourCost: prevState.tierFourCost * 1.25 + 15,
+					}));
 				}
 				break;
 			default:
@@ -370,6 +378,12 @@ function App() {
 
 	const battleModeSelection = (mode) => {
 		setBattleMode(mode);
+	};
+
+	const shipsMenuOptions = (option) => {
+		updateShipsMenu(() => ({
+			currentOption: option,
+		}));
 	};
 
 	// Store all the satellites in arrays
@@ -454,8 +468,6 @@ function App() {
 	 *  We'll use useEffect to set an interval once and clear it afterwards
 	 */
 	useEffect(() => {
-		console.log(currentEnemy.shields);
-
 		const interval = setInterval(() => {
 			const totalDamage =
 				(satellites.tierOneAmount * satellites.tierOneDamage +
@@ -506,7 +518,6 @@ function App() {
 						<ambientLight intensity={0.5} />
 						<directionalLight position={[250, 25, -25]} intensity={1} />
 						<directionalLight position={[-250, -25, 25]} intensity={1} />
-						{console.log(currentEnemy)}
 						<Enemy
 							currentEnemyNumber={currentEnemy.currentEnemyNumber}
 							name={currentEnemy.name}
@@ -554,6 +565,8 @@ function App() {
 				setSatellites={setSatellites}
 				setEnemy={setEnemy}
 				currentEnemy={currentEnemy}
+				shipsMenuOptions={shipsMenuOptions}
+				currentShipsMenu={shipsMenu}
 			/>
 		</>
 	);
@@ -820,7 +833,7 @@ const allEnemies = {
 			motor: false,
 		},
 		description:
-			'This is not what we expected. Whatever inhabited left eons ago, but we must ensure whatever is alive does not remain so. Were our calculations... incorrect?',
+			'This is not what we expected. Whatever inhabited this place left and we must ensure whatever is alive does not remain so. Were our calculations... incorrect?',
 		background: EnemyBG8,
 		currentEnemyNumber: 4,
 		buffs: [],

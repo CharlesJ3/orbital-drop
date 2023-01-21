@@ -127,6 +127,7 @@ $border-5: rgb(66, 31, 8);
   margin-right: auto;
   top: 53px;
   z-index: 5;
+  cursor: auto;
 
   &__one, &__two, &__three, &__four, &__five {
     width: 36vw;
@@ -160,6 +161,10 @@ $border-5: rgb(66, 31, 8);
 
       &__farm {
         display: initial;
+
+        .farm-section-show {
+          margin-top: 25px;
+        }
       }
 
       &__dungeon {
@@ -427,23 +432,24 @@ $border-5: rgb(66, 31, 8);
 }
 
 .normal, .boss, .miniboss {
-  width: 50%;
-  height: 335px;
+  width: 100%;
+  height: 400px;
   position: absolute;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  bottom: -43px;
+  bottom: 0px;
 
   .centerImage {
-    background-image: url('../../images/FreshEarth.gif');
-    width: 200px;
-    height: 200px;
-    position: relative;
+    width: 175px;
+    height: 150px;
+    position: absolute;
     background-repeat: no-repeat;
     background-size: contain;
-    background-position: center;
+    background-position: unset;
     margin: 0 auto;
+    right: 0;
+    top: 95px;
   }
 
   .title {
@@ -502,18 +508,19 @@ $border-5: rgb(66, 31, 8);
   }
 
   .bottomPanel {
-    position: relative;
+    position: absolute;
+    top: 60px;
+    left: 168px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    width: 98%;
-    justify-content: space-evenly;
-    margin: 0 5px;
-    border: 1px solid red;
+    width: 40%;
+    height: 133px;
+    padding: 25px;
 
     .description {
       color: white;
-      font-size: 1em;
+      font-size: 1.2em;
     }
   }
 }

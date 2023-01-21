@@ -1,7 +1,9 @@
 import React from 'react';
 import './Menu.scss';
 import styled from 'styled-components';
-import { ClampToEdgeWrapping } from 'three';
+import ShipsMenu from '../ShipsMenu/ShipsMenu';
+import ShipsPurchase from '../ShipsPurchase/ShipsPurchase';
+import ShipsSelect from '../ShipsSelect/ShipsSelect';
 
 // Styled Components
 
@@ -25,6 +27,8 @@ const Menu = ({
 	setEnemy,
 	currentEnemy,
 	currentEquipment,
+	shipsMenuOptions,
+	currentShipsMenu,
 }) => {
 	const menuSwitch = (menu) => {
 		switch (menu) {
@@ -459,7 +463,9 @@ const Menu = ({
 					<div className="topPanel">
 						<div className="currentEnemyHealth section">
 							Health <br />
-							<span>{currentEnemy.health}</span>
+							<span>
+								{currentEnemy.health} / {currentEnemy.maxHealth}
+							</span>
 						</div>
 						<div className="currentEnemyShields section">
 							Shields <br />
@@ -470,7 +476,8 @@ const Menu = ({
 							<span>{currentEnemy.absorb}</span>
 						</div>
 					</div>
-					<div className="rightPanel">
+					<div className="rightPanel"></div>
+					<div className="leftPanel">
 						<div className="section">
 							<br />
 							<span>
@@ -482,18 +489,16 @@ const Menu = ({
 							<br />
 							<span>
 								Enemy Research <br />
-								{currentEnemy.currencyTwo} : {currentEnemy.currencyTwoChance}
+								{currentEnemy.currencyTwo} : {currentEnemy.currencyTwoChance} % drop
 							</span>
 						</div>
 						<div className="section">
 							<br />
 							<span>
 								Prestige <br />
-								{currentEnemy.currencyThree} : {currentEnemy.currencyThreeChance}
+								{currentEnemy.currencyThree} : {currentEnemy.currencyThreeChance} % drop
 							</span>
 						</div>
-					</div>
-					<div className="leftPanel">
 						<div className="section">
 							<br />
 							<span>
@@ -559,8 +564,6 @@ const Menu = ({
 			</div>
 		);
 	};
-
-	const selectEnemy = (allEnemies, selectedEnemy) => {};
 
 	return (
 		<div>
@@ -629,12 +632,14 @@ const Menu = ({
 				</div>
 				<div className="menu__two">
 					<div className="menu__two__title">Ships</div>
-					<div className="addSatellites">
-						<button onClick={() => setSatellites(1, 1, 'Test Name')}>Add 1 Tier 1 Ship</button>
-						<button onClick={() => setSatellites(2, 1, 'Test Name')}>Add 1 Tier 2 Ship</button>
-						<button onClick={() => setSatellites(3, 1, 'Test Name')}>Add 1 Tier 3 Ship</button>
-						<button onClick={() => setSatellites(4, 1, 'Test Name')}>Add 1 Tier 4 Ship</button>
-					</div>
+					<ShipsMenu shipsMenuOptions={shipsMenuOptions} currentShipsMenu={currentShipsMenu} />
+					<ShipsPurchase setSatellites={setSatellites} />
+					<ShipsSelect>
+						{/*TODO map through the available ShipsSelectIndividual with a slider (if more than 4 are available). */}{' '}
+					</ShipsSelect>
+					<ShipsSelect> </ShipsSelect>
+					<ShipsSelect> </ShipsSelect>
+
 					{/* <div className="menu__two__content">
 						<section onClick={() => menuSwitchShips(1)}>Mothership</section>
 						<section onClick={() => menuSwitchShips(2)}>Small</section>

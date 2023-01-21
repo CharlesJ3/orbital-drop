@@ -5,7 +5,6 @@ import Menu from '../Menu/Menu';
 import './BottomStats.scss';
 
 function BottomStats({
-	props,
 	currencyOne,
 	currencyTwo,
 	currencyThree,
@@ -22,6 +21,8 @@ function BottomStats({
 	setEnemy,
 	currentEnemy,
 	currentEquipment,
+	shipsMenuOptions,
+	currentShipsMenu,
 }) {
 	return (
 		<div className="bottomStats">
@@ -38,6 +39,8 @@ function BottomStats({
 				setSatellites={setSatellites}
 				setEnemy={setEnemy}
 				currentEnemy={currentEnemy}
+				shipsMenuOptions={shipsMenuOptions}
+				currentShipsMenu={currentShipsMenu}
 			></Menu>
 		</div>
 	);
