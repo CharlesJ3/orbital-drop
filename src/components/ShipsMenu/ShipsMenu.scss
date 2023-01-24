@@ -2,4 +2,27 @@
   display: flex;
   flex-direction: column;
   width: 25%;
+
+  button {
+    background-color: grey;
+    border: 1px solid black;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    height: 40px;
+    transition: .03s ease-in-out;
+
+    &:hover {
+      background-color: green;
+      border: 3px solid black;
+    }
+
+    &:active {
+      background-color: lightgreen;
+      border: 3px solid black;
+    }
+  }
+
+  .active-ship-menu {
+    background-color: rgb(9, 68, 12);
+  }
 }

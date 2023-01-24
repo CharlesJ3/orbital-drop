@@ -259,11 +259,13 @@ function App() {
 
 	// Give experience when leveling
 	const giveExperience = () => {
+		// TODO: Why is this not using the state? Fix immediately.
 		level.currentXP += currentEnemy.xp;
 		levelChecker();
 	};
 
 	// Give resources when killing an enemy
+	// TODO: Why is this not using the state? Fix immediately.
 	const giveResources = () => {
 		currency.currencyOne += currentEnemy.currencyOne;
 		currency.currencyTwo += currentEnemy.currencyTwo;
@@ -317,7 +319,7 @@ function App() {
 						tierOneAmount: prevState.tierOneAmount + amount,
 						tierOneDamage: prevState.tierOneDamage + amount,
 						tierOneName: name,
-						tierOneCost: prevState.tierOneCost * 1.25 + 1.5,
+						tierOneCost: (prevState.tierOneCost * 1.25 + 1.5).toFixed(2),
 					}));
 
 					console.log(satellites.tierOneCost);
@@ -335,7 +337,7 @@ function App() {
 						tierTwoAmount: prevState.tierTwoAmount + amount,
 						tierTwoDamage: prevState.tierTwoDamage + amount,
 						tierTwoName: name,
-						tierTwoCost: prevState.tierTwoCost * 1.25 + 3,
+						tierTwoCost: (prevState.tierTwoCost * 1.25 + 3).toFixed(2),
 					}));
 				}
 				break;
@@ -351,7 +353,7 @@ function App() {
 						tierThreeAmount: prevState.tierThreeAmount + amount,
 						tierThreeDamage: prevState.tierThreeDamage + damage,
 						tierThreeName: name,
-						tierThreeCost: prevState.tierThreeCost * 1.25 + 5,
+						tierThreeCost: (prevState.tierThreeCost * 1.25 + 5).toFixed(2),
 					}));
 				}
 				break;
@@ -367,7 +369,7 @@ function App() {
 						tierFourAmount: prevState.tierFourAmount + amount,
 						tierFourDamage: prevState.tierFourDamage + damage,
 						tierFourName: name,
-						tierFourCost: prevState.tierFourCost * 1.25 + 15,
+						tierFourCost: (prevState.tierFourCost * 1.25 + 15).toFixed(2),
 					}));
 				}
 				break;
@@ -475,6 +477,7 @@ function App() {
 					satellites.tierThreeAmount * satellites.tierThreeDamage +
 					satellites.tierFourAmount * satellites.tierFourDamage) *
 				1;
+			// TODO: When a shield is depleted, take the remainder of that damage and apply it to the health
 			if (currentEnemy.shields > 0 && totalDamage > 0) {
 				checkCurrentEnemy((prevState) => ({
 					...prevState,
@@ -567,6 +570,7 @@ function App() {
 				currentEnemy={currentEnemy}
 				shipsMenuOptions={shipsMenuOptions}
 				currentShipsMenu={shipsMenu}
+				satellites={satellites}
 			/>
 		</>
 	);
@@ -609,6 +613,8 @@ const tierTwoSatellites = {
 	one: {
 		name: 'Cheap Small Ship',
 		baseDamage: 1,
+		baseDefense: 1,
+		baseHealth: 1,
 		active: false,
 		description: 'This was given to us to begin our journey.',
 		equipment: [false, false, false],
@@ -619,6 +625,8 @@ const tierTwoSatellites = {
 	two: {
 		name: 'Pet Small Ship',
 		baseDamage: 2,
+		baseDefense: 1,
+		baseHealth: 1,
 		active: false,
 		description: 'This was given to us to begin our journey.',
 		equipment: [false, false, false],
@@ -629,8 +637,34 @@ const tierTwoSatellites = {
 	three: {
 		name: 'Boring Small Ship',
 		baseDamage: 3,
+		baseDefense: 1,
+		baseHealth: 1,
 		active: false,
 		description: 'This was given to us to begin our journey.',
+		equipment: [true, false, false],
+		resource: 'destruction',
+		resourceCost: 50,
+		image: EnemyBG1,
+	},
+	four: {
+		name: 'Decent Small Ship',
+		baseDamage: 4,
+		baseDefense: 1,
+		baseHealth: 1,
+		active: false,
+		description: 'TODO: Need Description',
+		equipment: [true, false, false],
+		resource: 'destruction',
+		resourceCost: 50,
+		image: EnemyBG1,
+	},
+	five: {
+		name: 'Testing Small Ship',
+		baseDamage: 5,
+		baseDefense: 1,
+		baseHealth: 1,
+		active: false,
+		description: 'TODO: Need Description',
 		equipment: [true, false, false],
 		resource: 'destruction',
 		resourceCost: 50,
@@ -642,6 +676,8 @@ const tierThreeSatellites = {
 	one: {
 		name: 'Cheap Large Ship',
 		baseDamage: 10,
+		baseDefense: 1,
+		baseHealth: 1,
 		active: false,
 		description: 'This was given to us to begin our journey.',
 		equipment: [false, false, false],
@@ -652,6 +688,8 @@ const tierThreeSatellites = {
 	two: {
 		name: 'Pet Large Ship',
 		baseDamage: 25,
+		baseDefense: 1,
+		baseHealth: 1,
 		active: false,
 		description: 'This was given to us to begin our journey.',
 		equipment: [false, false, false],
@@ -662,6 +700,32 @@ const tierThreeSatellites = {
 	three: {
 		name: 'Boring Large Ship',
 		baseDamage: 50,
+		baseDefense: 1,
+		baseHealth: 1,
+		active: false,
+		description: 'This was given to us to begin our journey.',
+		equipment: [true, false, false],
+		resource: 'destruction',
+		resourceCost: 50,
+		image: EnemyBG1,
+	},
+	four: {
+		name: 'Decent Large Ship',
+		baseDamage: 50,
+		baseDefense: 1,
+		baseHealth: 1,
+		active: false,
+		description: 'This was given to us to begin our journey.',
+		equipment: [true, false, false],
+		resource: 'destruction',
+		resourceCost: 50,
+		image: EnemyBG1,
+	},
+	five: {
+		name: 'Test Large Ship',
+		baseDamage: 50,
+		baseDefense: 1,
+		baseHealth: 1,
 		active: false,
 		description: 'This was given to us to begin our journey.',
 		equipment: [true, false, false],
@@ -675,6 +739,8 @@ const tierFourSatellites = {
 	one: {
 		name: 'Cheap Titan Ship',
 		baseDamage: 100,
+		baseDefense: 1,
+		baseHealth: 1,
 		active: false,
 		description: 'This was given to us to begin our journey.',
 		equipment: [false, false, false],
@@ -685,6 +751,8 @@ const tierFourSatellites = {
 	two: {
 		name: 'Pet Titan Ship',
 		baseDamage: 250,
+		baseDefense: 1,
+		baseHealth: 1,
 		active: false,
 		description: 'This was given to us to begin our journey.',
 		equipment: [false, false, false],
@@ -695,6 +763,32 @@ const tierFourSatellites = {
 	three: {
 		name: 'Boring Titan Ship',
 		baseDamage: 500,
+		baseDefense: 1,
+		baseHealth: 1,
+		active: false,
+		description: 'This was given to us to begin our journey.',
+		equipment: [true, false, false],
+		resource: 'destruction',
+		resourceCost: 50,
+		image: EnemyBG1,
+	},
+	four: {
+		name: 'Decent Titan Ship',
+		baseDamage: 50,
+		baseDefense: 1,
+		baseHealth: 1,
+		active: false,
+		description: 'This was given to us to begin our journey.',
+		equipment: [true, false, false],
+		resource: 'destruction',
+		resourceCost: 50,
+		image: EnemyBG1,
+	},
+	five: {
+		name: 'OK Titan Ship',
+		baseDamage: 50,
+		baseDefense: 1,
+		baseHealth: 1,
 		active: false,
 		description: 'This was given to us to begin our journey.',
 		equipment: [true, false, false],

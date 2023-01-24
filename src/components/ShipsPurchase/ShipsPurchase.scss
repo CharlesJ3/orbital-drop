@@ -1,0 +1,46 @@
+@keyframes pulse {
+  0% {
+    border: 1px solid black;
+  }
+  50% {
+    border: 1px solid green;
+  }
+  100% {
+    border: 1px solid black;
+  }
+}
+
+.ships-purchase {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-self: end;
+
+  button {
+    background-color: grey;
+    border: 1px solid black;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    height: 120px;
+    transition: .03s ease-in-out;
+    width: 30%;
+  }
+
+  &__cost {
+    font-size: 1.5em;
+  }
+
+  .purchase {
+    animation: pulse 3s infinite ease-in-out;
+    background-color: rgba(12, 102, 29, 0.5);
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  .no-purchase {
+    background-color: rgba(141, 7, 7, 0.5);
+    border: 1px solid red;
+    opacity: .75;
+    cursor: not-allowed;
+  }
+}

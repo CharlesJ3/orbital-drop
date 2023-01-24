@@ -23,6 +23,7 @@ function BottomStats({
 	currentEquipment,
 	shipsMenuOptions,
 	currentShipsMenu,
+	satellites,
 }) {
 	return (
 		<div className="bottomStats">
@@ -41,6 +42,10 @@ function BottomStats({
 				currentEnemy={currentEnemy}
 				shipsMenuOptions={shipsMenuOptions}
 				currentShipsMenu={currentShipsMenu}
+				satellites={satellites}
+				currencyOne={currencyOne}
+				currencyTwo={currencyTwo}
+				currencyThree={currencyThree}
 			></Menu>
 		</div>
 	);

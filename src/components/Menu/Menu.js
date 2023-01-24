@@ -6,7 +6,6 @@ import ShipsPurchase from '../ShipsPurchase/ShipsPurchase';
 import ShipsSelect from '../ShipsSelect/ShipsSelect';
 
 // Styled Components
-
 const Button = styled.button`
 	background: transparent;
 	border-radius: 3px;
@@ -29,6 +28,10 @@ const Menu = ({
 	currentEquipment,
 	shipsMenuOptions,
 	currentShipsMenu,
+	satellites,
+	currencyOne,
+	currencyTwo,
+	currencyThree,
 }) => {
 	const menuSwitch = (menu) => {
 		switch (menu) {
@@ -323,6 +326,33 @@ const Menu = ({
 		}
 	};
 
+	{
+		/* <div className="shipSectionInternal__title">
+	<div>{ship.name}</div>
+</div>
+<div className="shipSectionInternal__image" style={{ backgroundImage: `url(${ship.image})` }}></div>
+<div className="shipSectionInternal__info">
+	<div>
+		{' '}
+		<span className="infoTitle">Damage: </span> <br />
+		{ship.baseDamage}
+	</div>
+	<div>
+		{' '}
+		<span className="infoTitle">Active? </span> <br />
+		{ship.active ? 'Yes' : 'No'}
+	</div>
+	<div>
+		{' '}
+		<span className="infoTitle">Damage: </span> <br />
+		{ship.baseDamage}
+	</div>
+</div>
+<div className="shipSectionInternal__description">
+	<div>{ship.description}</div>
+</div> */
+	}
+
 	// Enemies
 	const iterateEnemies = (allEnemies) => {
 		const enemyList = [];
@@ -409,47 +439,6 @@ const Menu = ({
 		}
 
 		return <div className="enemyList">{enemyList}</div>;
-	};
-
-	const iterateShips = (ships) => {
-		const shipList = [];
-
-		for (const check in ships) {
-			if (ships.hasOwnProperty(check)) {
-				const ship = ships[check];
-
-				shipList.push(
-					<div key={ship.name} className="shipSectionInternal">
-						<div className="shipSectionInternal__title">
-							<div>{ship.name}</div>
-						</div>
-						<div className="shipSectionInternal__image" style={{ backgroundImage: `url(${ship.image})` }}></div>
-						<div className="shipSectionInternal__info">
-							<div>
-								{' '}
-								<span className="infoTitle">Damage: </span> <br />
-								{ship.baseDamage}
-							</div>
-							<div>
-								{' '}
-								<span className="infoTitle">Active? </span> <br />
-								{ship.active ? 'Yes' : 'No'}
-							</div>
-							<div>
-								{' '}
-								<span className="infoTitle">Damage: </span> <br />
-								{ship.baseDamage}
-							</div>
-						</div>
-						<div className="shipSectionInternal__description">
-							<div>{ship.description}</div>
-						</div>
-					</div>
-				);
-			}
-		}
-
-		return <div className="shipList">{shipList}</div>;
 	};
 
 	const currentSelectedEnemy = (currentEnemy) => {
@@ -631,15 +620,24 @@ const Menu = ({
 					</div>
 				</div>
 				<div className="menu__two">
-					<div className="menu__two__title">Ships</div>
-					<ShipsMenu shipsMenuOptions={shipsMenuOptions} currentShipsMenu={currentShipsMenu} />
-					<ShipsPurchase setSatellites={setSatellites} />
-					<ShipsSelect>
-						{/*TODO map through the available ShipsSelectIndividual with a slider (if more than 4 are available). */}{' '}
-					</ShipsSelect>
-					<ShipsSelect> </ShipsSelect>
-					<ShipsSelect> </ShipsSelect>
-
+					<div className="menu__two__menu_purchase_wrapper">
+						<ShipsMenu
+							shipsMenuOptions={shipsMenuOptions}
+							currentShipsMenu={currentShipsMenu}
+							satellites={satellites}
+						/>
+						<ShipsPurchase
+							setSatellites={setSatellites}
+							satellites={satellites}
+							currencyOne={currencyOne}
+							currencyTwo={currencyTwo}
+							currencyThree={currencyThree}
+						/>
+						<div className="menu__two__title">Ships</div>
+					</div>
+					<ShipsSelect tierSatellites={tierTwoSatellites} />
+					<ShipsSelect tierSatellites={tierThreeSatellites} />
+					<ShipsSelect tierSatellites={tierFourSatellites} />
 					{/* <div className="menu__two__content">
 						<section onClick={() => menuSwitchShips(1)}>Mothership</section>
 						<section onClick={() => menuSwitchShips(2)}>Small</section>

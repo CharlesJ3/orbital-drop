@@ -234,6 +234,12 @@ $border-5: rgb(66, 31, 8);
     border: 1px solid $border-2;
     background-color: $main-2;
 
+    &__menu_purchase_wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+
     &__content {
       display: flex;
       text-align: center;

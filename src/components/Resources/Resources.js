@@ -5,13 +5,13 @@ function Resources({ currencyOne, currencyTwo, currencyThree }) {
 	return (
 		<div className="resources">
 			<span>
-				Research Points <br /> <span>{currencyOne}</span>
+				Research Points <br /> <span>{currencyOne.toFixed(0)}</span>
 			</span>
 			<span>
-				Talent Points <br /> <span>{currencyTwo === 0 ? currencyTwo : '0'}</span>
+				Talent Points <br /> <span>{currencyTwo === 0 ? currencyTwo.toFixed(0) : '0'}</span>
 			</span>
 			<span>
-				Prestige Points <br /> <span>{currencyThree === 0 ? currencyThree : '0'}</span>
+				Prestige Points <br /> <span>{currencyThree === 0 ? currencyThree.toFixed(0) : '0'}</span>
 			</span>
 		</div>
 	);

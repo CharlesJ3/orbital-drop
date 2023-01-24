@@ -1,0 +1,134 @@
+:root {
+  --rt-color-white: #fff;
+  --rt-color-dark: #444;
+  --rt-color-success: #8dc572;
+  --rt-color-error: #be6464;
+  --rt-color-warning: #f0ad4e;
+  --rt-color-info: #337ab7;
+  --rt-opacity: 1;
+}
+
+//Tooltips here are customized for individual ships
+.styles-module_tooltip__mnnfp {
+  visibility: hidden;
+  width: max-content;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 8px 16px;
+  border-radius: 3px;
+  font-size: 90%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+  will-change: opacity, visibility;
+  text-shadow: 2px 2px 1px black;
+  position: absolute;
+  height: 150px;
+  width: 250px;
+}
+
+
+.styles-module_arrow__K0L3T {
+  position: absolute;
+  background: inherit;
+  width: 8px;
+  height: 8px;
+  transform: rotate(45deg);
+}
+
+.styles-module_no-arrow__KcFZN {
+  display: none;
+}
+
+.styles-module_clickable__Bv9o7 {
+  pointer-events: auto;
+}
+
+.styles-module_show__2NboJ {
+  visibility: visible;
+  opacity: var(--rt-opacity);
+  z-index: 1000;
+}
+
+.styles-module_dark__xNqje {
+  background: var(--rt-color-dark);
+  color: var(--rt-color-white);
+}
+
+.shipSectionInternal  {
+  border: 3px solid red;
+  padding: 0% 1%;
+  width: 20%;
+  border-radius: 50%;
+  margin-top: 5%;
+  margin-bottom: 7px;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  background-position: center top;
+  position: relative;
+
+  .ship-details-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 109%;
+    margin: 0 auto;
+    justify-content: space-between;
+    margin-top: 0px;
+    margin-left: -6px;
+    height: 100%;
+    clip-path: circle(50.0% at 50% 50%);
+    align-items: center;
+
+    .ship-details {
+      height: 140px;
+      align-content: center;
+      display: flex;
+      flex-wrap: wrap;
+      width: 50%;
+      text-align: center;
+      margin: 0 auto;
+      justify-content: center;
+    }
+
+    .ship-damage {
+      border-top-left-radius: 50%;
+      border-bottom-left-radius: 50%;
+      border: none;
+      background-color: rgba(255, 0, 0, 0.15);
+    }
+
+    .ship-defense {
+      border-top-right-radius: 50%;
+      border-bottom-right-radius: 50%;
+      border: 1px solid red;
+      border: none;
+      background-color: rgba(0, 0, 255, 0.15);
+    }
+
+  }
+
+  .ship-name {
+    position: absolute;
+    left: -5px;
+    top: -25px;
+    width: 147px;
+    height: 34px;
+    font-size: .9em;
+  }
+}
+
+.tooltip-internals {
+
+  &__offense {
+    .highlight-tooltip{
+      background-color: rgba(255, 0, 0, 0.15);
+    }
+  }
+
+  &__defense {
+    .highlight-tooltip{
+      background-color: rgba(0, 0, 255, 0.15);
+    }
+  }
+}
