@@ -24,6 +24,10 @@ function BottomStats({
 	shipsMenuOptions,
 	currentShipsMenu,
 	satellites,
+	allEquipment,
+	activeTalents,
+	allTalents,
+	updateTalents,
 }) {
 	return (
 		<div className="bottomStats">
@@ -46,6 +50,10 @@ function BottomStats({
 				currencyOne={currencyOne}
 				currencyTwo={currencyTwo}
 				currencyThree={currencyThree}
+				allEquipment={allEquipment}
+				activeTalents={activeTalents}
+				allTalents={allTalents}
+				updateTalents={updateTalents}
 			></Menu>
 		</div>
 	);

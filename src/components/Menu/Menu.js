@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import ShipsMenu from '../ShipsMenu/ShipsMenu';
 import ShipsPurchase from '../ShipsPurchase/ShipsPurchase';
 import ShipsSelect from '../ShipsSelect/ShipsSelect';
+import ShipsEquip from '../ShipsEquip/ShipsEquip';
+import ShipsStats from '../ShipsStats/ShipsStats';
+import Talents from '../Talents/Talents';
+import Auras from '../Auras/Auras';
 
 // Styled Components
 const Button = styled.button`
@@ -32,6 +36,10 @@ const Menu = ({
 	currencyOne,
 	currencyTwo,
 	currencyThree,
+	allEquipment,
+	activeTalents,
+	allTalents,
+	updateTalents,
 }) => {
 	const menuSwitch = (menu) => {
 		switch (menu) {
@@ -326,33 +334,6 @@ const Menu = ({
 		}
 	};
 
-	{
-		/* <div className="shipSectionInternal__title">
-	<div>{ship.name}</div>
-</div>
-<div className="shipSectionInternal__image" style={{ backgroundImage: `url(${ship.image})` }}></div>
-<div className="shipSectionInternal__info">
-	<div>
-		{' '}
-		<span className="infoTitle">Damage: </span> <br />
-		{ship.baseDamage}
-	</div>
-	<div>
-		{' '}
-		<span className="infoTitle">Active? </span> <br />
-		{ship.active ? 'Yes' : 'No'}
-	</div>
-	<div>
-		{' '}
-		<span className="infoTitle">Damage: </span> <br />
-		{ship.baseDamage}
-	</div>
-</div>
-<div className="shipSectionInternal__description">
-	<div>{ship.description}</div>
-</div> */
-	}
-
 	// Enemies
 	const iterateEnemies = (allEnemies) => {
 		const enemyList = [];
@@ -635,168 +616,34 @@ const Menu = ({
 						/>
 						<div className="menu__two__title">Ships</div>
 					</div>
-					<ShipsSelect tierSatellites={tierTwoSatellites} />
-					<ShipsSelect tierSatellites={tierThreeSatellites} />
-					<ShipsSelect tierSatellites={tierFourSatellites} />
-					{/* <div className="menu__two__content">
-						<section onClick={() => menuSwitchShips(1)}>Mothership</section>
-						<section onClick={() => menuSwitchShips(2)}>Small</section>
-						<section onClick={() => menuSwitchShips(3)}>Large</section>
-						<section onClick={() => menuSwitchShips(4)}>Titan</section>
-					</div>
-					<div className="addSatellites">
-						<button onClick={() => setSatellites(1, 1, 'Test Name')}>Add 1 Tier 1 Ship</button>
-						<button onClick={() => setSatellites(2, 1, 'Test Name')}>Add 1 Tier 2 Ship</button>
-						<button onClick={() => setSatellites(3, 1, 'Test Name')}>Add 1 Tier 3 Ship</button>
-						<button onClick={() => setSatellites(4, 1, 'Test Name')}>Add 1 Tier 4 Ship</button>
-					</div>
-					<div className="shipOne shipSection">
-						{iterateShips(tierOneSatellites)}
-						<div className="shipSection__details">
-							<div className="pages">PLACEHOLDER 1/5</div>
-							<div className="title">Equipment</div>
-							<div className="equipment">
-								<div className="equipmentOne">
-									<div className="equipmentTitle">Weapon</div>
-									<br />
-									<div className="piece">
-										{currentEquipment.ship1Equipment1 !== false
-											? currentEquipment.ship1Equipment1
-											: 'No Equipment Available'}
-									</div>
-								</div>
-								<div className="equipmentTwo">
-									<div className="equipmentTitle">Chassis</div>
-									<br />
-									<div className="piece">
-										{currentEquipment.ship1Equipment2 !== false
-											? currentEquipment.ship1Equipment2
-											: 'No Equipment Available'}
-									</div>
-								</div>
-								<div className="equipmentThree">
-									<div className="equipmentTitle">Motor</div>
-									<br />
-									<div className="piece">
-										{currentEquipment.ship1Equipment3 !== false
-											? currentEquipment.ship1Equipment3
-											: 'No Equipment Available'}
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div className="shipTwo shipSection">
-						{iterateShips(tierTwoSatellites)}
-						<div className="shipSection__details">
-							<div className="pages">PLACEHOLDER 1/5</div>
-							<div className="title">Equipment</div>
-							<div className="equipment">
-								<div className="equipmentOne">
-									<div className="equipmentTitle">Weapon</div>
-									<br />
-									<div className="piece">
-										{currentEquipment.ship2Equipment1 !== false
-											? currentEquipment.ship2Equipment1
-											: 'No Equipment Available'}
-									</div>
-								</div>
-								<div className="equipmentTwo">
-									<div className="equipmentTitle">Chassis</div>
-									<br />
-									<div className="piece">
-										{currentEquipment.ship2Equipment2 !== false
-											? currentEquipment.ship2Equipment2
-											: 'No Equipment Available'}
-									</div>
-								</div>
-								<div className="equipmentThree">
-									<div className="equipmentTitle">Motor</div>
-									<br />
-									<div className="piece">
-										{currentEquipment.ship2Equipment3 !== false
-											? currentEquipment.ship2Equipment3
-											: 'No Equipment Available'}
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div className="shipThree shipSection">
-						{iterateShips(tierThreeSatellites)}
-						<div className="shipSection__details">
-							<div className="pages">PLACEHOLDER 1/5</div>
-							<div className="title">Equipment</div>
-							<div className="equipment">
-								<div className="equipmentOne">
-									<div className="equipmentTitle">Weapon</div>
-									<br />
-									<div className="piece">
-										{currentEquipment.ship3Equipment1 !== false
-											? currentEquipment.ship3Equipment1
-											: 'No Equipment Available'}
-									</div>
-								</div>
-								<div className="equipmentTwo">
-									<div className="equipmentTitle">Chassis</div>
-									<br />
-									<div className="piece">
-										{currentEquipment.ship3Equipment2 !== false
-											? currentEquipment.ship3Equipment2
-											: 'No Equipment Available'}
-									</div>
-								</div>
-								<div className="equipmentThree">
-									<div className="equipmentTitle">Motor</div>
-									<br />
-									<div className="piece">
-										{currentEquipment.ship3Equipment3 !== false
-											? currentEquipment.ship3Equipment3
-											: 'No Equipment Available'}
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div className="shipFour shipSection">
-						{iterateShips(tierFourSatellites)}
-						<div className="shipSection__details">
-							<div className="pages">PLACEHOLDER 1/5</div>
-							<div className="title">Equipment</div>
-							<div className="equipment">
-								<div className="equipmentOne">
-									<div className="equipmentTitle">Weapon</div>
-									<br />
-									<div className="piece">
-										{currentEquipment.ship4Equipment1 !== false
-											? currentEquipment.ship4Equipment1
-											: 'No Equipment Available'}
-									</div>
-								</div>
-								<div className="equipmentTwo">
-									<div className="equipmentTitle">Chassis</div>
-									<br />
-									<div className="piece">
-										{currentEquipment.ship4Equipment2 !== false
-											? currentEquipment.ship4Equipment2
-											: 'No Equipment Available'}
-									</div>
-								</div>
-								<div className="equipmentThree">
-									<div className="equipmentTitle">Motor</div>
-									<br />
-									<div className="piece">
-										{currentEquipment.ship4Equipment3 !== false
-											? currentEquipment.ship4Equipment3
-											: 'No Equipment Available'}
-									</div>
-								</div>
-							</div>
-						</div>
-					</div> */}
+					{currentShipsMenu.currentOption === 'select' ? (
+						<>
+							<ShipsSelect tierSatellites={tierTwoSatellites} />
+							<ShipsSelect tierSatellites={tierThreeSatellites} />
+							<ShipsSelect tierSatellites={tierFourSatellites} />
+						</>
+					) : null}
+					{currentShipsMenu.currentOption === 'equip' ? (
+						<>
+							<ShipsEquip allEquipment={allEquipment.tierTwo} />
+							<ShipsEquip allEquipment={allEquipment.tierThree} />
+							<ShipsEquip allEquipment={allEquipment.tierFour} />
+						</>
+					) : null}
+					{currentShipsMenu.currentOption === 'stats' ? (
+						<>
+							<ShipsStats />
+							<ShipsStats />
+							<ShipsStats />
+						</>
+					) : null}
 				</div>
-				<div className="menu__three"></div>
-				<div className="menu__four"></div>
+				<div className="menu__three">
+					<Talents activeTalents={activeTalents} allTalents={allTalents} updateTalents={updateTalents} />
+				</div>
+				<div className="menu__four">
+					<Auras />
+				</div>
 				<div className="menu__five"></div>
 			</div>
 		</div>

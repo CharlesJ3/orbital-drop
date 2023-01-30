@@ -1,0 +1,106 @@
+.talent-section {
+  width: 50%;
+  height: 348px;
+
+  // #classOne {
+
+  // }
+
+  // #classTwo {
+
+  // }
+
+  // #classThree {
+
+  // }
+
+  // #classFour {
+
+  // }
+}
+
+.classOne {
+  border-bottom: 1px solid green;
+  border-right: 1px solid green;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  .talent_title {
+    color: white;
+    font-size: 1.35em;
+    text-align: center;
+    left: 23px;
+    margin-top: 84px;
+    transform: rotate(-45deg);
+    text-transform: uppercase;
+    position: absolute;
+    border: 2px solid white;
+    padding: 0 2%;
+    background-color: black;
+  }
+}
+
+.classTwo {
+  border-bottom: 1px solid green;
+  border-left: 1px solid green;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  .talent_title {
+    color: white;
+    font-size: 1.35em;
+    text-align: center;
+    right: 5px;
+    top: 118px;
+    transform: rotate(45deg);
+    text-transform: uppercase;
+    position: absolute;
+    border: 2px solid white;
+    padding: 0 2%;
+    background-color: black;
+  }
+}
+
+.classThree {
+  border-top: 1px solid green;
+  border-right: 1px solid green;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  .talent_title {
+    color: white;
+    font-size: 1.35em;
+    text-align: center;
+    right: 21px;
+    margin-top: 261px;
+    transform: rotate(-45deg);
+    text-transform: uppercase;
+    position: absolute;
+    border: 2px solid white;
+    padding: 0 2%;
+    background-color: black;
+  }
+}
+
+.classFour {
+  border-top: 1px solid green;
+  border-left: 1px solid green;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  .talent_title {
+    color: white;
+    font-size: 1.35em;
+    text-align: center;
+    left: 25px;
+    bottom: 251px;
+    transform: rotate(45deg);
+    text-transform: uppercase;
+    position: absolute;
+    border: 2px solid white;
+    padding: 0 2%;
+    background-color: black;
+  }
+}
+
+

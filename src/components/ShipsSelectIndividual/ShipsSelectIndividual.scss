@@ -8,6 +8,51 @@
   --rt-opacity: 1;
 }
 
+@keyframes border {
+  0% {
+    border-top: 3px solid red;
+    border-right: 3px solid green;
+    border-bottom: 3px solid green;
+    border-left: 3px solid green;
+  }
+  25% {
+    border-top: 3px solid green;
+    border-right: 3px solid red;
+    border-bottom: 3px solid green;
+    border-left: 3px solid green;
+  }
+  50% {
+    border-top: 3px solid green;
+    border-right: 3px solid green;
+    border-bottom: 3px solid red;
+    border-left: 3px solid green;
+  }
+  75% {
+    border-top: 3px solid green;
+    border-right: 3px solid green;
+    border-bottom: 3px solid green;
+    border-left: 3px solid red;
+  }
+  100% {
+    border-top: 3px solid red;
+    border-right: 3px solid green;
+    border-bottom: 3px solid green;
+    border-left: 3px solid green;
+  }
+}
+
+@keyframes boxShadow {
+  0% {
+    box-shadow: 0 0 0 25px green ;
+  }
+  75% {
+    box-shadow: 0 0 0 15px rgba(0, 0, 0, 1);
+  }
+  100% {
+    box-shadow: 0 0 0 5px rgba(0, 0, 0, .5);
+  }
+}
+
 //Tooltips here are customized for individual ships
 .styles-module_tooltip__mnnfp {
   visibility: hidden;
@@ -26,8 +71,8 @@
   position: absolute;
   height: 150px;
   width: 250px;
+  animation: boxShadow 2.5s ease-in infinite;
 }
-
 
 .styles-module_arrow__K0L3T {
   position: absolute;
@@ -67,6 +112,12 @@
   background-repeat: no-repeat;
   background-position: center top;
   position: relative;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    border: 3px solid green;
+  }
 
   .ship-details-wrapper {
     display: flex;

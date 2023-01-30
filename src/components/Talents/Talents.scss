@@ -1,0 +1,15 @@
+.talents {
+  width: 97%;
+  border-radius: 50%;
+  height: 700px;
+  border: 1px solid red;
+  margin: 25px auto 2px auto;
+
+  .talents__top-row {
+    display: flex;
+  }
+
+  .talents__bottom-row {
+    display: flex;
+  }
+}

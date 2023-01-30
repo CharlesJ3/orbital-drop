@@ -1,6 +1,5 @@
 import React from 'react';
 import './ShipsSelectIndividual.scss';
-//To use JSX in the tooltip we need to use the ReactDOMServer.renderToString() method
 import ReactDOMServer from 'react-dom/server';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 
@@ -11,7 +10,6 @@ function ShipSelectIndividual({ ship }) {
 
 	return (
 		<div key={ship.name} className="shipSectionInternal" style={backgroundStyle}>
-			{console.log(ship)}
 			<span className="ship-details ship-name">{ship.name}</span>
 			<div className="ship-details-wrapper">
 				<div
