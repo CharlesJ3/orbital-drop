@@ -40,6 +40,9 @@ const Menu = ({
 	activeTalents,
 	allTalents,
 	updateTalents,
+	allAuras,
+	activeAuras,
+	updateAuras,
 }) => {
 	const menuSwitch = (menu) => {
 		switch (menu) {
@@ -642,7 +645,7 @@ const Menu = ({
 					<Talents activeTalents={activeTalents} allTalents={allTalents} updateTalents={updateTalents} />
 				</div>
 				<div className="menu__four">
-					<Auras />
+					<Auras allAuras={allAuras} activeAuras={activeAuras} updateAuras={updateAuras} />
 				</div>
 				<div className="menu__five"></div>
 			</div>

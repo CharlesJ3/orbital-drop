@@ -1,14 +1,16 @@
-import { Canvas, useThree } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Stars, PerspectiveCamera, Stats } from '@react-three/drei';
 import React, { Suspense, useState, useEffect } from 'react';
 import './App.scss';
 import BottomStats from './components/BottomStats/BottomStats';
 import Enemy from './components/Enemy/Enemy';
+import DungeonEnemies from './components/DungeonEnemies/DungeonEnemies';
 import SatelliteOne from './components/Satellites/SatelliteOne';
 import SatelliteTwo from './components/Satellites/SatelliteTwo';
 import SatelliteThree from './components/Satellites/SatelliteThree';
 import SatelliteFour from './components/Satellites/SatelliteFour';
 import Settings from './components/Settings/Settings';
+import { Vector3 } from 'three';
 
 // Enemy Backgrounds
 import EnemyBG1 from './images/Enemy1.gif';
@@ -20,10 +22,15 @@ import EnemyBG6 from './images/Enemy6.gif';
 import EnemyBG7 from './images/Enemy7.gif';
 import EnemyBG8 from './images/Enemy8.gif';
 
-// Icons
+// Icons for talents
 import talentNotAvailable from './images/TempIconNoPurchase.png';
 import talentAvailable from './images/TempIconPurchaseAndActive.png';
 import talentIconAvailableAndActive from './images/TempIconPurchaseAndActive.png';
+
+// Icons for auras
+import auraNotAvailable from './images/TempIconNoPurchase.png';
+import auraAvailable from './images/TempIconPurchaseAndActive.png';
+import auraIconAvailableAndActive from './images/TempIconPurchaseAndActive.png';
 
 function App() {
 	/*
@@ -93,28 +100,36 @@ function App() {
 	});
 
 	const [battleMode, setBattleMode] = useState({
-		battleMode: 'farm',
+		battleMode: 'dungeon',
+	});
+
+	const [dungeons, setDungeon] = useState({
+		currentDungeon: 'dungeonOne',
+	});
+
+	const [dungeonPositions, setDungeonPositions] = useState({
+		currentDungeonPosition: new Vector3(0, 0, 0),
 	});
 
 	// Our satellite information is stored here.
 	// TODO: research if this is better to split into multiple hooks
 	const [satellites, setSatellitesState] = useState({
-		tierOneAmount: 1,
+		tierOneAmount: 5,
 		tierOneDamage: 1,
 		tierOneName: 'Shippy',
 		tierOneType: 'Main',
 		tierOneCost: 1,
-		tierTwoAmount: 0,
+		tierTwoAmount: 5,
 		tierTwoDamage: 2,
 		tierTwoName: 'Butterball',
 		tierTwoType: 'Explorer',
 		tierTwoCost: 1,
-		tierThreeAmount: 0,
+		tierThreeAmount: 5,
 		tierThreeDamage: 5,
 		tierThreeName: 'Biggie',
 		tierThreeType: 'Tanker',
 		tierThreeCost: 25,
-		tierFourAmount: 0,
+		tierFourAmount: 5,
 		tierFourDamage: 10,
 		tierFourName: 'Butch Deadlift',
 		tierFourType: 'Titan',
@@ -128,7 +143,6 @@ function App() {
 		labelScale: true,
 	});
 
-	// FARMING
 	const [currentEnemy, checkCurrentEnemy] = useState({
 		name: 'Simulated Earth',
 		boss: false,
@@ -158,6 +172,7 @@ function App() {
 		currentEnemyNumber: 1,
 		buffs: [],
 		debuffs: [],
+		dungeonLocation: [0, 0, 0],
 	});
 
 	const [level, levelCheck] = useState({
@@ -204,7 +219,7 @@ function App() {
 		classOne: {
 			talentOne: true,
 			talentOneCurrent: 0,
-			talentTwo: false,
+			talentTwo: true,
 			talentTwoCurrent: 0,
 			talentThree: false,
 			talentThreeCurrent: 0,
@@ -323,6 +338,71 @@ function App() {
 		},
 	});
 
+	const [activeAuras, updateActiveAuras] = useState({
+		auraSmall: {
+			auraOne: {
+				active: false,
+				current: null,
+			},
+			auraTwo: {
+				active: false,
+				current: null,
+			},
+			auraThree: {
+				active: false,
+				current: null,
+			},
+			auraFour: {
+				active: false,
+				current: null,
+			},
+			auraFive: {
+				active: false,
+				current: null,
+			},
+			auraSix: {
+				active: false,
+				current: null,
+			},
+			auraSeven: {
+				active: false,
+				current: null,
+			},
+			auraEight: {
+				active: false,
+				current: null,
+			},
+		},
+		auraMedium: {
+			auraNine: {
+				active: false,
+				current: null,
+			},
+			auraTen: {
+				active: false,
+				current: null,
+			},
+			auraEleven: {
+				active: false,
+				current: null,
+			},
+			auraTwelve: {
+				active: false,
+				current: null,
+			},
+		},
+		auraLarge: {
+			auraThirteen: {
+				active: false,
+				current: null,
+			},
+			auraFourteen: {
+				active: false,
+				current: null,
+			},
+		},
+	});
+
 	/*
 	 * All functions are defined here
 	 */
@@ -406,9 +486,9 @@ function App() {
 			boss: allEnemies[enemyNumber].boss,
 			miniboss: allEnemies[enemyNumber].miniboss,
 			health: allEnemies[enemyNumber].health,
-			maxHealth: allEnemies[enemyNumber].health,
+			maxHealth: allEnemies[enemyNumber].maxHealth,
 			shields: allEnemies[enemyNumber].shields,
-			maxShield: allEnemies[enemyNumber].shields,
+			maxShield: allEnemies[enemyNumber].maxShield,
 			absorb: allEnemies[enemyNumber].absorb,
 			defense: allEnemies[enemyNumber].defense,
 			xp: allEnemies[enemyNumber].xp,
@@ -432,6 +512,38 @@ function App() {
 		}));
 	};
 
+	const setDungeonEnemy = (currentEnemy) => {
+		checkCurrentEnemy(() => ({
+			name: currentEnemy.name,
+			boss: currentEnemy.boss,
+			miniboss: currentEnemy.miniboss,
+			health: currentEnemy.health,
+			maxHealth: currentEnemy.maxHealth,
+			shields: currentEnemy.shields,
+			maxShield: currentEnemy.maxShield,
+			absorb: currentEnemy.absorb,
+			defense: currentEnemy.defense,
+			xp: currentEnemy.xp,
+			type: currentEnemy.type,
+			currencyOne: currentEnemy.currencyOne,
+			currencyTwo: currentEnemy.currencyTwo,
+			currencyTwoChance: currentEnemy.currencyTwoChance,
+			currencyThree: currentEnemy.currencyThree,
+			currencyThreeChance: currentEnemy.currencyThreeChance,
+			killed: currentEnemy.killed,
+			equipment: {
+				weapon: false,
+				chassis: false,
+				motor: false,
+			},
+			description: currentEnemy.description,
+			background: currentEnemy.background,
+			currentEnemyNumber: currentEnemy.currentEnemyNumber,
+			buffs: currentEnemy.buffs,
+			debuffs: currentEnemy.debuffs,
+		}));
+	};
+
 	const setSatellites = (satellite, amount, damage, name) => {
 		switch (satellite) {
 			case 1:
@@ -449,8 +561,6 @@ function App() {
 						tierOneName: name,
 						tierOneCost: (prevState.tierOneCost * 1.25 + 1.5).toFixed(2),
 					}));
-
-					console.log(satellites.tierOneCost);
 				}
 				break;
 			case 2:
@@ -507,7 +617,21 @@ function App() {
 	};
 
 	const battleModeSelection = (mode) => {
-		setBattleMode(mode);
+		setBattleMode(() => ({
+			battleMode: mode,
+		}));
+	};
+
+	const setCurrentDungeon = (dungeon) => {
+		setDungeon(() => ({
+			currentDungeon: dungeon,
+		}));
+	};
+
+	const setCurrentDungeonPositions = (position) => {
+		setDungeonPositions(() => ({
+			currentDungeonPosition: position,
+		}));
 	};
 
 	const shipsMenuOptions = (option) => {
@@ -528,7 +652,13 @@ function App() {
 		}));
 	};
 
-	// Store all the satellites in arrays
+	const updateAuras = (auraOn) => {
+		updateActiveAuras((prevState) => ({
+			...prevState,
+		}));
+	};
+
+	// Store all the satellites in arrays for FARM Mode
 	const final = [];
 	const final2 = [];
 	const final3 = [];
@@ -548,6 +678,10 @@ function App() {
 				posX={locations.locations[index][0]}
 				posY={locations.locations[index][1]}
 				posZ={locations.locations[index][2]}
+				battleMode={battleMode.battleMode}
+				currentEnemy={currentEnemy}
+				checkCurrentEnemy={checkCurrentEnemy}
+				dungeonPositions={dungeonPositions}
 			/>
 		);
 	}
@@ -558,6 +692,7 @@ function App() {
 				settings={settings}
 				className="satelliteWrapper"
 				key={index2}
+				locationNum={index2}
 				name={satellites.tierTwoName}
 				type={satellites.tierTwoType}
 				amount={satellites.tierTwoAmount}
@@ -565,6 +700,10 @@ function App() {
 				posX={locations.locations[index2][0]}
 				posY={locations.locations[index2][1]}
 				posZ={locations.locations[index2][2]}
+				battleMode={battleMode.battleMode}
+				currentEnemy={currentEnemy}
+				checkCurrentEnemy={checkCurrentEnemy}
+				dungeonPositions={dungeonPositions}
 			/>
 		);
 	}
@@ -575,6 +714,7 @@ function App() {
 				settings={settings}
 				className="satelliteWrapper"
 				key={index3}
+				locationNum={index3}
 				name={satellites.tierThreeName}
 				type={satellites.tierThreeType}
 				amount={satellites.tierThreeAmount}
@@ -582,6 +722,10 @@ function App() {
 				posX={locations.locations[index3][0]}
 				posY={locations.locations[index3][1]}
 				posZ={locations.locations[index3][2]}
+				battleMode={battleMode.battleMode}
+				currentEnemy={currentEnemy}
+				checkCurrentEnemy={checkCurrentEnemy}
+				dungeonPositions={dungeonPositions}
 			/>
 		);
 	}
@@ -592,6 +736,7 @@ function App() {
 				settings={settings}
 				className="satelliteWrapper"
 				key={index4}
+				locationNum={index4}
 				name={satellites.tierFourName}
 				type={satellites.tierFourType}
 				amount={satellites.tierFourAmount}
@@ -599,6 +744,10 @@ function App() {
 				posX={locations.locations[index4][0]}
 				posY={locations.locations[index4][1]}
 				posZ={locations.locations[index4][2]}
+				battleMode={battleMode.battleMode}
+				currentEnemy={currentEnemy}
+				checkCurrentEnemy={checkCurrentEnemy}
+				dungeonPositions={dungeonPositions}
 			/>
 		);
 	}
@@ -610,31 +759,35 @@ function App() {
 	 *  We'll use useEffect to set an interval once and clear it afterwards
 	 */
 	useEffect(() => {
-		const interval = setInterval(() => {
-			const totalDamage =
-				(satellites.tierOneAmount * satellites.tierOneDamage +
-					satellites.tierTwoAmount * satellites.tierTwoDamage +
-					satellites.tierThreeAmount * satellites.tierThreeDamage +
-					satellites.tierFourAmount * satellites.tierFourDamage) *
-				1;
-			// TODO: When a shield is depleted, take the remainder of that damage and apply it to the health
-			if (currentEnemy.shields > 0 && totalDamage > 0) {
-				checkCurrentEnemy((prevState) => ({
-					...prevState,
-					shields: currentEnemy.shields - (totalDamage - currentEnemy.defense),
-				}));
-			} else if (currentEnemy.shields <= 0) {
-				checkCurrentEnemy((prevState) => ({
-					...prevState,
-					health: currentEnemy.health - (totalDamage - currentEnemy.defense),
-				}));
-				healthChecker();
-			}
-		}, 1000);
-
-		return () => {
-			clearInterval(interval);
-		};
+		if (battleMode.battleMode === 'farm' || battleMode.battleMode === 'dungeon') {
+			const interval = setInterval(() => {
+				const totalDamage =
+					(satellites.tierOneAmount * satellites.tierOneDamage +
+						satellites.tierTwoAmount * satellites.tierTwoDamage +
+						satellites.tierThreeAmount * satellites.tierThreeDamage +
+						satellites.tierFourAmount * satellites.tierFourDamage) *
+					1;
+				// TODO: When a shield is depleted, take the remainder of that damage and apply it to the health
+				if (currentEnemy.shields > 0 && totalDamage > 0) {
+					checkCurrentEnemy((prevState) => ({
+						...prevState,
+						shields: currentEnemy.shields - (totalDamage - currentEnemy.defense),
+					}));
+				} else if (currentEnemy.shields <= 0) {
+					checkCurrentEnemy((prevState) => ({
+						...prevState,
+						health: currentEnemy.health - (totalDamage - currentEnemy.defense),
+					}));
+					healthChecker();
+				}
+			}, 1000);
+			return () => {
+				clearInterval(interval);
+			};
+		}
+		// else if (battleMode.battleMode === 'dungeon' || battleMode.battleMode === 'raid') {
+		// 	const interval = setInterval(() => {}, 1000);
+		// }
 	});
 
 	return (
@@ -647,7 +800,85 @@ function App() {
 				resetCamera={resetCamera}
 			/>
 			{/* Canvas - FARMING*/}
-			{battleMode.battleMode == 'farm' && (
+			{battleMode.battleMode === 'farm' && (
+				<Canvas>
+					<PerspectiveCamera
+						makeDefault
+						fov={cameraDefault.fov}
+						position={cameraDefault.position}
+						near={cameraDefault.near}
+						far={cameraDefault.far}
+					/>
+					<Suspense fallback={null}>
+						<OrbitControls />
+						<ambientLight intensity={0.5} />
+						<directionalLight position={[250, 25, -25]} intensity={1} />
+						<directionalLight position={[-250, -25, 25]} intensity={1} />
+						<Enemy
+							currentEnemyNumber={currentEnemy.currentEnemyNumber}
+							name={currentEnemy.name}
+							type={currentEnemy.type}
+							xp={currentEnemy.xp}
+							defense={currentEnemy.defense}
+							health={currentEnemy.health}
+							maxHealth={currentEnemy.maxHealth}
+							shields={currentEnemy.shields}
+							maxShield={currentEnemy.maxShield}
+							labels={settings.showLabels}
+							killed={currentEnemy.killed}
+							buffs={currentEnemy.buffs}
+							debuffs={currentEnemy.debuffs}
+							currencyOne={currentEnemy.currencyOne}
+							currencyTwo={currentEnemy.currencyTwo}
+							currencyTwoChance={currentEnemy.currencyTwoChance}
+							currencyThree={currentEnemy.currencyThree}
+							currencyThreeChance={currentEnemy.currencyThreeChance}
+							battleMode={battleMode.battleMode}
+							setEnemy={setEnemy}
+						/>
+						{final}
+						{final2}
+						{final3}
+						{final4}
+						<Stars count={500} />
+						<Stats />
+					</Suspense>
+				</Canvas>
+			)}
+			{/* Canvas - DUNGEONS*/}
+			{battleMode.battleMode === 'dungeon' && (
+				<Canvas>
+					<PerspectiveCamera
+						makeDefault
+						fov={cameraDefault.fov}
+						position={cameraDefault.position}
+						near={cameraDefault.near}
+						far={cameraDefault.far}
+					/>
+					<Suspense fallback={null}>
+						<OrbitControls />
+						<ambientLight intensity={0.5} />
+						<directionalLight position={[250, 25, -25]} intensity={1} />
+						<directionalLight position={[-250, -25, 25]} intensity={1} />
+						<DungeonEnemies
+							dungeonEnemyList={dungeonEnemyList}
+							dungeons={dungeons}
+							battleMode={battleMode.battleMode}
+							labels={settings.showLabels}
+							checkCurrentEnemy={setDungeonEnemy}
+							setCurrentDungeonPositions={setCurrentDungeonPositions}
+						/>
+						{final}
+						{final2}
+						{final3}
+						{final4}
+						<Stars count={1500} />
+						<Stats />
+					</Suspense>
+				</Canvas>
+			)}
+			{/* Canvas - RAIDS*/}
+			{battleMode.battleMode === 'raid' && (
 				<Canvas>
 					<PerspectiveCamera
 						makeDefault
@@ -715,6 +946,9 @@ function App() {
 				activeTalents={activeTalents}
 				allTalents={allTalents}
 				updateTalents={updateTalents}
+				allAuras={allAuras}
+				activeAuras={activeAuras}
+				updateAuras={updateAuras}
 			/>
 		</>
 	);
@@ -975,7 +1209,9 @@ const allEnemies = {
 		boss: false,
 		miniboss: false,
 		health: 3,
+		maxHealth: 3,
 		shields: 0,
+		maxShield: 3,
 		absorb: 0,
 		defense: 0,
 		xp: 1,
@@ -1003,7 +1239,9 @@ const allEnemies = {
 		miniboss: false,
 		boss: false,
 		health: 3,
+		maxHealth: 3,
 		shields: 0,
+		maxShield: 3,
 		absorb: 0,
 		defense: 0,
 		xp: 4,
@@ -1030,7 +1268,9 @@ const allEnemies = {
 		boss: false,
 		miniboss: false,
 		health: 75,
+		maxHealth: 75,
 		shields: 50,
+		maxShield: 50,
 		absorb: 0,
 		defense: 0,
 		xp: 15,
@@ -1057,7 +1297,9 @@ const allEnemies = {
 		boss: false,
 		miniboss: false,
 		health: 150,
+		maxHealth: 150,
 		shields: 100,
+		maxShield: 100,
 		absorb: 25,
 		defense: 0,
 		xp: 35,
@@ -1085,7 +1327,9 @@ const allEnemies = {
 		miniboss: true,
 		boss: false,
 		health: 450,
+		maxHealth: 450,
 		shields: 250,
+		maxShield: 250,
 		absorb: 25,
 		defense: 0,
 		xp: 100,
@@ -1112,7 +1356,9 @@ const allEnemies = {
 		boss: false,
 		miniboss: false,
 		health: 1000,
+		maxHealth: 1000,
 		shields: 750,
+		maxShield: 750,
 		absorb: 50,
 		defense: 0,
 		xp: 200,
@@ -1139,7 +1385,9 @@ const allEnemies = {
 		miniboss: false,
 		boss: false,
 		health: 2250,
+		maxHealth: 2250,
 		shields: 1250,
+		maxShield: 1250,
 		absorb: 150,
 		defense: 0,
 		xp: 500,
@@ -1167,7 +1415,9 @@ const allEnemies = {
 		miniboss: false,
 		boss: false,
 		health: 5000,
+		maxHealth: 5000,
 		shields: 2500,
+		maxShield: 2500,
 		absorb: 350,
 		defense: 0,
 		xp: 1000,
@@ -1195,7 +1445,9 @@ const allEnemies = {
 		miniboss: false,
 		boss: false,
 		health: 5000,
+		maxHealth: 5000,
 		shields: 2500,
+		maxShield: 2500,
 		absorb: 350,
 		defense: 0,
 		xp: 1000,
@@ -1223,7 +1475,9 @@ const allEnemies = {
 		miniboss: false,
 		boss: true,
 		health: 5000,
+		maxHealth: 5000,
 		shields: 2500,
+		maxShield: 2500,
 		absorb: 350,
 		defense: 0,
 		xp: 1000,
@@ -1245,6 +1499,17 @@ const allEnemies = {
 		currentEnemyNumber: 10,
 		buffs: [],
 		debuffs: [],
+	},
+};
+
+const dungeonEnemyList = {
+	dungeonOne: {
+		waveOne: [allEnemies.one, allEnemies.two, allEnemies.three],
+		waveOnePositions: [
+			[25, 12, 13],
+			[45, -5, -2],
+			[65, 0, 5],
+		],
 	},
 };
 
@@ -2387,6 +2652,267 @@ const allTalents = {
 			iconAvailableAndActive: talentIconAvailableAndActive,
 			description: 'Big Talent Four Description',
 			connectingTalents: [],
+		},
+	},
+};
+
+const allAuras = {
+	auraSmall: {
+		auraOne: {
+			name: 'Aura One',
+			type: 'Small',
+			icon: '',
+			description: 'Aura One Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraTwo: {
+			name: 'Aura Two',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Two Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraThree: {
+			name: 'Aura Three',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Three Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraFour: {
+			name: 'Aura Four',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Four Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraFive: {
+			name: 'Aura Five',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Five Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraSix: {
+			name: 'Aura Six',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Six Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraSeven: {
+			name: 'Aura Seven',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Seven Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraEight: {
+			name: 'Aura Eight',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Eight Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraNine: {
+			name: 'Aura Nine',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Nine Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraTen: {
+			name: 'Aura Ten',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Ten Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraEleven: {
+			name: 'Aura Eleven',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Eleven Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraTwelve: {
+			name: 'Aura Twelve',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Twelve Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraThirteen: {
+			name: 'Aura Thirteen',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Thirteen Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraFourteen: {
+			name: 'Aura Fourteen',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Fourteen Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraFifteen: {
+			name: 'Aura Fifteen',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Fifteen Description',
+			requirements() {
+				return true;
+			},
+		},
+	},
+	auraMedium: {
+		auraSixteen: {
+			name: 'Aura Sixteen',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Sixteen Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraSeventeen: {
+			name: 'Aura Seventeen',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Seventeen Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraEighteen: {
+			name: 'Aura Eighteen',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Eighteen Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraNineteen: {
+			name: 'Aura Nineteen',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Nineteen Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraTwenty: {
+			name: 'Aura Twenty',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Twenty Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraTwentyOne: {
+			name: 'Aura Twenty One',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Twenty One Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraTwentyTwo: {
+			name: 'Aura Twenty Two',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Twenty Two Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraTwentyThree: {
+			name: 'Aura Twenty Three',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Twenty Three Description',
+			requirements() {
+				return true;
+			},
+		},
+	},
+	auraTwentyFour: {
+		name: 'Aura Twenty Four',
+		type: 'Small',
+		icon: '',
+		description: 'Aura Twenty Four Description',
+		requirements() {
+			return true;
+		},
+	},
+	auraLarge: {
+		auraTwentyFive: {
+			name: 'Aura Twenty Five',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Twenty Five Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraTwentySix: {
+			name: 'Aura Twenty Six',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Twenty Six Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraTwentySeven: {
+			name: 'Aura Twenty Seven',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Twenty Seven Description',
+			requirements() {
+				return true;
+			},
+		},
+		auraTwentyEight: {
+			name: 'Aura Twenty Eight',
+			type: 'Small',
+			icon: '',
+			description: 'Aura Twenty Eight Description',
+			requirements() {
+				return true;
+			},
 		},
 	},
 };

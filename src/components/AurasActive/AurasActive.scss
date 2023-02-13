@@ -1,0 +1,106 @@
+.auras-active {
+  width: 98%;
+  border: 1px solid black;
+  margin: 10px auto;
+  height: 310px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  &__graphic {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 1px solid black;
+  }
+
+  &__small {
+    width: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    .aura {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 1px solid black;
+      margin: 10px 0;
+    }
+
+  }
+
+  &__medium {
+
+    .aura {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 1px solid green;
+      margin: 4px 0;
+    }
+  }
+
+  &__large {
+
+    .aura {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 1px solid red;
+      margin: 10px 0;
+    }
+  }
+
+  .tooltip-internals__auras {
+    color: red;
+  }
+
+//Tooltips here are customized for individual ships
+.styles-module_tooltip__mnnfp {
+  visibility: hidden;
+  width: max-content;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 8px 16px;
+  border-radius: 3px;
+  font-size: 90%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+  will-change: opacity, visibility;
+  text-shadow: 2px 2px 1px black;
+  position: absolute;
+  height: 150px;
+  width: 250px;
+  animation: boxShadow 2.5s ease-in infinite;
+}
+
+.styles-module_arrow__K0L3T {
+  position: absolute;
+  background: inherit;
+  width: 8px;
+  height: 8px;
+  transform: rotate(45deg);
+}
+
+.styles-module_no-arrow__KcFZN {
+  display: none;
+}
+
+.styles-module_clickable__Bv9o7 {
+  pointer-events: auto;
+}
+
+.styles-module_show__2NboJ {
+  visibility: visible;
+  opacity: var(--rt-opacity);
+  z-index: 1000;
+}
+
+.styles-module_dark__xNqje {
+  background: var(--rt-color-dark);
+  color: var(--rt-color-white);
+}
+}

@@ -1,11 +1,10 @@
 import { useFrame } from '@react-three/fiber';
 import { Vector3 } from 'three';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import SatelliteInfo from '../SatelliteInfo/SatelliteInfo';
 import EnemyOne from '../Enemies/Enemy10/Enemy10';
-import Enemy from '../Enemy/Enemy';
 
-// Satellite One is the "Pet", or Mothership
+// Satellite One is the Mothership
 function SatelliteOne(props) {
 	const locations = [
 		[11, 12, 11],
@@ -58,49 +57,112 @@ function SatelliteOne(props) {
 		[105, 11, 9],
 		[107, 14, 11],
 	];
-
 	const ref = useRef([]);
 	const ref2 = useRef([]);
 
-	useFrame(
-		() => (
-			(ref.current.position.x = Math.cos(Date.now() * 0.00006) * locations[props.locationNum][0]),
-			(ref.current.position.y = Math.sin(Date.now() * 0.00006) * locations[props.locationNum][1]),
-			(ref.current.position.z = Math.sin(Date.now() * 0.00006) * locations[props.locationNum][2]),
-			(ref.current.rotation.y = Math.atan2(-ref.current.position.x, -ref.current.position.y)),
-			ref2.current.position.lerp(new Vector3(0, 0, 0), 0.0425),
-			// Check Laser Position,
-			Math.abs(ref2.current.position.x) <= 0.1
-				? ref2.current.position.set(ref.current.position.x, ref.current.position.y, ref.current.position.z)
-				: ''
-		)
+	useFrame(() =>
+		props.battleMode == 'farm'
+			? ((ref.current.position.x = Math.cos(Date.now() * 0.00006) * locations[props.locationNum][0]),
+			  (ref.current.position.y = Math.sin(Date.now() * 0.00006) * locations[props.locationNum][1]),
+			  (ref.current.position.z = Math.sin(Date.now() * 0.00006) * locations[props.locationNum][2]),
+			  (ref.current.rotation.y = Math.atan2(-ref.current.position.x, -ref.current.position.y)),
+			  ref2.current.position.lerp(new Vector3(0, 0, 0), 0.0425),
+			  // Check Laser Position,
+			  Math.abs(ref2.current.position.x) <= 0.1
+					? ref2.current.position.set(ref.current.position.x, ref.current.position.y, ref.current.position.z)
+					: '')
+			: props.battleMode == 'dungeon'
+			? ((ref.current.position.x =
+					Math.cos(Date.now() * 0.00006) *
+					(locations[props.locationNum][0] + props.dungeonPositions.currentDungeonPosition.x / 2)),
+			  (ref.current.position.y =
+					Math.sin(Date.now() * 0.00006) *
+					(locations[props.locationNum][1] + props.dungeonPositions.currentDungeonPosition.y / 2)),
+			  (ref.current.position.z =
+					Math.sin(Date.now() * 0.00006) *
+					(locations[props.locationNum][2] + props.dungeonPositions.currentDungeonPosition.z / 2)),
+			  (ref.current.rotation.y = Math.atan2(
+					props.dungeonPositions.currentDungeonPosition.x,
+					props.dungeonPositions.currentDungeonPosition.y
+			  )),
+			  ref2.current.position.lerp(
+					new Vector3(
+						props.dungeonPositions.currentDungeonPosition.x,
+						props.dungeonPositions.currentDungeonPosition.y,
+						props.dungeonPositions.currentDungeonPosition.z
+					),
+					0.0425
+			  ),
+			  // Check Laser Position,
+			  Math.abs(Math.abs(ref2.current.position.x) - Math.abs(props.dungeonPositions.currentDungeonPosition.x)) <= 0.5
+					? ref2.current.position.set(ref.current.position.x, ref.current.position.y, ref.current.position.z)
+					: '')
+			: ''
 	);
 
 	return (
-		<group>
-			{/* Satellite */}
-			<mesh
-				position={[locations[props.locationNum][0], locations[props.locationNum][1], locations[props.locationNum][2]]}
-				{...props}
-				ref={ref}
-				rotation={[0, 0, 0]}
-			>
-				<SatelliteInfo
-					tier="one"
-					name={props.name}
-					type={props.type}
-					damage={props.damage}
-					props={props}
-					settings={props.settings}
-				/>
-				<EnemyOne />
-			</mesh>
-			{/* Laser */}
-			<mesh position={[5, 5, 5]} {...props} ref={ref2}>
-				<sphereBufferGeometry attach="geometry" args={[0.25, 32, 32]} />
-				<meshPhongMaterial attach="material" color="red" />
-			</mesh>
-		</group>
+		<>
+			{props.battleMode == 'farm' && (
+				<group>
+					{/* Satellite */}
+					<mesh
+						position={[
+							locations[props.locationNum][0],
+							locations[props.locationNum][1],
+							locations[props.locationNum][2],
+						]}
+						{...props}
+						ref={ref}
+						rotation={[0, 0, 0]}
+					>
+						<SatelliteInfo
+							tier="one"
+							name={props.name}
+							type={props.type}
+							damage={props.damage}
+							props={props}
+							settings={props.settings}
+						/>
+						<EnemyOne />
+					</mesh>
+					{/* Laser */}
+					<mesh position={[5, 5, 5]} {...props} ref={ref2}>
+						<sphereBufferGeometry attach="geometry" args={[0.25, 32, 32]} />
+						<meshPhongMaterial attach="material" color="red" />
+					</mesh>
+				</group>
+			)}
+			{props.battleMode == 'dungeon' && (
+				<group>
+					{/* Satellite */}
+					<mesh
+						position={[
+							locations[props.locationNum][0],
+							locations[props.locationNum][1],
+							locations[props.locationNum][2],
+						]}
+						{...props}
+						ref={ref}
+						rotation={[0, 0, 0]}
+					>
+						<SatelliteInfo
+							tier="one"
+							name={props.name}
+							type={props.type}
+							damage={props.damage}
+							props={props}
+							settings={props.settings}
+						/>
+						<EnemyOne />
+					</mesh>
+					{/* Laser */}
+					<mesh position={[5, 5, 5]} {...props} ref={ref2}>
+						<sphereBufferGeometry attach="geometry" args={[0.25, 32, 32]} />
+						<meshPhongMaterial attach="material" color="red" />
+					</mesh>
+				</group>
+			)}
+		</>
 	);
 }
 

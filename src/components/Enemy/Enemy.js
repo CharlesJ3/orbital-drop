@@ -1,6 +1,5 @@
 import { useLoader, useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import EnemyInfo from '../EnemyInfo/EnemyInfo';
 
 // Import all enemies here
@@ -35,11 +34,33 @@ const colorSelector = {
 	amaranth: 0xe12a48,
 };
 
+let position = [0, 0, 0];
+let sendPosition = [0, 0, 0];
+
 function EnemyMesh(currentEnemy) {
-	const ref = useRef();
-	useFrame(() => (ref.current.rotation.y += 0.0006));
+	const ref = useRef([]);
+	useFrame(
+		() => (ref.current.position.x = Math.sin(Date.now() * 0.00005) * position[0]),
+		(sendPosition = ref.current.position)
+		// (ref.current.rotation.y = Math.atan2(-ref.current.position.x, -ref.current.position.y))
+	);
+
+	useEffect(() => {
+		if (currentEnemy.battleMode === 'dungeon') {
+			const interval = setInterval(() => {
+				currentEnemy.setCurrentDungeonPositions(sendPosition);
+				if (currentEnemy.health <= 0) {
+					currentEnemy.checkCurrentEnemy(currentEnemy);
+				}
+			}, 1000);
+			return () => {
+				clearInterval(interval);
+			};
+		}
+	});
+
 	return (
-		<mesh position={[0, 0, 0]} ref={ref}>
+		<mesh position={[position[0], position[1], position[2]]} ref={ref}>
 			{/* TODO : change to switch */}
 			{/* We'll check on which enemy to load based on the current enemy */}
 			{currentEnemy.currentEnemy === 1 ? (
@@ -65,29 +86,82 @@ function EnemyMesh(currentEnemy) {
 
 export default function Enemy(currentEnemy) {
 	return (
-		<group>
-			<EnemyInfo
-				tier="one"
-				name={currentEnemy.name}
-				type={currentEnemy.type}
-				health={currentEnemy.health}
-				maxHealth={currentEnemy.maxHealth}
-				shields={currentEnemy.shields}
-				maxShield={currentEnemy.maxShield}
-				currentEnemy={currentEnemy}
-				xp={currentEnemy.xp}
-				defense={currentEnemy.defense}
-				labels={currentEnemy.labels}
-				buffs={currentEnemy.buffs}
-				debuffs={currentEnemy.debuffs}
-				killed={currentEnemy.killed}
-				currencyOne={currentEnemy.currencyOne}
-				currencyTwo={currentEnemy.currencyTwo}
-				currencyTwoChance={currentEnemy.currencyTwoChance}
-				currencyThree={currentEnemy.currencyThree}
-				currencyThreeChance={currentEnemy.currencyThreeChance}
-			/>
-			<EnemyMesh currentEnemy={currentEnemy.currentEnemyNumber} />
-		</group>
+		<>
+			{currentEnemy.battleMode === 'farm' ? (
+				<group>
+					<EnemyInfo
+						tier="one"
+						name={currentEnemy.name}
+						type={currentEnemy.type}
+						health={currentEnemy.health}
+						maxHealth={currentEnemy.maxHealth}
+						shields={currentEnemy.shields}
+						maxShield={currentEnemy.maxShield}
+						xp={currentEnemy.xp}
+						defense={currentEnemy.defense}
+						labels={currentEnemy.labels}
+						buffs={currentEnemy.buffs}
+						debuffs={currentEnemy.debuffs}
+						killed={currentEnemy.killed}
+						currencyOne={currentEnemy.currencyOne}
+						currencyTwo={currentEnemy.currencyTwo}
+						currencyTwoChance={currentEnemy.currencyTwoChance}
+						currencyThree={currentEnemy.currencyThree}
+						currencyThreeChance={currentEnemy.currencyThreeChance}
+					/>
+					<EnemyMesh currentEnemy={currentEnemy.currentEnemyNumber} battleMode={currentEnemy.battleMode} />
+				</group>
+			) : currentEnemy.battleMode === 'dungeon' ? (
+				((position = currentEnemy.dungeonPosition),
+				(
+					<group>
+						<EnemyInfo
+							tier="one"
+							name={currentEnemy.currentEnemy.name}
+							type={currentEnemy.currentEnemy.type}
+							health={currentEnemy.currentEnemy.health}
+							maxHealth={currentEnemy.currentEnemy.maxHealth}
+							shields={currentEnemy.currentEnemy.shields}
+							maxShield={currentEnemy.currentEnemy.maxShield}
+							xp={currentEnemy.currentEnemy.xp}
+							defense={currentEnemy.currentEnemy.defense}
+							labels={currentEnemy.labels}
+							buffs={currentEnemy.currentEnemy.buffs}
+							debuffs={currentEnemy.currentEnemy.debuffs}
+							killed={currentEnemy.currentEnemy.killed}
+							currencyOne={currentEnemy.currentEnemy.currencyOne}
+							currencyTwo={currentEnemy.currentEnemy.currencyTwo}
+							currencyTwoChance={currentEnemy.currentEnemy.currencyTwoChance}
+							currencyThree={currentEnemy.currentEnemy.currencyThree}
+							currencyThreeChance={currentEnemy.currentEnemy.currencyThreeChance}
+						/>
+						<EnemyMesh
+							currentEnemy={currentEnemy.currentEnemy.currentEnemyNumber}
+							battleMode={currentEnemy.battleMode}
+							checkCurrentEnemy={currentEnemy.checkCurrentEnemy}
+							setCurrentDungeonPositions={currentEnemy.setCurrentDungeonPositions}
+							name={currentEnemy.currentEnemy.name}
+							type={currentEnemy.currentEnemy.type}
+							health={currentEnemy.currentEnemy.health}
+							maxHealth={currentEnemy.currentEnemy.maxHealth}
+							shields={currentEnemy.currentEnemy.shields}
+							maxShield={currentEnemy.currentEnemy.maxShield}
+							xp={currentEnemy.currentEnemy.xp}
+							defense={currentEnemy.currentEnemy.defense}
+							buffs={currentEnemy.currentEnemy.buffs}
+							debuffs={currentEnemy.currentEnemy.debuffs}
+							killed={currentEnemy.currentEnemy.killed}
+							currencyOne={currentEnemy.currentEnemy.currencyOne}
+							currencyTwo={currentEnemy.currentEnemy.currencyTwo}
+							currencyTwoChance={currentEnemy.currentEnemy.currencyTwoChance}
+							currencyThree={currentEnemy.currentEnemy.currencyThree}
+							currencyThreeChance={currentEnemy.currentEnemy.currencyThreeChance}
+						/>
+					</group>
+				))
+			) : (
+				''
+			)}
+		</>
 	);
 }

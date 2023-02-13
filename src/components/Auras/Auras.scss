@@ -1,0 +1,11 @@
+.auras {
+
+  &__section {
+    display: flex;
+    width: 98%;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0 auto;
+  }
+}

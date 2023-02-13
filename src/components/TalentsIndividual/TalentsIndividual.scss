@@ -13,3 +13,798 @@
   border: 1px solid black;
   background-size: contain;
 }
+
+.active-connection,
+.inactive-connection,
+.active-connection-2,
+.inactive-connection-2,
+.active-connection-3,
+.inactive-connection-3 {
+  height: 4px;
+  width: 80px;
+  position: relative;
+  z-index: -1;
+}
+
+.active-connection,
+.active-connection-2,
+.active-connection-3 {
+  background-color: green;
+}
+.inactive-connection,
+.inactive-connection-2,
+.inactive-connection-3 {
+  background-color: red;
+}
+
+// Individual Talent Placement
+#talentOneclassOne {
+  position: absolute;
+  top: 315px;
+  left: 285px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+
+  .active-connection-2, .inactive-connection-2 {
+    transform: rotate(45deg);
+    margin-top: 9px;
+    margin-left: -50px;
+  }
+
+  .active-connection-3, .inactive-connection-3 {
+    transform: rotate(-8deg);
+    margin-top: 22px;
+    margin-left: -55px;
+  }
+}
+
+#talentTwoclassOne {
+  position: absolute;
+  top: 255px;
+  left: 290px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(90deg);
+    margin-top: -22px;
+    margin-left: -27px;
+  }
+}
+
+#talentThreeclassOne {
+  position: absolute;
+  top: 182px;
+  left: 290px;
+
+  .active-connection, .inactive-connection {
+    width: 75px;
+    transform: rotate(45deg);
+    margin-top: -8px;
+    margin-left: -47px;
+  }
+}
+
+#talentFourclassOne {
+  position: absolute;
+  top: 145px;
+  left: 250px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#talentFiveclassOne {
+  position: absolute;
+  top: 280px;
+  left: 250px;
+
+  .active-connection, .inactive-connection {
+    width: 75px;
+    transform: rotate(45deg);
+    margin-top: -8px;
+    margin-left: -47px;
+  }
+}
+
+#talentSixclassOne {
+  position: absolute;
+  top: 235px;
+  left: 205px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(82deg);
+    margin-top: -36px;
+    margin-left: -35px;
+  }
+}
+
+#talentSevenclassOne {
+  position: absolute;
+  top: 137px;
+  left: 190px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(45deg);
+    margin-top: -12px;
+    margin-left: -50px;
+  }
+
+  .active-connection-2, .inactive-connection-2 {
+    transform: rotate(-222deg);
+    margin-top: 52px;
+    margin-left: -64px;
+  }
+}
+
+#talentEightclassOne {
+  position: absolute;
+  top: 325px;
+  left: 230px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(0deg);
+    margin-top: 11px;
+    margin-left: -62px;
+  }
+}
+
+#talentNineclassOne {
+  position: absolute;
+  top: 325px;
+  left: 155px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(30deg);
+    margin-top: -7px;
+    margin-left: -65px;
+  }
+}
+
+#talentTenclassOne {
+  position: absolute;
+  top: 285px;
+  left: 77px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(68deg);
+    margin-top: -21px;
+    margin-left: -39px;
+  }
+
+  .active-connection-2, .inactive-connection-2 {
+    transform: rotate(114deg);
+    margin-top: -10px;
+    margin-left: -8px;
+  }
+}
+
+#bigTalentOneclassOne {
+  position: absolute;
+  top: 50px;
+  left: 250px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#bigTalentTwoclassOne {
+  position: absolute;
+  top: 90px;
+  left: 145px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#bigTalentThreeclassOne {
+  position: absolute;
+  top: 190px;
+  left: 110px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#bigTalentFourclassOne {
+  position: absolute;
+  top: 220px;
+  left: 45px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#talentOneclassTwo {
+  position: absolute;
+  top: 315px;
+  right: 285px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(88deg);
+    margin-top: -21px;
+    margin-left: -30px;
+  }
+
+  .active-connection-2, .inactive-connection-2 {
+    transform: rotate(130deg);
+    margin-top: 9px;
+    margin-left: -9px;
+  }
+
+  .active-connection-3, .inactive-connection-3 {
+    transform: rotate(190deg);
+    margin-top: 22px;
+    margin-left: 0px;
+  }
+}
+
+#talentTwoclassTwo {
+  position: absolute;
+  top: 255px;
+  right: 290px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(90deg);
+    margin-top: -22px;
+    margin-left: -27px;
+  }
+}
+
+#talentThreeclassTwo {
+  position: absolute;
+  top: 182px;
+  right: 290px;
+
+  .active-connection, .inactive-connection {
+    width: 75px;
+    transform: rotate(136deg);
+    margin-top: -7px;
+    margin-left: -7px;
+  }
+}
+
+#talentFourclassTwo {
+  position: absolute;
+  top: 145px;
+  right: 250px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(84deg);
+    margin-top: -22px;
+    margin-left: -30px;
+  }
+}
+
+#talentFiveclassTwo {
+  position: absolute;
+  top: 280px;
+  right: 250px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(138deg);
+    margin-top: -15px;
+    margin-left: -5px;
+  }
+}
+
+#talentSixclassTwo {
+  position: absolute;
+  top: 235px;
+  right: 205px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(98deg);
+    margin-top: -37px;
+    margin-left: -21px;
+  }
+}
+
+#talentSevenclassTwo {
+  position: absolute;
+  top: 137px;
+  right: 190px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(130deg);
+    margin-top: -13px;
+    margin-left: -6px;
+  }
+
+  .active-connection-2, .inactive-connection-2 {
+    transform: rotate(222deg);
+    margin-top: 49px;
+    margin-left: 7px;
+  }
+}
+
+#talentEightclassTwo {
+  position: absolute;
+  top: 325px;
+  right: 230px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(0deg);
+    margin-top: 11px;
+    margin-left: 0px;
+  }
+}
+
+#talentNineclassTwo {
+  position: absolute;
+  top: 325px;
+  right: 155px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(-28deg);
+    margin-top: -5px;
+    margin-left: 6px;
+  }
+}
+
+#talentTenclassTwo {
+  position: absolute;
+  top: 285px;
+  right: 77px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(61deg);
+    margin-top: -26px;
+    margin-left: -46px;
+  }
+
+  .active-connection-2, .inactive-connection-2 {
+    transform: rotate(109deg);
+    margin-top: 4px;
+    margin-left: -15px;
+  }
+}
+
+#bigTalentOneclassTwo {
+  position: absolute;
+  top: 50px;
+  right: 250px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#bigTalentTwoclassTwo {
+  position: absolute;
+  top: 90px;
+  right: 145px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#bigTalentThreeclassTwo {
+  position: absolute;
+  top: 190px;
+  right: 110px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#bigTalentFourclassTwo {
+  position: absolute;
+  top: 220px;
+  right: 45px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#talentOneclassThree {
+  position: absolute;
+  bottom: 485px;
+  right: 285px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(93deg);
+    margin-top: 38px;
+    margin-left: -29px;
+  }
+
+  .active-connection-2, .inactive-connection-2 {
+    transform: rotate(39deg);
+    margin-top: -14px;
+    margin-left: -7px;
+  }
+
+  .active-connection-3, .inactive-connection-3 {
+    transform: rotate(161deg);
+    margin-top: -33px;
+    margin-left: 0px;
+  }
+}
+
+#talentTwoclassThree {
+  position: absolute;
+  bottom: 435px;
+  right: 290px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(92deg);
+    margin-top: 54px;
+    margin-left: -27px;
+  }
+}
+
+#talentThreeclassThree {
+  position: absolute;
+  bottom: 352px;
+  right: 290px;
+
+  .active-connection, .inactive-connection {
+    width: 75px;
+    transform: rotate(225deg);
+    margin-top: 30px;
+    margin-left: -5px;
+  }
+}
+
+#talentFourclassThree {
+  position: absolute;
+  bottom: 315px;
+  right: 250px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(96deg);
+    margin-top: 41px;
+    margin-left: -31px;
+  }
+}
+
+#talentFiveclassThree {
+  position: absolute;
+  bottom: 460px;
+  right: 250px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(222deg);
+    margin-top: 33px;
+    margin-left: -6px;
+  }
+}
+
+#talentSixclassThree {
+  position: absolute;
+  bottom: 415px;
+  right: 205px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(82deg);
+    margin-top: 59px;
+    margin-left: -21px;
+  }
+}
+
+#talentSevenclassThree {
+  position: absolute;
+  bottom: 317px;
+  right: 190px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(228deg);
+    margin-top: 33px;
+    margin-left: -10px;
+  }
+
+  .active-connection-2, .inactive-connection-2 {
+    transform: rotate(139deg);
+    margin-top: -55px;
+    margin-left: 7px;
+  }
+}
+
+#talentEightclassThree {
+  position: absolute;
+  bottom: 505px;
+  right: 230px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(0deg);
+    margin-top: 11px;
+    margin-left: 0px;
+  }
+}
+
+#talentNineclassThree {
+  position: absolute;
+  bottom: 505px;
+  right: 155px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(26deg);
+    margin-top: 27px;
+    margin-left: 6px;
+  }
+}
+
+#talentTenclassThree {
+  position: absolute;
+  bottom: 465px;
+  right: 77px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(68deg);
+    margin-top: 39px;
+    margin-left: -16px;
+  }
+
+  .active-connection-2, .inactive-connection-2 {
+    transform: rotate(115deg);
+    margin-top: 13px;
+    margin-left: -47px;
+  }
+}
+
+#bigTalentOneclassThree {
+  position: absolute;
+  bottom: 230px;
+  right: 250px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#bigTalentTwoclassThree {
+  position: absolute;
+  bottom: 270px;
+  right: 145px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#bigTalentThreeclassThree {
+  position: absolute;
+  bottom: 370px;
+  right: 110px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#bigTalentFourclassThree {
+  position: absolute;
+  bottom: 400px;
+  right: 45px;
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#talentOneclassFour {
+  position: absolute;
+  bottom: 485px;
+  left: 285px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(84deg);
+    margin-top: 41px;
+    margin-left: -24px;
+  }
+
+  .active-connection-2, .inactive-connection-2 {
+    transform: rotate(139deg);
+    margin-top: -17px;
+    margin-left: -54px;
+  }
+
+  .active-connection-3, .inactive-connection-3 {
+    transform: rotate(16deg);
+    margin-top: -32px;
+    margin-left: -54px;
+  }
+}
+
+#talentTwoclassFour {
+  position: absolute;
+  bottom: 435px;
+  left: 290px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(88deg);
+    margin-top: 54px;
+    margin-left: -25px;
+  }
+}
+
+#talentThreeclassFour {
+  position: absolute;
+  bottom: 352px;
+  left: 290px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(318deg);
+    margin-top: 30px;
+    margin-left: -47px;
+  }
+}
+
+#talentFourclassFour {
+  position: absolute;
+  bottom: 315px;
+  left: 250px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(96deg);
+    margin-top: 41px;
+    margin-left: -31px;
+  }
+}
+
+#talentFiveclassFour {
+  position: absolute;
+  bottom: 460px;
+  left: 250px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(318deg);
+    margin-top: 32px;
+    margin-left: -53px;
+  }
+}
+
+#talentSixclassFour {
+  position: absolute;
+  bottom: 415px;
+  left: 205px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(99deg);
+    margin-top: 60px;
+    margin-left: -34px;
+  }
+}
+
+#talentSevenclassFour {
+  position: absolute;
+  bottom: 317px;
+  left: 190px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(315deg);
+    margin-top: 33px;
+    margin-left: -48px;
+  }
+
+  .active-connection-2, .inactive-connection-2 {
+    transform: rotate(43deg);
+    margin-top: -57px;
+    margin-left: -62px;
+  }
+}
+
+#talentEightclassFour {
+  position: absolute;
+  bottom: 505px;
+  left: 230px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(0deg);
+    margin-top: 11px;
+    margin-left: -62px;
+  }
+}
+
+#talentNineclassFour {
+  position: absolute;
+  bottom: 505px;
+  left: 155px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(152deg);
+    margin-top: 31px;
+    margin-left: -68px;
+  }
+}
+
+#talentTenclassFour {
+  position: absolute;
+  bottom: 465px;
+  left: 77px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(109deg);
+    margin-top: 39px;
+    margin-left: -38px;
+  }
+
+  .active-connection-2, .inactive-connection-2 {
+    transform: rotate(62deg);
+    margin-top: -1px;
+    margin-left: -11px;
+  }
+}
+
+#bigTalentOneclassFour {
+  position: absolute;
+  bottom: 230px;
+  left: 250px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#bigTalentTwoclassFour {
+  position: absolute;
+  bottom: 270px;
+  left: 145px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#bigTalentThreeclassFour {
+  position: absolute;
+  bottom: 370px;
+  left: 110px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}
+
+#bigTalentFourclassFour {
+  position: absolute;
+  bottom: 400px;
+  left: 45px;
+
+  .active-connection, .inactive-connection {
+    transform: rotate(94deg);
+    margin-top: -22px;
+    margin-left: -25px;
+  }
+}

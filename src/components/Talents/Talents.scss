@@ -4,7 +4,9 @@
   height: 700px;
   border: 1px solid red;
   margin: 25px auto 2px auto;
-
+  background-image: url('./../../images/TalentBackground.png');
+  background-position: center center;
+  background-repeat: no-repeat;
   .talents__top-row {
     display: flex;
   }

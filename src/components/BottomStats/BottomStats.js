@@ -28,6 +28,9 @@ function BottomStats({
 	activeTalents,
 	allTalents,
 	updateTalents,
+	allAuras,
+	activeAuras,
+	updateAuras,
 }) {
 	return (
 		<div className="bottomStats">
@@ -54,6 +57,9 @@ function BottomStats({
 				activeTalents={activeTalents}
 				allTalents={allTalents}
 				updateTalents={updateTalents}
+				allAuras={allAuras}
+				activeAuras={activeAuras}
+				updateAuras={updateAuras}
 			></Menu>
 		</div>
 	);
