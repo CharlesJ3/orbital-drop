@@ -36,7 +36,7 @@ function SphereInner(props) {
 
 	return (
 		<mesh position={[0, 0, 0]} {...props}>
-			<sphereBufferGeometry attach="geometry" args={[2, 32, 32]} />
+			<sphereGeometry attach="geometry" args={[2, 32, 32]} />
 			<meshPhongMaterial
 				attach="material"
 				map={sphereLoader}
@@ -60,7 +60,7 @@ function SphereOuter(props) {
 	return (
 		<group>
 			<mesh position={[0, 0, 0]} {...props} ref={ref}>
-				<sphereBufferGeometry attach="geometry" args={[2.06, 32, 32]} />
+				<sphereGeometry attach="geometry" args={[2.06, 32, 32]} />
 				<meshPhongMaterial
 					attach="material"
 					map={cloud}

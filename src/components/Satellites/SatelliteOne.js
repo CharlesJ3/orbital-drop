@@ -127,7 +127,7 @@ function SatelliteOne(props) {
 					</mesh>
 					{/* Laser */}
 					<mesh position={[5, 5, 5]} {...props} ref={ref2}>
-						<sphereBufferGeometry attach="geometry" args={[0.25, 32, 32]} />
+						<sphereGeometry attach="geometry" args={[0.25, 32, 32]} />
 						<meshPhongMaterial attach="material" color="red" />
 					</mesh>
 				</group>
@@ -157,7 +157,7 @@ function SatelliteOne(props) {
 					</mesh>
 					{/* Laser */}
 					<mesh position={[5, 5, 5]} {...props} ref={ref2}>
-						<sphereBufferGeometry attach="geometry" args={[0.25, 32, 32]} />
+						<sphereGeometry attach="geometry" args={[0.25, 32, 32]} />
 						<meshPhongMaterial attach="material" color="red" />
 					</mesh>
 				</group>
